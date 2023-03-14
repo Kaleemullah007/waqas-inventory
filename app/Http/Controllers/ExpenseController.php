@@ -7,24 +7,25 @@ use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): View
     {
         $expenses = Expense::get();
-        return view('expense',compact('expenses'));
+        return view('pages.expense',compact('expenses'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StoreExpenseRequest $request): Response
+    public function create(): View
     {
-        
+
         // return view('expense');
         return view('pages.create-expense');
 
@@ -33,7 +34,7 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request): RedirectResponse
+    public function store(StoreExpenseRequest $request): RedirectResponse
     {
         $expenses = Expense::create($request->validated());
         return redirect('expense');
@@ -42,7 +43,7 @@ class ExpenseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Expense $expense): Response
+    public function show(Expense $expense): View
     {
         return redirect('edit-expense',compact('expense'));
     }
@@ -50,7 +51,7 @@ class ExpenseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Expense $expense): Response
+    public function edit(Expense $expense): View
     {
         // return redirect('edit-expense',compact('expense'));
         return view('pages.edit-expense');

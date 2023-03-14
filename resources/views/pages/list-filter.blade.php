@@ -15,11 +15,11 @@
         <option value="7">{{__('en.This Year')}}</option>
         <option value="8">{{__('en.Last Year')}}</option>
         <option value="9">{{__('en.Custom')}}</option>
-    </select> 
+    </select>
     <h6 class="mt-2">From</h6>
-    <input type="date" class="form-control bg-grey border-secondary ms-2 rounded"
+    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" class="form-control bg-grey border-secondary ms-2 rounded"
         id="search">
-    <h6 class="mt-2 ms-2">To</h6>
+    {{-- <h6 class="mt-2 ms-2">To</h6>
     <input type="date" class="form-control bg-grey border-secondary ms-2 rounded"
-        id="search">
+        id="search"> --}}
 </div>

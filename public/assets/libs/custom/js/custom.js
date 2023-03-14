@@ -1,8 +1,26 @@
-    
+
     //  --------select2 js ---------
     $( document ).ready(function() {
         $(".select2").select2();
     });
+
+    setTimeout(() => {
+        $( document ).ready(function() {
+
+            $(function() {
+                $('input[name="daterange"]').daterangepicker({
+                  opens: 'left'
+                }, function(start, end, label) {
+                  console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                });
+              });
+        });
+
+
+    }, 1000);
+    // daterangepicker
+
+
 
     //  --------sidebar active transition js ---------
     $(document).on('click', '#sidebar li', function() {
@@ -24,7 +42,7 @@
         $(this).find(".right").toggleClass("bi-caret-up-fill bi-caret-down-fill");
     });
 
-    // ------- datatables js ------ 
+    // ------- datatables js ------
     $(document).ready(function () {
         $('#order-table').DataTable();
     });
@@ -33,7 +51,7 @@
     const toggleFullScreen = () => {
         let doc = window.document;
         let docEl = doc.documentElement;
-      
+
         let requestFullScreen =
           docEl.requestFullscreen ||
           docEl.mozRequestFullScreen ||
@@ -44,7 +62,7 @@
           doc.mozCancelFullScreen ||
           doc.webkitExitFullscreen ||
           doc.msExitFullscreen;
-      
+
         if (
           !doc.fullscreenElement &&
           !doc.mozFullScreenElement &&
@@ -56,11 +74,10 @@
           cancelFullScreen.call(doc);
         }
       };
-      
+
     //   $( document ).ready(function() {
     //     toggleFullScreen
     //  })
-        
-     
 
-      
+
+

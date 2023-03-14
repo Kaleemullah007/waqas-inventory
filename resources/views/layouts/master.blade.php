@@ -17,16 +17,17 @@
     <title>@yield('title','Admin panel')</title>
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" defer></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}" defer></script>
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}" defer></script>
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/switch/js/switch.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/custom/js/custom.js') }}" defer></script>
     <script src="{{ asset('assets/libs/chart/apexcharts/apexcharts.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/chart/chart.js') }}" defer></script>
     <script src="{{ asset('assets/libs/datatable/datatables.min.js') }}" defer></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
 
     <!-- Styles -->
     <!-- Fonts -->
@@ -44,7 +45,7 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/chart/apexcharts/apexcharts.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/datatable/datatables.min.css') }}">
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 
@@ -61,12 +62,10 @@
         @include('layouts.sidebar')
 
 
-
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
-
+@yield('script')
 </html>

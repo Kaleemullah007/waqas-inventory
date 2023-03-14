@@ -15,7 +15,8 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-                    <form method="POST" action="" enctype="">
+                    <form method="POST" action="{{route('product.store')}}" enctype="">
+                        @csrf
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="name" class="form-label fs-6">{{ __('en.Name') }}</label>
@@ -79,7 +80,7 @@
                             </div>
                         </div>
                         <!-- save button row included below -->
-                        @include('pages.table-footer')
+                        @include('pages.table-footer',['link'=>'product.index'])
                     </form>
                 </div>
             </div>

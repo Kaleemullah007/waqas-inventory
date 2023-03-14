@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
 
-    //  
+    //
 
     public function up(): void
     {
@@ -21,8 +21,10 @@ return new class extends Migration
             $table->float('sale_price',10,2);
             $table->integer('stock');
             $table->integer('stock_alert');
+            $table->unsignedBigInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
             $table->softDeletes();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
