@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone',
+        'user_type'
+    ];
+
+    protected $dates = ['last_login_at'];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Relationship to UserRole model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+
+    public function roles():BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+
+    /**
+     * Determine if $this has a specific role.
+     *
+     * @param  \Illuminate\Support\Collection}string  $role
+     * @return boolean
+     */
+    public function is($role)
+    {
+        foreach (collect($role) as $r) {
+            if ($this->roles->contains('role', $r)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Relationship with the Activity model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function modelActivities()
+    {
+        return $this->morphMany(Activity::class, 'model');
+    }
+
+}
