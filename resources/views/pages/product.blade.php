@@ -27,7 +27,7 @@ Product Listing
                     <button type="button" class="btn btn-sm me-2 btn-outline-danger"><i
                             class="bi bi-file-earmark-excel-fill"></i> {{__('en.EXCEL')}}</button>
                     <!-- modal trigger for create product -->
-                    <a href="{{ route('create-product') }}" class="btn btn-sm me-2 btn-primary">
+                    <a href="{{ route('product.create') }}" class="btn btn-sm me-2 btn-primary">
                         <i class="bi bi-plus-circle me-2"></i>{{__('en.Create')}}</a>
 
                 </div>
@@ -38,7 +38,7 @@ Product Listing
                         <tr>
                             <th>{{__('en.Id')}}</th>
                             <th>{{__('en.Name')}}</th>
-                            <th>{{__('en.Price')}}</th>
+                            {{-- <th>{{__('en.Price')}}</th> --}}
                             <th>{{__('en.Selling price')}}</th>
                             <th>{{__('en.Stock')}}</th>
                             <th>{{__('en.Stock alert')}}</th>
@@ -46,18 +46,19 @@ Product Listing
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach ($products as $product )
                         <tr>
-                            <th>001</th>
-                            <td>Product 1</td>
-                            <td>8</td>
-                            <td>10</td>
-                            <td>50</td>
+                            <th>{{$product->id}}</th>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->sale_price}}</td>
+                            <td>{{$product->stock}}</td>
+                            <td>{{$product->stock_alert}}</td>
                             <td>10</td>
                             <td>
                                 <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
                                     <i class="bi bi-eye-fill"></i></a>
-                                <a href="{{route('edit-product')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                                <a href="{{route('product.edit',1)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                                     <i class="bi bi-pencil"></i></a>
                                 <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
@@ -65,12 +66,28 @@ Product Listing
                                     <i class="bi bi-trash-fill"></i></a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
 
             {{-- row per page and pagination file below --}}
-            @include('pages.pagination')
+            {{-- @include('pages.pagination',$products) --}}
+            <div class="row mb-2 justify-content-between">
+                <div class="col-lg-4 col-md-6 col-12 mt-2 d-flex">
+                    <span class="mt-1">{{__('en.Rows Per Page')}} :</span>
+                    <select class="form-select bg-grey w-50 ms-2 border-secondary">
+                        <option selected>10</option>
+                        <option value="1">20</option>
+                        <option value="2">30</option>
+                        <option value="3">50</option>
+                        <option value="4">{{__('en.All')}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-4 col-12 mt-2">
+                    {{$products->links()}}
+                </div>
+            </div>
 
 
         </div>

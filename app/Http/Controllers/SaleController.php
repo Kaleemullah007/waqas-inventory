@@ -17,9 +17,9 @@ class SaleController extends Controller
      */
     public function index(): View
     {
-       
+
         $sales = Sale::get();
-        return view('pages.create-sale',compact('sales'));
+        return view('pages.sale',compact('sales'));
     }
 
     /**
@@ -35,9 +35,10 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request): RedirectResponse
     {
+        // dd($request->all());
         $product = Product::find($request->product_id);
-        $product->decrement($request->stock);
-        $product->save();
+        $product->decrement('stock',$request->qty);
+        // $product->save();
 
         $sales = Sale::create($request->validated());
         return redirect('sale');
@@ -63,31 +64,33 @@ class SaleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSaleRequest $request, Sale $sale): RedirectResponse
+    public function update(UpdateSaleRequest $request, Sale $sale):RedirectResponse
     {
 
-        // Sale Stock  $o 5 
+        // Sale Stock  $o 5
         // New Stock  $n 4
-        // Taking Difference  $d =  $o - $n  
+        // Taking Difference  $d =  $o - $n
         // positive  increment   $d
         // negative decrement abs($d)
+
 
         $product = Product::find($request->product_id);
         if($product == null)
         throw new \ErrorException('Product not found');
-        $difference = $sale->qty -  $request->stock;
+
+        $difference = $sale->qty -  $request->qty;
+
         if($difference > 0){
-            $product->increment($difference);
+            $product->increment('stock',$difference);
         }else{
-            $product->decrement(abs($difference));
+            $product->decrement('stock',abs($difference));
         }
 
-        
-        $product->save();
 
-        
-        $sales = Sale::udpate($request->validated())->where('id',$sale->id);
-        return redirect('sale/'.$sale->id);
+
+        Sale::where('id',$sale->id)->update($request->validated());
+
+        return redirect('sale/'.$sale->id.'/edit');
     }
 
     /**

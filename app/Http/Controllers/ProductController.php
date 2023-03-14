@@ -7,24 +7,25 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): View
     {
-        $products = Product::get();
-        return view('product',compact('products'));
+        $products = Product::paginate(10);
+        return view('pages.product',compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(StoreProductRequest $request): Response
+    public function create(): View
     {
-        
+
         return view('pages.create-product');
     }
 
@@ -40,18 +41,17 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product): Response
+    public function show(Product $product): View
     {
-        return redirect('edit-product',compact('product'));
+        return view('edit-product',compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product): Response
+    public function edit(Product $product): View
     {
-        // return redirect('edit-product',compact('product'));
-        return view('pages.edit-product');
+        return view('pages.edit-product',compact('product'));
 
     }
 
@@ -60,8 +60,8 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $products = Product::udpate($request->validated())->where('id',$product->id);
-        return redirect('product/'.$product->id);
+        $products = Product::where('id',$product->id)->update($request->validated());
+       return redirect('product/'.$product->id.'/edit');
     }
 
     /**

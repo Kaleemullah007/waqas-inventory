@@ -22,10 +22,18 @@ class UpdateSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id'=>'required',
+            'user_id'=>'required',
             'product_id'=>'required',
             'qty'=>'required',
-            'price'=>'required'
+            'sale_price'=>'required'
+            'owner_id'=>'required|integer'
         ];
+    }
+
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation(){
+        $this->merge([
+            'owner_id'=>auth()->id()
+        ]);
     }
 }

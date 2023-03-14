@@ -11,7 +11,7 @@ class StoreExpenseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,17 @@ class StoreExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount'=>'required,integer',
-            'name'=>'required,Max:255',
-            'date'=>'required,date_format:Y-m-d',
-            
+            'amount'=>'required|integer',
+            'name'=>'required|Max:255',
+            'date'=>'required|date_format:Y-m-d',
+            'owner_id'=>'required|integer'
+
         ];
+    }
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation(){
+        $this->merge([
+            'owner_id'=>auth()->id()
+        ]);
     }
 }

@@ -8,24 +8,24 @@
                                         class="hide-menu ">{{ __('en.Dashboard') }}</span></a>
                             </li>
                             <li class="{{ request()->is('product') ? 'active' : '' }}">
-                                <a href="{{ route('product') }}"><i class="bi fs-5 pe-2 bi-boxes"></i><span
+                                <a href="{{ route('product.index') }}"><i class="bi fs-5 pe-2 bi-boxes"></i><span
                                     class="hide-menu ">{{ __('en.Products') }}</span></a>
                             </li>
-                            
-                            <li class="{{ request()->is('sales.index') ? 'active' : '' }}">
-                                <a href="{{ route('sales') }}"><i class="bi fs-5 pe-2 bi-cart4"></i><span
+
+                            <li class="{{ request()->is('sale') ? 'active' : '' }}">
+                                <a href="{{ route('sale.index') }}"><i class="bi fs-5 pe-2 bi-cart4"></i><span
                                         class="hide-menu ">{{ __('en.Sale') }}</span></a>
                             </li>
-                                                              
+
                             <li class="{{ request()->is('purchase') ? 'active' : '' }}">
-                                <a href="{{ route('purchase') }}"><i class="bi fs-5 pe-2 bi-receipt-cutoff"></i><span
+                                <a href="{{ route('purchase.index') }}"><i class="bi fs-5 pe-2 bi-receipt-cutoff"></i><span
                                         class="hide-menu ">{{ __('en.Purchase') }}</span></a>
-                            </li>   
-                                                                                          
+                            </li>
+
                             <li class="{{ request()->is('expense') ? 'active' : '' }}">
-                                <a href="{{ route('expense') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
+                                <a href="{{ route('expense.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
                                         class="hide-menu ">{{ __('en.Expense') }}</span></a>
-                            </li>             
+                            </li>
                             {{-- Manage Users routes --}}
                             {{-- <li class="{{ request()->is('manageUser/*') ? 'active' : '' }} collapsed"
                                 data-bs-toggle="collapse" data-bs-target="#ManageUser" aria-expanded="true">
@@ -54,7 +54,7 @@
                                 </li>
 
                             </ul> --}}
-                          
+
                               {{-- setting Route --}}
                             {{-- <li class="{{ request()->is('settings/*') ? 'active' : '' }} collapsed"
                                 data-bs-toggle="collapse" data-bs-target="#settings" aria-expanded="true">

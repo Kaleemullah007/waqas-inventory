@@ -37,8 +37,8 @@ class UserSeeder extends Seeder
         // ])
         ->create([
             'email'=>'admin@rktech.com',
-            'name'=>'Admin',
-            'user_type'=>'admin'
+            'name'=>'Vendor',
+            'user_type'=>'vendor'
     ]);
     }
 }

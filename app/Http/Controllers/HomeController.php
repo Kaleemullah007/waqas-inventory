@@ -38,16 +38,17 @@ class HomeController extends Controller
     public function index()
     {
 
-        // $start_date = date('Y-m-d');
-        // $end_date = date('Y-m-d');
+        $start_date = date('Y-m-d');
+        $end_date = date('Y-m-d');
 
         // Expense::sum('amount')
         // ->whereDateBetween('created_at',[$start_date,$end_date])
         // ->get();
-        // Product::withSum('SaleProduct','sale_price')
+        // $products = Product::withSum('SaleProduct','sale_price')
         //         ->withSum('PurchaseProduct','price')
-        //         ->whereDateBetween('created_at',[$start_date,$end_date])
+        //         // ->whereBetween('created_at',[$start_date,$end_date])
         //         ->get();
+        //         dd($products->sum('sale_product_sum_sale_price'));
 
         // $latest_sales = Sale::take(10)->latest()->get();
         // $latest_purchases = Purchase::take(10)->latest()->get();
@@ -56,7 +57,7 @@ class HomeController extends Controller
         // ->WhereNotIn('user_type','admin')
         // ->latest()
         // ->get();
-        
+
         // dd("dd");
         return view('pages.dashboard');
     }

@@ -15,16 +15,18 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-                    <form method="POST" action="" enctype="">
+                    <form method="POST" action="{{route('purchase.update',1)}}" enctype="">
+                        @method('patch')
+                        @csrf
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="vendor_id" class="form-label fs-6">{{ __('en.Vendor') }}</label>
-                                <select class="form-select bg-grey mb-2 border-dark @error('vendor_id') is-invalid @enderror" name="vendor_id" id="vendor_id" autocomplete="vendor_id" required>
+                                <label for="user_id" class="form-label fs-6">{{ __('en.Vendor') }}</label>
+                                <select class="form-select bg-grey mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
                                     <option>{{__('en.Choose')}}</option>
-                                    <option value="1" @if(old('vendor_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
-                                    <option value="2" @if(old('vendor_id') == 2) 'selected' @endif selected>{{__('en.Customer')}} 2</option>
+                                    <option value="1" @if(old('user_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
+                                    <option value="2" @if(old('user_id') == 2) 'selected' @endif selected>{{__('en.Customer')}} 2</option>
                                 </select>
-                                @error('vendor_id')
+                                @error('user_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

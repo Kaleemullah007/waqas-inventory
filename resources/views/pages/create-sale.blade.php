@@ -15,23 +15,23 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-                    <form method="POST" action="{{route('sale-form')}}" enctype="">
+                    <form method="POST" action="{{route('sale.store')}}" enctype="">
                         @csrf
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="customer_id" class="form-label fs-6">{{ __('en.Customer') }}</label>
-                                <div class="input-group input-group-md ">                                    
-                                    <select class="form-select bg-grey mb-2 border-dark @error('customer_id') is-invalid @enderror" name="customer_id" id="customer_id" autocomplete="customer_id" required>
+                                <label for="user_id" class="form-label  fs-6">{{ __('en.Customer') }}</label>
+                                <div class="input-group input-group-md ">
+                                    <select class="form-select select2 bg-grey mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
                                         <option>{{__('en.Choose')}}</option>
-                                        <option value="1" @if(old('customer_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
-                                        <option value="2" @if(old('customer_id') == 2) 'selected' @endif >{{__('en.Customer')}} 2</option>
+                                        <option value="1" @if(old('user_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
+                                        <option value="2" @if(old('user_id') == 2) 'selected' @endif >{{__('en.Customer')}} 2</option>
                                     </select>
-                                    @error('customer_id')
+                                    @error('user_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    <!-- Button trigger for add customer -->                        
+                                    <!-- Button trigger for add customer -->
                                     <span class="input-group-text bg-grey mb-2 border-dark"  data-bs-toggle="modal" data-bs-target="#add_customer"><i class="bi fs-6 bi-person-plus-fill"></i></span>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                 @enderror
                             </div>
                         </div>
-                  
+
                         @include('pages.table-footer')
                     </form>
                           <!-- Modal itself for add customer -->
@@ -129,7 +129,7 @@
                                     <select class="form-select bg-grey mb-2 border-dark @error('type') is-invalid @enderror" name="type" id="type" autocomplete="type" required>
                                         <option value="1" @if(old('type') == 1) 'selected' @endif selected>{{__('en.Customer')}}</option>
                                         <option value="2" @if(old('type') == 2) 'selected' @endif >{{__('en.Vendor')}}</option>
-                                    </select>                                                
+                                    </select>
                                     @error('type')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -149,4 +149,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+
 @endsection

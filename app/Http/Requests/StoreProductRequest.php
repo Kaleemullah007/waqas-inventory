@@ -11,7 +11,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,6 +27,13 @@ class StoreProductRequest extends FormRequest
             'name'=>'required',
             'stock'=>'required|integer',
             'stock_alert'=>'required|integer',
+            'owner_id'=>'required|integer'
         ];
+    }
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation(){
+        $this->merge([
+            'owner_id'=>auth()->id()
+        ]);
     }
 }

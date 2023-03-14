@@ -19,6 +19,8 @@ return new class extends Migration
             $table->float('sale_price',10,2);
             $table->foreign('user_id')->references('id')->on('users')->comments('user is Acutally customer id');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
             $table->softDeletes();
             $table->timestamps();
         });

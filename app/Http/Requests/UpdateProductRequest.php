@@ -25,8 +25,15 @@ class UpdateProductRequest extends FormRequest
             'sale_price'=>'required',
             'price'=>'required',
             'name'=>'required',
-            'stock'=>'required|integer',
+            // 'stock'=>'required|integer',
             'stock_alert'=>'required|integer',
+            'owner_id'=>'required|integer'
         ];
+    }
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation(){
+        $this->merge([
+            'owner_id'=>auth()->id()
+        ]);
     }
 }
