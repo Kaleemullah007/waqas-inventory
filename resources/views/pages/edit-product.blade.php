@@ -55,7 +55,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                            {{-- <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="stock" class="form-label fs-6">{{ __('en.Stock') }}</label>
                                 <input type="number"
                                     class="form-control bg-grey mb-2 border-dark @error('stock') is-invalid @enderror"
@@ -66,7 +66,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="stock_alert" class="form-label fs-6">{{ __('en.Stock Alert') }}</label>
                                 <input type="number"

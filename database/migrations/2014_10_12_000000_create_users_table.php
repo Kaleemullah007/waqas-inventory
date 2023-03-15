@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone',50);
             $table->string('user_type',15); 
+            $table->unsignedBigInteger('owner_id')->nullable(); 
             $table->text('picture')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->rememberToken();

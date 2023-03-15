@@ -40,6 +40,7 @@ Product Listing
                             <th>{{__('en.Name')}}</th>
                             {{-- <th>{{__('en.Price')}}</th> --}}
                             <th>{{__('en.Selling price')}}</th>
+                            {{-- <th>{{__('en.Purchasing Price')}}</th> --}}
                             <th>{{__('en.Stock')}}</th>
                             <th>{{__('en.Stock alert')}}</th>
                             <th>{{__('en.Action')}}</th>
@@ -47,18 +48,17 @@ Product Listing
                     </thead>
                     <tbody>
                     @foreach ($products as $product )
-                        <tr>
+                        <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
                             <th>{{$product->id}}</th>
                             <td>{{$product->name}}</td>
                             <td>{{$product->sale_price}}</td>
                             <td>{{$product->stock}}</td>
                             <td>{{$product->stock_alert}}</td>
-                            <td>10</td>
                             <td>
                                 <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
                                     <i class="bi bi-eye-fill"></i></a>
-                                <a href="{{route('product.edit',1)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                                <a href="{{route('product.edit',$product->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                                     <i class="bi bi-pencil"></i></a>
                                 <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
@@ -91,47 +91,6 @@ Product Listing
 
 
         </div>
-    </div>
-
-    <!-- offcanvas itself for filter -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="filters" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            <h5 class="offcanvas-title me-5" id="offcanvasExampleLabel">{{__('en.Filters')}}</h5>
-        </div>
-        {{-- form for filter products --}}
-        <form method="POST" action="" enctype="">
-            <div class="offcanvas-body">
-                <label for="productName" class="form-label mt-3">{{__('en.product Name')}}</label>
-                <input type="text"
-                    class="form-control bg-grey border-secondary @error('productName') is-invalid @enderror" id="productName"
-                    name="productName" placeholder="{{__('en.Search by Name')}}" value="{{ old('productName') }}" autocomplete="productName">
-                @error('productName')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <label for="productStatus" class="form-label mt-3">{{__('en.Status')}}</label><br>
-                    <input type="checkbox" checked data-size="sm" data-toggle="toggle" data-on="Active"
-                    data-off="Inactive" data-onstyle="success" data-offstyle="danger">
-                @error('productStatus')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                <div class="row py-4">
-                    <div class="col-6">
-                        <button class="btn btn-primary rounded btn-sm w-100" type="button"><i class="bi bi-funnel"></i>
-                            {{__('en.Filter')}}</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btn btn-danger rounded btn-sm w-100" type="button"><i class="bi bi-x-circle"></i>
-                            {{__('en.Reset')}}</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        {{-- end form filter products --}}
     </div>
 
 @endsection
