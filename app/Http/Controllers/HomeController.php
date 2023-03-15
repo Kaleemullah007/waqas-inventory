@@ -6,6 +6,7 @@ use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -41,25 +42,73 @@ class HomeController extends Controller
         $start_date = date('Y-m-d');
         $end_date = date('Y-m-d');
 
-        // Expense::sum('amount')
-        // ->whereDateBetween('created_at',[$start_date,$end_date])
-        // ->get();
-        // $products = Product::withSum('SaleProduct','sale_price')
-        //         ->withSum('PurchaseProduct','price')
-        //         // ->whereBetween('created_at',[$start_date,$end_date])
-        //         ->get();
-        //         dd($products->sum('sale_product_sum_sale_price'));
+        $start_date = date('2023-03-14');
+        $end_date = date('2023-03-15');
+        $result   = $this->dashboardStat($start_date,$end_date);
 
-        // $latest_sales = Sale::take(10)->latest()->get();
-        // $latest_purchases = Purchase::take(10)->latest()->get();
-        // $products = Product::take(10)->latest()->get();
-        // $users = User::take(10)
-        // ->WhereNotIn('user_type','admin')
-        // ->latest()
-        // ->get();
+        return view('pages.dashboard',compact('result'));
+    }
+    public function dashboardStat($start_date,$end_date){
 
-        // dd("dd");
-        return view('pages.dashboard');
+        $expenses = Expense::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->sum('amount');
+
+        $latest_expenses = Expense::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->take(10)
+        ->latest()
+        ->get();
+
+        $products = Product::withSum(['SaleProduct'
+                =>function($query) use($start_date,$end_date){
+                    $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
+                }],
+                'sale_price')
+                ->withSum(['PurchaseProduct'
+                =>function($query) use($start_date,$end_date){
+                    $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
+                }],'price')
+                ->get();
+
+        $latest_sales = Sale::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->take(10)
+        ->latest()
+        ->get();
+
+        $latest_purchases = Purchase::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->take(10)->latest()->get();
+
+        $latest_products = Product::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->take(10)
+        ->latest()->get();
+        $users = User::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->WhereNotIn('user_type',['vendor'])
+        ->take(10)
+        ->latest()
+        ->get();
+
+        $total_sales = $products->sum('sale_product_sum_sale_price');
+        $total_purchase = $products->sum('purchase_product_sum_price');
+        $net_profit = $total_purchase - $total_sales - $expenses;
+        return [
+            'latest_products'=>$latest_products,
+            'users'=>$users,
+            'latest_purchases'=>$latest_purchases,
+            'latest_sales'=>$latest_sales,
+            'products'=>$products,
+            'latest_expenses'=>$latest_expenses,
+            'expenses'=>$expenses,
+            'total_sales'=>$total_sales,
+            'total_purchase'=>$total_purchase,
+            'net_profit'=>$net_profit,
+
+
+        ];
     }
     function changeLang($langcode)
     {
