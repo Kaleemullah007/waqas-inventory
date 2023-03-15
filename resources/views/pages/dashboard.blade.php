@@ -5,134 +5,6 @@ Dashboard
 @endsection
 
 @section('content')
-    {{-- <section id="dashboard-top-sec">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="bg-white top-chart-earn">
-                        <div class="row">
-                            <div class="col-sm-4 my-2 pe-0">
-                                <div class="last-month">
-                                    <h5>{{__('en.Dashboard')}}</h5>
-                                    <p>{{__('en.Overview of Latest Month')}}</p>
-                                    <div class="earn">
-                                        <h2>$6783.35</h2>
-                                        <p>{{__('en.Current Month Sales')}}</p>
-                                    </div>
-                                    <div class="sale mb-3">
-                                        <h2>95</h2>
-                                        <p>{{__('en.Current Month Sales')}}</p>
-                                    </div>
-                                    <a href="#" class="text-light btn purple-gradient">{{__('en.Last Month Summary')}}</a>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 my-2 ps-0">
-                                <div class="classic-tabs">
-                                    <!-- -------Nav Tabs ------ -->
-                                    <div class="tabs-wrapper">
-                                        <ul class="nav nav-pills chart-header-tab mb-3" id="pills-tab" role="tablist">
-                                            <li class="nav-item">
-                                                <a href="" class="nav-link chart-nav active" id="pills-week-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#pills-week" type="button"
-                                                    role="tab" aria-controls="pills-week" aria-selected="true">{{__('en.Week')}}</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="" class="nav-link chart-nav" id="pills-month-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#pills-month" type="button"
-                                                    role="tab" aria-controls="pills-month"
-                                                    aria-selected="false">{{__('en.Month')}}</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="" class="nav-link chart-nav" id="pills-year-tab"
-                                                    data-bs-toggle="pill" data-bs-target="#pills-year" type="button"
-                                                    role="tab" aria-controls="pills-year" aria-selected="false">{{__('en.Year')}}</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-week" role="tabpanel"
-                                                aria-labelledby="pills-week-tab" tabindex="0">Week</div>
-                                            <div class="tab-pane fade" id="pills-month" role="tabpanel"
-                                                aria-labelledby="pills-month-tab" tabindex="0">Month</div>
-                                            <div class="tab-pane fade" id="pills-year" role="tabpanel"
-                                                aria-labelledby="pills-year-tab" tabindex="0">Year</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="wre-sec">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
-                                    <div class="earn-view">
-                                        <span><i class="bi bi-currency-dollar earn-icon wallet"></i></span>
-                                        <div class="earn-view-text">
-                                            <p class="name-text">
-                                                {{__('en.Wallet Balance')}}
-                                            </p>
-                                            <h6 class="balance-text">
-                                                $2351.32
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
-                                    <div class="earn-view">
-                                        <span><i class="bi bi-heart-fill earn-icon referral"></i></span>
-                                        <div class="earn-view-text">
-                                            <p class="name-text">
-                                                {{__('en.Referral Earnings')}}
-                                            </p>
-                                            <h6 class="balance-text">
-                                                $1151.32
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
-                                    <div class="earn-view">
-                                        <span><i class="bi bi-graph-up-arrow earn-icon sales"></i></span>
-                                        <div class="earn-view-text">
-                                            <p class="name-text">
-                                                {{__('en.Estimate Sales')}}
-                                            </p>
-                                            <h6 class="balance-text">
-                                                $151.32
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
-                                    <div class="earn-view">
-                                        <span><i class="bi bi-cash-coin earn-icon earning"></i></span>
-                                        <div class="earn-view-text">
-                                            <p class="name-text">
-                                                {{__('en.Earning')}}
-                                            </p>
-                                            <h6 class="balance-text">
-                                                $15351.32
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="bg-white top-chart-earn h-custom2">
-                        <div class="traffice-title">
-                            <p>{{__('en.Traffic')}}</p>
-                        </div>
-                        <div class="traffic">
-                            <div id="chart-2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <section>
         <div class="sm-chart-sec my-3">
             <div class="container-fluid">
                 <div class="row">
@@ -144,8 +16,8 @@ Dashboard
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">35.4k</p>
-                                        <h5>{{__('en.Followers')}}</h5>
+                                        <p class="w-value">32,100</p>
+                                        <h5>{{__('en.Sales')}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -158,14 +30,14 @@ Dashboard
                         <div class="revinue page-one_hybrid">
                             <div class="revinue-hedding">
                                 <div class="w-title">
+                                    <div class="w-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">851.5k</p>
-                                        <h5>{{__('en.Page View')}}</h5>
+                                        <p class="w-value">30,000</p>
+                                        <h5>{{__('en.Purchases')}}</h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="revinue-content">
-                                <div id="hybrid-followers1"></div>
                             </div>
                         </div>
                     </div>
@@ -173,14 +45,14 @@ Dashboard
                         <div class="revinue bounce-one_hybrid">
                             <div class="revinue-hedding">
                                 <div class="w-title">
+                                    <div class="w-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">$512.6k</p>
-                                        <h5>{{__('en.Bounce Rate')}}</h5>
+                                        <p class="w-value">100</p>
+                                        <h5>{{__('en.Expenses')}}</h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="revinue-content">
-                                <div id="hybrid-followers3"></div>
                             </div>
                         </div>
                     </div>
@@ -188,30 +60,29 @@ Dashboard
                         <div class="revinue rv-status-one_hybrid">
                             <div class="revinue-hedding">
                                 <div class="w-title">
+                                    <div class="w-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">$ 763<small>Jan 01 - Jan 10</small></p>
-                                        <h5>{{__('en.Revinue Status')}}</h5>
+                                        <p class="w-value">2000</p>
+                                        <h5>{{__('en.Net Profit')}}</h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="revinue-content">
-                                <div id="hybrid-followers4"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
     <!-- Admin and order status table -->
-    <section>
         <div class="all-admin my-4">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4 col-sm-5">
+                    <div class="col-md-4 col-12">
                         <div class="admin-list">
-                            <p class="admin-ac-title">{{__('en.All Admins')}}</p>
-                            <ul class="admin-ul">
+                            <p class="admin-ac-title">{{__('en.Products')}}</p>
+                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet consequuntur sint eveniet architecto sunt quidem nemo temporibus, ratione dolore, saepe excepturi atque rem delectus corporis ad earum. Ullam, possimus aliquam earum sed odit, illum vel, corrupti saepe quaerat sit commodi hic. Iusto, delectus? Fugit, doloribus pariatur! Eveniet illo modi nihil.</h5>
+                            {{-- <ul class="admin-ul">
                                 <li class="admin-li">
                                     <img src="/assets/images/user1.png" alt="Image" class="admin-image">
                                     <div class="admin-ac-details">
@@ -262,10 +133,11 @@ Dashboard
                                         <div class="status bg-success"></div>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
-                    <div class="col-md-8 col-sm-7">
+
+                    {{-- <div class="col-md-8 col-sm-7">
                         <div class="order-list">
                             <p class="order-ac-title">{{__('en.Order Status')}}</p>
                             <div class="data-table-section table-responsive">
@@ -331,9 +203,8 @@ Dashboard
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
-    </section>
 @endsection

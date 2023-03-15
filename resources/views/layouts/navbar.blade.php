@@ -134,23 +134,6 @@
                     </div>
                 </div>
             </li>
-            <!-- Settings section -->
-            {{-- <li class="nav-item dropdown user-profile-dropdown">
-                <a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
-                    <i class="bi bi-gear"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <div class="dp-main-menu">
-                       
-                        <a href="#" class="dropdown-item"><span><i
-                                    class="bi bi-people-fill"></i></span>{{ __('en.Admins') }}</a>
-                        <a href="#" class="dropdown-item"><span><i class="bi bi-easel-fill"></i></span>{{ __('en.Design Type') }}
-                            </a>
-                        <a href="#" class="dropdown-item"><span><i
-                                    class="bi bi-palette-fill"></i></span>{{ __('en.Color') }}</a>
-                    </div>
-                </div>
-            </li> --}}
         </ul>
     </header>
 </div>

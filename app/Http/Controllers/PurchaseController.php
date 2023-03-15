@@ -41,7 +41,9 @@ class PurchaseController extends Controller
 
         $product = Product::find($request->product_id);
         $product->increment('stock',$request->qty);
-        // $product->save();
+        $product->sale_price = $request->sale_price;
+        $product->price = $request->price;
+        $product->save();
         $purchases = Purchase::create($request->validated());
         return redirect('purchase');
     }
@@ -60,6 +62,8 @@ class PurchaseController extends Controller
     public function edit(Purchase $purchase): View
     {
         // return redirect('edit-purchase',compact('purchase'));
+        if($purchase == null)
+        throw new \ErrorException('purchase not found');
         return view('pages.edit-purchase');
 
     }
@@ -75,7 +79,7 @@ class PurchaseController extends Controller
         // Taking Difference  $d =  $o - $n =  1
         // positive decrement  abc($d)
         // negative increment   $d
-// dd($request->all());
+        // dd($request->all());
 
         $product = Product::find($request->product_id);
         if($product == null)
@@ -87,6 +91,9 @@ class PurchaseController extends Controller
         }else{
             $product->increment('stock',abs($difference));
         }
+        $product->sale_price = $request->sale_price;
+        $product->price = $request->price;
+        $product->save();
 
         $purchases = Purchase::where('id',$purchase->id)->update($request->validated());
         return redirect('purchase/'.$purchase->id.'/edit');

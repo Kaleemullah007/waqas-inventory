@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -27,7 +28,12 @@ class SaleController extends Controller
      */
     public function create(): View
     {
-        return view('pages.create-sale');
+        $products = Product::get();
+        $customers = User::where('owner_id',auth()->id())
+        ->where('user_type','customer')
+        ->get();
+        return view('pages.create-sale',compact('products','customers'));
+        
     }
 
     /**
@@ -57,8 +63,11 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale): View
     {
-        // return redirect('edit-sale',compact('sale'));
-        return view('pages.edit-sale');
+        $products = Product::get();
+        $customers = User::where('owner_id',auth()->id())
+        ->where('user_type','customer')
+        ->get();
+        return view('pages.edit-sale',compact('products','customers','sale'));
     }
 
     /**
