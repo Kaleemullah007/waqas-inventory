@@ -7,6 +7,7 @@ use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\PurchaseHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -50,6 +51,7 @@ class PurchaseController extends Controller
         $product->price = $request->price;
         $product->save();
         $purchases = Purchase::create($request->validated());
+        PurchaseHistory::create($request->validated());
         return redirect('purchase');
     }
 
@@ -94,18 +96,25 @@ class PurchaseController extends Controller
         $product = Product::find($request->product_id);
         if($product == null)
         throw new \ErrorException('Product not found');
-        $difference = $purchase->qty -  $request->qty;
-        if($difference > 0){
-            $product->decrement('stock',$difference);
 
-        }else{
-            $product->increment('stock',abs($difference));
-        }
+        // $difference = $purchase->qty -  $request->qty;
+        // if($difference > 0){
+        //     $product->decrement('stock',$difference);
+
+        // }else{
+        //     $product->increment('stock',abs($difference));
+        // }
+
         $product->sale_price = $request->sale_price;
         $product->price = $request->price;
         $product->save();
 
         $purchases = Purchase::where('id',$purchase->id)->update($request->validated());
+        $purchases = PurchaseHistory::create($request->validated());
+
+
+
+
         return redirect('purchase/'.$purchase->id.'/edit');
     }
 

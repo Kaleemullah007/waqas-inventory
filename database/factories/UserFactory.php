@@ -30,8 +30,9 @@ class UserFactory extends Factory
             'password' => $password, // password
             'remember_token' => Str::random(10),
             'status'=>true,
+            'is_factory_user'=>true,
             'activated_at'=>now(),
-          
+
         ];
     }
 

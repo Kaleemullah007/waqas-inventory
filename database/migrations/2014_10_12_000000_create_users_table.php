@@ -20,8 +20,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone',50);
-            $table->string('user_type',15); 
-            $table->unsignedBigInteger('owner_id')->nullable(); 
+            $table->string('user_type',15);
+            $table->boolean('is_factory_user')->default(0)->comment('0 for vendor and 1 for factory user');
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->text('picture')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->rememberToken();
