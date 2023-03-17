@@ -15,7 +15,9 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-                    <form method="POST" action="" enctype="">
+                    <form method="POST" action="{{route('expense.update',$expense->id)}}" enctype="">
+                        @method('patch')
+                        @csrf
                         <div class="row mt-3">
                             {{-- <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="customer_id" class="form-label fs-6">{{ __('en.Customer') }}</label>
@@ -47,7 +49,7 @@
                                 <label for="name" class="form-label fs-6">{{ __('en.Name') }}</label>
                                 <input type="text"
                                     class="form-control bg-grey mb-2 border-dark @error('name') is-invalid @enderror"
-                                    id="name" name="name" value="Expense" value="{{ old('name') }}"
+                                    id="name" name="name" value="{{ old('name',$expense->name) }}"
                                     autocomplete="name" required autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -59,7 +61,7 @@
                                 <label for="amount" class="form-label fs-6">{{ __('en.Amount') }}</label>
                                 <input type="number"
                                     class="form-control bg-grey mb-2 border-dark @error('amount') is-invalid @enderror"
-                                    id="amount" name="amount" value="20" value="{{ old('amount') }}"
+                                    id="amount" name="amount" value="{{ old('amount',$expense->amount) }}"
                                     autocomplete="amount" required autofocus>
                                 @error('amount')
                                     <span class="invalid-feedback" role="alert">
@@ -71,7 +73,7 @@
                                 <label for="date" class="form-label fs-6">{{ __('en.Date') }}</label>
                                 <input type="date"
                                     class="form-control bg-grey mb-2 border-dark @error('date') is-invalid @enderror"
-                                    id="date" name="date" value="2023-03-12" value="{{ old('date') }}"
+                                    id="date" name="date" value="{{ old('date',$expense->date) }}"
                                     autocomplete="date" required autofocus>
                                 @error('date')
                                     <span class="invalid-feedback" role="alert">
@@ -81,7 +83,7 @@
                             </div>
                         </div>
                         <!-- save button row included below -->
-                        @include('pages.table-footer')
+                        @include('pages.table-footer',['link'=>'expense.index'])
                     </form>
                 </div>
             </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSaleRequest extends FormRequest
 {
@@ -22,18 +24,27 @@ class UpdateSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'required',
-            'product_id'=>'required',
+            'user_id'=>'required|integer',
+            'product_id'=>'required|integer',
             'qty'=>'required',
-            'sale_price'=>'required'
-            'owner_id'=>'required|integer'
+            'sale_price'=>'required',
+            'owner_id'=>'required|integer',
+            'total'=>'required',
+            // 'flag'=>['required','boolean',Rule::notIn([false])]
         ];
     }
 
     // Adding Owner Id To all Requests
     protected function prepareForValidation(){
+
+        // $product = Product::find($this->product_id);
+        // $flag = false;
+        // if($product->stock > $this->qty)
+        //   $flag = true;
         $this->merge([
-            'owner_id'=>auth()->id()
+            'owner_id'=>auth()->id(),
+            'total'=>$this->qty*$this->sale_price,
+            // 'flag'=>$flag,
         ]);
     }
 }

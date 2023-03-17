@@ -15,16 +15,19 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                 
                     <form method="POST" action="{{route('sale.store')}}" enctype="">
                         @csrf
+                      
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="user_id" class="form-label  fs-6">{{ __('en.Customer') }}</label>
-                                <div class="input-group input-group-md ">
-                                    <select class="form-select select2 bg-grey mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
+                                <div class="input-group input-group-md">
+                                    <select class="form-select bg-grey mb-2 border-dark select2 @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
                                         <option>{{__('en.Choose')}}</option>
-                                        <option value="1" @if(old('user_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
-                                        <option value="2" @if(old('user_id') == 2) 'selected' @endif >{{__('en.Customer')}} 2</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                        @endforeach
                                     </select>
                                     @error('user_id')
                                         <span class="invalid-feedback" role="alert">
@@ -32,15 +35,16 @@
                                         </span>
                                     @enderror
                                     <!-- Button trigger for add customer -->
-                                    <span class="input-group-text bg-grey mb-2 border-dark"  data-bs-toggle="modal" data-bs-target="#add_customer"><i class="bi fs-6 bi-person-plus-fill"></i></span>
+                                    <span class=" mb-2 ps-2"  data-bs-toggle="modal" data-bs-target="#add_customer"><i class="bi fs-4 bi-person-plus-fill"></i></span>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                 <select class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required>
                                     <option>{{__('en.Choose')}}</option>
-                                    <option value="1" @if(old('product_id') == 1) 'selected' @endif >{{__('en.Product')}} 1</option>
-                                    <option value="2" @if(old('product_id') == 2) 'selected' @endif >{{__('en.Product')}} 2</option>
+                                    @foreach ($products as $product)    
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('product_id')
                                     <span class="invalid-feedback" role="alert">
@@ -114,15 +118,7 @@
                                         @enderror
                                         <label for="email" class="form-label fs-6">{{__('en.Email')}}</label>
                                         <input type="email" class="form-control bg-grey mb-2 border-dark @error('email') is-invalid @enderror" id="email" name="email"
-                                            placeholder="03001234567" value="{{ old('email') }}" autocomplete="email" required autofocus>
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <label for="email" class="form-label fs-6">{{__('en.Email')}}</label>
-                                        <input type="email" class="form-control bg-grey mb-2 border-dark @error('email') is-invalid @enderror" id="email" name="email"
-                                            placeholder="03001234567" value="{{ old('email') }}" autocomplete="email" required autofocus>
+                                            placeholder="abc123@example.com" value="{{ old('email') }}" autocomplete="email" required autofocus>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

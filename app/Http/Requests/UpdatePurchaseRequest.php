@@ -22,18 +22,20 @@ class UpdatePurchaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'required',
-            'product_id'=>'required',
+            'user_id'=>'required|integer',
+            'product_id'=>'required|integer',
             'qty'=>'required',
             'price'=>'required',
             'sale_price'=>'required',
-            'owner_id'=>'required|integer'
+            'owner_id'=>'required|integer',
+            'total'=>'required|integer'
         ];
     }
     // Adding Owner Id To all Requests
     protected function prepareForValidation(){
         $this->merge([
-            'owner_id'=>auth()->id()
+            'owner_id'=>auth()->id(),
+            'total'=>$this->qty*$this->price
         ]);
     }
 }

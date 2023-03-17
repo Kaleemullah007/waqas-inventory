@@ -24,7 +24,11 @@ class DatabaseSeeder extends Seeder
             // PermissionSeeder::class,
             // RoleSeeder::class,
             // ModuleSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            VendorSeeder::class,
+            CustomerSeeder::class,
+            ProductSeeder::class
+
 
         ]);
 
