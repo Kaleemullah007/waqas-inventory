@@ -42,8 +42,8 @@ class HomeController extends Controller
         $start_date = date('Y-m-d');
         $end_date = date('Y-m-d');
 
-        $start_date = date('2023-03-14');
-        $end_date = date('2023-03-15');
+        // $start_date = date('2023-03-14');
+        // $end_date = date('2023-03-15');
         $result   = $this->dashboardStat($start_date,$end_date);
 
         return view('pages.dashboard',compact('result'));
@@ -64,11 +64,11 @@ class HomeController extends Controller
                 =>function($query) use($start_date,$end_date){
                     $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
                 }],
-                'sale_price')
+                'total')
                 ->withSum(['PurchaseProduct'
                 =>function($query) use($start_date,$end_date){
                     $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
-                }],'price')
+                }],'total')
                 ->get();
 
         $latest_sales = Sale::whereDate('created_at','>=',$start_date)
@@ -92,9 +92,9 @@ class HomeController extends Controller
         ->latest()
         ->get();
 
-        $total_sales = $products->sum('sale_product_sum_sale_price');
-        $total_purchase = $products->sum('purchase_product_sum_price');
-        $net_profit = $total_purchase - $total_sales - $expenses;
+        $total_sales = $products->sum('sale_product_sum_total');
+        $total_purchase = $products->sum('purchase_product_sum_total');
+        $net_profit =   $total_sales -$total_purchase - $expenses;
         return [
             'latest_products'=>$latest_products,
             'users'=>$users,
@@ -104,8 +104,8 @@ class HomeController extends Controller
             'latest_expenses'=>$latest_expenses,
             'expenses'=>$expenses,
             'total_sales'=>$total_sales,
-            'total_purchase'=>$total_purchase,
-            'net_profit'=>$net_profit,
+            'total_purchases'=>$total_purchase,
+            'net_profits'=>$net_profit,
 
 
         ];

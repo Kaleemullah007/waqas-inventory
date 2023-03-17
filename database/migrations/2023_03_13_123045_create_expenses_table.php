@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('amount',10,2);
             $table->unsignedBigInteger('owner_id');
+            $table->date('date');
             $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
             $table->softDeletes();
             $table->timestamps();

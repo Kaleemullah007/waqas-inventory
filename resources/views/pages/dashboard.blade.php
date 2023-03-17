@@ -16,7 +16,7 @@ Dashboard
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">32,100</p>
+                                        <p class="w-value">{{$result['total_sales']}}</p>
                                         <h5>{{__('en.Sales')}}</h5>
                                     </div>
                                 </div>
@@ -34,7 +34,7 @@ Dashboard
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">30,000</p>
+                                        <p class="w-value">{{$result['total_purchases']}}</p>
                                         <h5>{{__('en.Purchases')}}</h5>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@ Dashboard
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">100</p>
+                                        <p class="w-value">{{$result['expenses']}}</p>
                                         <h5>{{__('en.Expenses')}}</h5>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@ Dashboard
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                     <div class="sm-chart-text">
-                                        <p class="w-value">2000</p>
+                                        <p class="w-value">{{$result['net_profits']}}</p>
                                         <h5>{{__('en.Net Profit')}}</h5>
                                     </div>
                                 </div>

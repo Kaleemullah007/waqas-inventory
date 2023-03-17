@@ -16,7 +16,7 @@ class ExpenseController extends Controller
      */
     public function index(): View
     {
-        $expenses = Expense::get();
+        $expenses = Expense::paginate(10);
         return view('pages.expense',compact('expenses'));
     }
 
@@ -54,7 +54,7 @@ class ExpenseController extends Controller
     public function edit(Expense $expense): View
     {
         // return redirect('edit-expense',compact('expense'));
-        return view('pages.edit-expense');
+        return view('pages.edit-expense',compact('expense'));
 
     }
 
@@ -63,8 +63,9 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense): RedirectResponse
     {
-        $expenses = Expense::udpate($request->validated())->where('id',$expense->id);
-        return redirect('expense/'.$expense->id);
+        
+        Expense::where('id',$expense->id)->update($request->validated());
+        return redirect('expense/'.$expense->id.'/edit');
     }
 
     /**

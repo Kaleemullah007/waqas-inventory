@@ -38,11 +38,11 @@ Sales Listing
                             <th>{{__('en.Id')}}</th>
                             <th>{{__('en.Customer')}}</th>
                             <th>{{__('en.Product')}}</th>
-                            {{-- <th>{{__('en.Name')}}</th> --}}
                             <th>{{__('en.Price')}}</th>
                             <th>{{__('en.Quantity')}}</th>
                             <th>{{__('en.Action')}}</th>
                         </tr>
+                      
                     </thead>
                     <tbody>
                         @foreach ($sales as $sale )
@@ -70,7 +70,8 @@ Sales Listing
             </div>
 
             {{-- row per page and pagination file below --}}
-            @include('pages.pagination')
+            @include('pages.pagination',['paginate'=>$sales])
+
 
 
         </div>

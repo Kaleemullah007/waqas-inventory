@@ -18,32 +18,6 @@
                     <form method="POST" action="{{route('expense.store')}}" enctype="">
                         @csrf
                         <div class="row mt-3">
-                            {{-- <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="customer_id" class="form-label fs-6">{{ __('en.Customer') }}</label>
-                                <select class="form-select bg-grey mb-2 border-dark @error('customer_id') is-invalid @enderror" name="customer_id" id="customer_id" autocomplete="customer_id" required>
-                                    <option>{{__('en.Choose')}}</option>
-                                    <option value="1" @if(old('customer_id') == 1) 'selected' @endif >{{__('en.Customer')}} 1</option>
-                                    <option value="2" @if(old('customer_id') == 2) 'selected' @endif >{{__('en.Customer')}} 2</option>
-                                </select>
-                                @error('customer_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
-                            {{-- <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
-                                <select class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required>
-                                    <option>{{__('en.Choose')}}</option>
-                                    <option value="1" @if(old('product_id') == 1) 'selected' @endif >{{__('en.Product')}} 1</option>
-                                    <option value="2" @if(old('product_id') == 2) 'selected' @endif >{{__('en.Product')}} 2</option>
-                                </select>
-                                @error('product_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="name" class="form-label fs-6">{{ __('en.Name') }}</label>
                                 <input type="text"
@@ -72,7 +46,7 @@
                                 <label for="date" class="form-label fs-6">{{ __('en.Date') }}</label>
                                 <input type="date"
                                     class="form-control bg-grey mb-2 border-dark @error('date') is-invalid @enderror"
-                                    id="date" name="date" placeholder="10" value="{{ old('date') }}"
+                                    id="date" name="date" value="{{ old('date') }}"
                                     autocomplete="date" required autofocus>
                                 @error('date')
                                     <span class="invalid-feedback" role="alert">
@@ -82,7 +56,7 @@
                             </div>
                         </div>
                         <!-- save button row included below -->
-                        @include('pages.table-footer')
+                        @include('pages.table-footer',['link'=>'expense.index'])
                     </form>
                 </div>
             </div>

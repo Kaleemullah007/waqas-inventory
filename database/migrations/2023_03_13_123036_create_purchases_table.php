@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->float('price',10,2);
             $table->float('sale_price',10,2);
+            $table->float('total',10,2);
             $table->foreign('user_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');

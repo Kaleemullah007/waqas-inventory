@@ -6,6 +6,7 @@ use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -17,7 +18,7 @@ class PurchaseController extends Controller
      */
     public function index(): View
     {
-        $purchases = Purchase::get();
+        $purchases = Purchase::paginate(10);
         return view('pages.purchase',compact('purchases'));
 
     }
@@ -28,8 +29,11 @@ class PurchaseController extends Controller
     public function create(): View
     {
 
-        // return view('purchase');
-        return view('pages.create-purchase');
+        $products = Product::get();
+        $vendors = User::where('owner_id',auth()->id())
+        ->where('user_type','vendor')
+        ->get();
+        return view('pages.create-purchase',compact('products','vendors'));
 
     }
 
@@ -38,7 +42,8 @@ class PurchaseController extends Controller
      */
     public function store(StorePurchaseRequest $request): RedirectResponse
     {
-
+        // Purchase::create($request->validated());
+        // dd($request->validated());
         $product = Product::find($request->product_id);
         $product->increment('stock',$request->qty);
         $product->sale_price = $request->sale_price;
@@ -53,7 +58,7 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase): View
     {
-        return redirect('edit-purchase',compact('purchase'));
+        return view('edit-purchase',compact('purchase'));
     }
 
     /**
@@ -62,10 +67,15 @@ class PurchaseController extends Controller
     public function edit(Purchase $purchase): View
     {
         // return redirect('edit-purchase',compact('purchase'));
-        if($purchase == null)
-        throw new \ErrorException('purchase not found');
-        return view('pages.edit-purchase');
+        // if($purchase == null)
+        // throw new \ErrorException('purchase not found');
+        // return view('pages.edit-purchase');
 
+        $products = Product::get();
+        $vendors = User::where('owner_id',auth()->id())
+        ->where('user_type','vendor')
+        ->get();
+        return view('pages.edit-purchase',compact('products','vendors','purchase'));
     }
 
     /**

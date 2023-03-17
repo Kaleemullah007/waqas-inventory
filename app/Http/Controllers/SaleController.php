@@ -19,7 +19,7 @@ class SaleController extends Controller
     public function index(): View
     {
 
-        $sales = Sale::get();
+        $sales = Sale::paginate(10);
         return view('pages.sale',compact('sales'));
     }
 
