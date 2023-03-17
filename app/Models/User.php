@@ -24,7 +24,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'user_type'
+        'user_type',
+        'is_factory_user'
     ];
 
     protected $dates = ['last_login_at'];
