@@ -19,8 +19,10 @@ class ProductionHistoryController extends Controller
      */
     public function index(): View
     {
-        $production = ProductionHistory::paginate(10);
-        return view('pages.production',compact('production'));
+        
+        $productions = ProductionHistory::paginate(10);
+        
+        return view('pages.production',compact('productions'));
     }
 
     /**
@@ -28,8 +30,11 @@ class ProductionHistoryController extends Controller
      */
     public function create(): View
     {
-
-        return view('pages.create-production');
+        // dd(auth()->user()->id); 
+        $products = Product::get();
+        $raws = Purchase::get();
+        // dd($raws);
+        return view('pages.create-production',compact('raws','products'));
     }
 
     /**
@@ -37,19 +42,19 @@ class ProductionHistoryController extends Controller
      */
     public function store(StoreProductionHistoryRequest $request): RedirectResponse
     {
+       
         $product = Product::find($request->product_id);
         if($product == null)
         throw new \ErrorException('Product not found');
 
         $product->increment('stock',abs($request->qty));
 
-        $perchase = Purchase::find($request->product_id);
+        $perchase = Purchase::find($request->purchase_id);
 
         $total_purchase_stock = $request->qty + $request->wastage_qty;
-        $perchase->decrement('stock',$total_purchase_stock);
-
-
-        $production = ProductionHistory::create($request->validated());
+        $perchase->decrement('qty',$total_purchase_stock);
+        // dd($request->validated());
+        ProductionHistory::create($request->validated());
         return redirect('production');
     }
 
@@ -66,7 +71,11 @@ class ProductionHistoryController extends Controller
      */
     public function edit(ProductionHistory $production): View
     {
-        return view('pages.edit-production',compact('production'));
+         // dd(auth()->user()->id); 
+         $products = Product::get();
+         $raws = Purchase::get();
+         // dd($raws);
+        return view('pages.edit-production',compact('products','raws','production'));
 
     }
 
@@ -75,6 +84,47 @@ class ProductionHistoryController extends Controller
      */
     public function update(UpdateProductionHistoryRequest $request, ProductionHistory $production): RedirectResponse
     {
+
+        $product = Product::find($request->product_id);
+        if($product == null)
+        throw new \ErrorException('Product not found');
+
+        $purchase = Purchase::find($request->purchase_id);
+
+
+
+
+        $difference =  $production->qty - $request->qty;
+    
+        $difference_wastage = $production->wastage_qty - $request->wastage_qty;
+
+
+        if($difference <= 0){
+            $product->increment('stock',abs($difference));
+            $purchase->decrement('qty',abs($difference));
+
+        }else{
+            $product->decrement('stock',abs($difference));
+            $purchase->increment('qty',abs($difference));
+        }
+
+
+
+        $purchase->refresh();
+        if($difference_wastage <= 0){
+            $purchase->decrement('qty',abs($difference_wastage));
+        }else{
+            $purchase->increment('qty',abs($difference_wastage));
+        }
+
+
+        
+
+
+
+
+        
+        
         $products = ProductionHistory::where('id',$production->id)->update($request->validated());
        return redirect('production/'.$production->id.'/edit');
     }

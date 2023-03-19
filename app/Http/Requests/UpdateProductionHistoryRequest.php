@@ -11,7 +11,7 @@ class UpdateProductionHistoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,8 +26,7 @@ class UpdateProductionHistoryRequest extends FormRequest
             'qty'=>'required',
             'owner_id'=>'required|integer',
             'wastage_qty'=>'required',
-            'is_wastage'=>'boolean',
-            'is_production'=>'boolean'
+            'purchase_id'=>'required|integer'
         ];
     }
      // Adding Owner Id To all Requests

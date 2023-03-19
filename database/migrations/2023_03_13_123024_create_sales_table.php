@@ -17,7 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('qty');
             $table->float('sale_price',10,2);
+            $table->float('remaining_amount',10,2);
+            $table->float('paid _amount',10,2);
+            $table->float('discount',10,2)->default(0);
             $table->float('total',10,2);
+            $table->string('payment_method',50);
+            $table->string('payment_status',50);
             $table->foreign('user_id')->references('id')->on('users')->comments('user is Acutally customer id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('owner_id');

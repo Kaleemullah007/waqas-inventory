@@ -26,6 +26,16 @@
                                 <a href="{{ route('expense.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
                                         class="hide-menu ">{{ __('en.Expense') }}</span></a>
                             </li>
+                            
+                            <li class="{{ request()->is('production') ? 'active' : '' }}">
+                                <a href="{{ route('production.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
+                                        class="hide-menu ">{{ __('en.production') }}</span></a>
+                            </li>
+                                                        
+                            {{-- <li class="{{ request()->is('raw') ? 'active' : '' }}">
+                                <a href=""><i class="bi fs-5 pe-2 bi-wallet2"></i><span
+                                        class="hide-menu ">{{ __('en.Raw Material') }}</span></a>
+                            </li> --}}
                             {{-- Manage Users routes --}}
                             {{-- <li class="{{ request()->is('manageUser/*') ? 'active' : '' }} collapsed"
                                 data-bs-toggle="collapse" data-bs-target="#ManageUser" aria-expanded="true">

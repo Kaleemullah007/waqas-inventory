@@ -23,7 +23,7 @@ class StorePurchaseRequest extends FormRequest
     {
         return [
             'user_id'=>'required|integer',
-            'product_id'=>'required|integer',
+            // 'product_id'=>'required|integer',
             'qty'=>'required',
             'price'=>'required',
             'sale_price'=>'required',
