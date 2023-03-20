@@ -20,7 +20,6 @@
                         @csrf
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                               
                                 <label for="user_id" class="form-label fs-6">{{ __('en.Customer') }}</label>
                                 <select class="form-select bg-grey mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
                                     <option>{{__('en.Choose')}}</option>
@@ -72,6 +71,94 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
+                                <input type="number"
+                                    class="form-control bg-grey mb-2 border-dark @error('discount') is-invalid @enderror"
+                                    id="discount" name="discount" value="{{ old('discount',$sale->discount) }}"
+                                    autocomplete="discount" required autofocus>
+                                @error('discount')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="payment_status" class="form-label  fs-6">{{ __('en.Payment Status') }}</label>
+                                <select
+                                    class="form-select bg-grey mb-2 border-dark @error('payment_status') is-invalid @enderror"
+                                    name="payment_status" id="payment_status" autocomplete="payment_status" required>
+                                    <option selected>Pending</option>
+                                    <option value="1">Paid</option>
+                                    <option value="2">Partial</option>
+                                </select>
+                                @error('payment_status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="payment_method" class="form-label  fs-6">{{ __('en.Payment Method') }}</label>
+                                <select
+                                    class="form-select bg-grey mb-2 border-dark @error('payment_method') is-invalid @enderror"
+                                    name="payment_method" id="payment_method" autocomplete="payment_method" required>
+                                    <option selected>Cash</option>
+                                    <option value="1">Bank Transfer</option>
+                                    <option value="2">Mobile Account</option>
+                                    <option value="3">Other</option>
+
+                                </select>
+                                @error('payment_method')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            {{-- <input type="number" name="sub_total" > --}}
+                            <input type="hidden" name="total" >
+                            <input type="hidden" name="remaining_amount" >
+
+                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
+                                <input type="number"
+                                    class="form-control bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
+                                    id="paid_amount" name="paid_amount" value="{{ old('paid_amount',$sale->paid_amount) }}"
+                                    autocomplete="paid_amount" required autofocus>
+                                @error('paid_amount')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row justify-content-end mt-4">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <table class="table table-striped border table-sm border-secondary">
+                                    <tbody>
+                                        <tr>
+                                            <th class="col-4">{{__('en.Sub-Total')}}</th>
+                                            <td class="col-4 text-end" id="sub_total">20000</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-4">{{__('en.Discount')}}</th>
+                                            <td class="col-4 text-end" id="discount">Rs. 1000</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-4">{{__('en.Total')}}</th>
+                                            <td class="col-4 text-end" id="total">Rs. 19000</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-4">{{__('en.Paid')}}</th>
+                                            <td class="col-4 text-end" id="paid">Rs. 10000</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="col-4">{{__('en.Remaining')}}</th>
+                                            <td class="col-4 text-end" id="remaining">Rs. 9000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <!-- save button row included below -->

@@ -9,6 +9,8 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ProductionHistoryController;
+
 use Auth\VerificationController;
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,8 @@ Route::group([
         Route::resource('sale',SaleController::class);
         Route::resource('purchase',PurchaseController::class);
         Route::resource('expense',ExpenseController::class);
+        Route::resource('production',ProductionHistoryController::class);
+
 
 });
 

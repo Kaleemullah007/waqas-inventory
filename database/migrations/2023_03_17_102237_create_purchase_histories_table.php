@@ -18,9 +18,7 @@ return new class extends Migration
             $table->float('price',10,2);
             $table->float('sale_price',10,2);
             $table->unsignedBigInteger('owner_id');
-            $table->unsignedBigInteger('product_id');
             $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
-            $table->foreign('product_id')->references('id')->on('products')->comments('product id');
             $table->softDeletes();
             $table->timestamps();
         });

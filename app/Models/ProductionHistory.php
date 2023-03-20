@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
+use App\Http\Traits\FilterByUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductionHistory extends Model
 {
-    use HasFactory;
+    use HasFactory,FilterByUser;
     protected $fillable = [
         'name',
         'qty',
         'wastage_qty',
-        'is_production',
-        'is_wastage',
+        'purchase_id',
         'owner_id',
-        'product_id',
-        'purchase_id'
+        'product_id'
     ];
 }

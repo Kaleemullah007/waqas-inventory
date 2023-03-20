@@ -413,8 +413,14 @@ return
     "Last Month"=>"Last Month",
     "This Year"=>"This Year",
     "Last Year"=>"Last Year",
-    "Custom"=>"Custom"
-
+    "Custom"=>"Custom",
+    "Production Status"=>"Production Status",
+    "Production Quantity"=>"Production Quantity",
+    "Wastage Status"=>"Wastage Status",
+    "Wastage Quantity"=>"Wastage Quantity",
+    "Type"=>"Type",
+    "Net Profit"=>"Net Profit",
+    "Net Worth"=>"Net Worth"
 
 ];
 ?>

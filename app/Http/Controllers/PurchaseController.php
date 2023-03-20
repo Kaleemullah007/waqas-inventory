@@ -30,11 +30,11 @@ class PurchaseController extends Controller
     public function create(): View
     {
 
-        $products = Product::get();
+        // $products = Product::get();
         $vendors = User::where('owner_id',auth()->id())
         ->where('user_type','vendor')
         ->get();
-        return view('pages.create-purchase',compact('products','vendors'));
+        return view('pages.create-purchase',compact('vendors'));
 
     }
 
@@ -45,11 +45,11 @@ class PurchaseController extends Controller
     {
         // Purchase::create($request->validated());
         // dd($request->validated());
-        $product = Product::find($request->product_id);
-        $product->increment('stock',$request->qty);
-        $product->sale_price = $request->sale_price;
-        $product->price = $request->price;
-        $product->save();
+        // $product = Product::find($request->product_id);
+        // $product->increment('stock',$request->qty);
+        // $product->sale_price = $request->sale_price;
+        // $product->price = $request->price;
+        // $product->save();
         $purchases = Purchase::create($request->validated());
         PurchaseHistory::create($request->validated());
         return redirect('purchase');
@@ -73,11 +73,11 @@ class PurchaseController extends Controller
         // throw new \ErrorException('purchase not found');
         // return view('pages.edit-purchase');
 
-        $products = Product::get();
+        // $products = Product::get();
         $vendors = User::where('owner_id',auth()->id())
         ->where('user_type','vendor')
         ->get();
-        return view('pages.edit-purchase',compact('products','vendors','purchase'));
+        return view('pages.edit-purchase',compact('vendors','purchase'));
     }
 
     /**
@@ -93,9 +93,9 @@ class PurchaseController extends Controller
         // negative increment   $d
         // dd($request->all());
 
-        $product = Product::find($request->product_id);
-        if($product == null)
-        throw new \ErrorException('Product not found');
+        // $product = Product::find($request->product_id);
+        // if($product == null)
+        // throw new \ErrorException('Product not found');
 
         // $difference = $purchase->qty -  $request->qty;
         // if($difference > 0){
@@ -105,9 +105,9 @@ class PurchaseController extends Controller
         //     $product->increment('stock',abs($difference));
         // }
 
-        $product->sale_price = $request->sale_price;
-        $product->price = $request->price;
-        $product->save();
+        // $product->sale_price = $request->sale_price;
+        // $product->price = $request->price;
+        // $product->save();
 
         $purchases = Purchase::where('id',$purchase->id)->update($request->validated());
         $purchases = PurchaseHistory::create($request->validated());

@@ -11,7 +11,7 @@ class StoreProductionHistoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,12 +26,14 @@ class StoreProductionHistoryRequest extends FormRequest
             'qty'=>'required',
             'owner_id'=>'required|integer',
             'wastage_qty'=>'required',
-            'is_wastage'=>'boolean',
-            'is_production'=>'boolean'
+            'purchase_id'=>'required|integer'
+            
         ];
     }
      // Adding Owner Id To all Requests
      protected function prepareForValidation(){
+
+
         $this->merge([
             'owner_id'=>auth()->id()
         ]);

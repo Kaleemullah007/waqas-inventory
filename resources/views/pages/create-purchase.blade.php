@@ -36,7 +36,7 @@
                                     <span class=" mb-2 ps-2"  data-bs-toggle="modal" data-bs-target="#add_vendor"><i class="bi fs-4 bi-person-plus-fill"></i></span>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                            {{-- <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                 <select class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required>
                                     <option>{{__('en.Choose')}}</option>
@@ -49,7 +49,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number"
