@@ -1,5 +1,10 @@
 @extends('layouts.master')
 
+@section('datefilter')
+@include('pages.list-filter')
+@endsection
+
+
 @section('title')
 Dashboard
 @endsection
@@ -177,7 +182,7 @@ Dashboard
                                             <th>{{__('en.Quantity')}}</th>
                                             {{-- <th>{{__('en.Action')}}</th> --}}
                                         </tr>
-                                      
+
                                     </thead>
                                     <tbody>
                                         {{-- @foreach ($sales as $sale )
