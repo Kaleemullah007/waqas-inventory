@@ -14,6 +14,12 @@ if (! function_exists('langUrl')) {
     }
 }
 
+if (! function_exists('changeDateFormat')) {
+    function changeDateFormat($date,$format) {
+        return date($format, strtotime($date));
+    }
+}
+
 
 /**
  * Shortcut for accessing the config theme.

@@ -45,7 +45,7 @@
                                 <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                 <select
                                     class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror"
-                                    name="product_id" id="product_id" autocomplete="product_id" required>
+                                    name="product_id" id="product_id" autocomplete="product_id" required  onchange="getPrice()">
                                     <option>{{ __('en.Choose') }}</option>
                                     @foreach ($products as $product)
                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -60,9 +60,9 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
-                                    id="qty" name="qty" placeholder="20" value="{{ old('qty') }}"
-                                    autocomplete="qty" required autofocus>
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
+                                    id="qty" name="qty" placeholder="20" value="{{ old('qty',1) }}"
+                                    autocomplete="qty" required autofocus  onkeyup="calcualtePrice()" min="1">
                                 @error('qty')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -72,9 +72,9 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                    class="form-control bg-grey calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                     id="sale_price" name="sale_price" placeholder="10" value="{{ old('sale_price') }}"
-                                    autocomplete="sale_price" required autofocus>
+                                    autocomplete="sale_price" required autofocus  onkeyup="calcualtePrice()" min="0">
                                 @error('sale_price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -84,8 +84,8 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('discount') is-invalid @enderror"
-                                    id="discount" name="discount" placeholder="10" value="{{ old('discount') }}"
+                                    class="form-control bg-grey mb-2 calculation border-dark @error('discount') is-invalid @enderror"
+                                    id="discount" name="discount" placeholder="10" value="{{ old('discount',0) }}" min="0"  onkeyup="calcualtePrice()"
                                     autocomplete="discount" required autofocus>
                                 @error('discount')
                                     <span class="invalid-feedback" role="alert">
@@ -126,15 +126,15 @@
                                 @enderror
                             </div>
                             {{-- <input type="number" name="sub_total" > --}}
-                            <input type="hidden" name="total" >
-                            <input type="hidden" name="remaining_amount" >
+                            <input type="hidden" name="total" id="total">
+                            <input type="hidden" name="remaining_amount" id="remaining_amount">
 
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
-                                    id="paid_amount" name="paid_amount" placeholder="70" value="{{ old('paid_amount') }}"
-                                    autocomplete="paid_amount" required autofocus>
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
+                                    id="paid_amount" name="paid_amount" placeholder="70" min="0"
+                                    value="{{ old('paid_amount',0) }}" autocomplete="paid_amount" required autofocus onkeyup="calcualtePrice()">
                                 @error('paid_amount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -147,24 +147,24 @@
                                 <table class="table table-striped border table-sm border-secondary">
                                     <tbody>
                                         <tr>
-                                            <th class="col-4">{{__('en.Sub-Total')}}</th>
-                                            <td class="col-4 text-end" id="sub_total">20000</td>
+                                            <th class="col-4">{{ __('en.Sub-Total') }}</th>
+                                            <td class="col-4 text-end" id="sub_total">0</td>
                                         </tr>
                                         <tr>
-                                            <th class="col-4">{{__('en.Discount')}}</th>
-                                            <td class="col-4 text-end" id="discount">Rs. 1000</td>
+                                            <th class="col-4">{{ __('en.Discount') }}</th>
+                                            <td class="col-4 text-end" id="show_discount">Rs. 0</td>
                                         </tr>
                                         <tr>
-                                            <th class="col-4">{{__('en.Total')}}</th>
-                                            <td class="col-4 text-end" id="total">Rs. 19000</td>
+                                            <th class="col-4">{{ __('en.Total') }}</th>
+                                            <td class="col-4 text-end" id="show_total">Rs. 0</td>
                                         </tr>
                                         <tr>
-                                            <th class="col-4">{{__('en.Paid')}}</th>
-                                            <td class="col-4 text-end" id="paid">Rs. 10000</td>
+                                            <th class="col-4">{{ __('en.Paid') }}</th>
+                                            <td class="col-4 text-end" id="paid">Rs. 0</td>
                                         </tr>
                                         <tr>
-                                            <th class="col-4">{{__('en.Remaining')}}</th>
-                                            <td class="col-4 text-end" id="remaining">Rs. 9000</td>
+                                            <th class="col-4">{{ __('en.Remaining') }}</th>
+                                            <td class="col-4 text-end" id="remaining">Rs. 0</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -257,4 +257,9 @@
     </div>
 @endsection
 @section('script')
+
+<script>
+
+
+</script>
 @endsection

@@ -23,11 +23,15 @@ use Auth\VerificationController;
 |
 */
 
+Route::get('/product_price',function(){
+    return response()->json([1,2,4]);
+})->name('product_price');
+
 Route::get('/', function () {
 
     return view('welcome');
 });
-
+Route::get('get-csv-sales',[SaleController::class,'CSV']);
 
 Route::group([
     'middleware' => ['avoid-back-history'],
@@ -36,13 +40,16 @@ Route::group([
 
     Auth::routes(['verify' => true]);
 
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
 
         Route::resource('product',ProductController::class);
-        Route::resource('sale',SaleController::class);
+        Route::get('get-price/{product}',[ProductController::class,'getPrice']);
+        Route::post('get-sales',[SaleController::class,'getSales']);
+        Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
         Route::resource('purchase',PurchaseController::class);
         Route::resource('expense',ExpenseController::class);
         Route::resource('production',ProductionHistoryController::class);

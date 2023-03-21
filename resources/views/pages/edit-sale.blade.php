@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                    @include('message')
                     <form method="POST" action="{{route('sale.update',$sale->id)}}" enctype="">
                         @method('patch')
                         @csrf
@@ -36,7 +37,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
-                                <select class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required>
+                                <select class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required onchange="getPrice()">
                                     <option>{{__('en.Choose')}}</option>
                                     @foreach ($products as $product)
                                         <option value="{{$product->id}}" @selected($product->id == $sale->product_id) >{{$product->name}}</option>
@@ -51,7 +52,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
                                     id="qty" name="qty" value="{{ old('qty',$sale->qty) }}"
                                     autocomplete="qty" required autofocus>
                                 @error('qty')
@@ -63,9 +64,9 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                     id="sale_price" name="sale_price" value="{{ old('sale_price',$sale->sale_price) }}"
-                                    autocomplete="sale_price" required autofocus>
+                                    autocomplete="sale_price" required autofocus onchange="calcualtePrice()">
                                 @error('sale_price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -75,9 +76,9 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('discount') is-invalid @enderror"
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('discount') is-invalid @enderror"
                                     id="discount" name="discount" value="{{ old('discount',$sale->discount) }}"
-                                    autocomplete="discount" required autofocus>
+                                    autocomplete="discount" required autofocus onchange="calcualtePrice()">
                                 @error('discount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -89,9 +90,9 @@
                                 <select
                                     class="form-select bg-grey mb-2 border-dark @error('payment_status') is-invalid @enderror"
                                     name="payment_status" id="payment_status" autocomplete="payment_status" required>
-                                    <option selected>Pending</option>
-                                    <option value="1">Paid</option>
-                                    <option value="2">Partial</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Partial">Partial</option>
                                 </select>
                                 @error('payment_status')
                                     <span class="invalid-feedback" role="alert">
@@ -104,10 +105,10 @@
                                 <select
                                     class="form-select bg-grey mb-2 border-dark @error('payment_method') is-invalid @enderror"
                                     name="payment_method" id="payment_method" autocomplete="payment_method" required>
-                                    <option selected>Cash</option>
-                                    <option value="1">Bank Transfer</option>
-                                    <option value="2">Mobile Account</option>
-                                    <option value="3">Other</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Mobile Account">Mobile Account</option>
+                                    <option value="Other">Other</option>
 
                                 </select>
                                 @error('payment_method')
@@ -123,9 +124,9 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
                                 <input type="number"
-                                    class="form-control bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
+                                    class="form-control calculation bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
                                     id="paid_amount" name="paid_amount" value="{{ old('paid_amount',$sale->paid_amount) }}"
-                                    autocomplete="paid_amount" required autofocus>
+                                    autocomplete="paid_amount" required autofocus onchange="calcualtePrice()">
                                 @error('paid_amount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -139,23 +140,23 @@
                                     <tbody>
                                         <tr>
                                             <th class="col-4">{{__('en.Sub-Total')}}</th>
-                                            <td class="col-4 text-end" id="sub_total">20000</td>
+                                            <td class="col-4 text-end" id="sub_total">{{$sale->total-$sale->discount}}</td>
                                         </tr>
                                         <tr>
                                             <th class="col-4">{{__('en.Discount')}}</th>
-                                            <td class="col-4 text-end" id="discount">Rs. 1000</td>
+                                            <td class="col-4 text-end" id="show_discount">{{$sale->discount}}</td>
                                         </tr>
                                         <tr>
                                             <th class="col-4">{{__('en.Total')}}</th>
-                                            <td class="col-4 text-end" id="total">Rs. 19000</td>
+                                            <td class="col-4 text-end" id="show_total">{{$sale->total}}</td>
                                         </tr>
                                         <tr>
                                             <th class="col-4">{{__('en.Paid')}}</th>
-                                            <td class="col-4 text-end" id="paid">Rs. 10000</td>
+                                            <td class="col-4 text-end" id="paid">{{$sale->paid_amount}}</td>
                                         </tr>
                                         <tr>
                                             <th class="col-4">{{__('en.Remaining')}}</th>
-                                            <td class="col-4 text-end" id="remaining">Rs. 9000</td>
+                                            <td class="col-4 text-end" id="remaining">{{$sale->remaining_amount}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -169,3 +170,12 @@
         </div>
     </div>
 @endsection
+@section('script')
+
+<script>
+  $(document).ready(function() {
+    calcualtePrice();
+  })
+</script>
+@endsection
+

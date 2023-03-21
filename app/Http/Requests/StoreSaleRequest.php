@@ -30,15 +30,21 @@ class StoreSaleRequest extends FormRequest
             'qty'=>'required',
             'sale_price'=>'required',
             'owner_id'=>'required|integer',
-            'total'=>'required',
+            'discount'=>'required|integer',
+            'payment_status'=>'required',
+            'payment_method'=>'required',
+            'paid_amount'=>'required|integer',
+            'remaining_amount'=>'required|integer',
+            'total'=>'required|integer',
+
             // 'flag'=>['required','boolean',Rule::notIn([false])]
         ];
     }
     // Adding Owner Id To all Requests
     protected function prepareForValidation(){
-        
+
         // $product = Product::find($this->product_id);
-        
+
         // $flag = false;
         // if($product->stock > $this->qty)
         //   $flag = true;
