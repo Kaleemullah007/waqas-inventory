@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     public function index()
     {
-
+        
         $start_date = date('Y-m-d');
         $end_date = date('Y-m-d');
 

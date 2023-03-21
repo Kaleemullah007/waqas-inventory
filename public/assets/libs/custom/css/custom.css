@@ -192,6 +192,8 @@
     /* admin card style */
 
     .admin-list {
+        height: 300px;
+        overflow: auto;
         padding: 10px;
         border-radius: 5px;
         background: var(--white-color);
@@ -205,8 +207,8 @@
     }
 
     p.admin-ac-title {
-        font-size: 15px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 600;
         padding: 0px 5px;
         display: inline-block;
         border-bottom: 2px solid var(--main-color);
