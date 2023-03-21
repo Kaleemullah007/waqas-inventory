@@ -12,7 +12,7 @@
             <i class="bi bi-arrows-fullscreen header-icon d-none d-sm-inline-block py-2" onClick="toggleFullScreen()"></i>
         </div>
         <div class="mx-auto">
-            @include('pages.list-filter')
+            @yield('datefilter')
         </div>
         <ul class="navbar-item flex-row ms-auto">
             <!-- Notification section -->
@@ -139,10 +139,3 @@
 </div>
 <!-- Navbar End -->
 
-
-<!-- Topbar header end - style you can find in custom.css -->
-<!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Account Settings</a></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul> -->
