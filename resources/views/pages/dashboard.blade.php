@@ -5,7 +5,7 @@ Dashboard
 @endsection
 
 @section('content')
-        <div class="sm-chart-sec my-3">
+        <div class="sm-chart-sec mt-3">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 my-2">
@@ -75,135 +75,177 @@ Dashboard
             </div>
         </div>
     <!-- Admin and order status table -->
-        <div class="all-admin my-4">
+        <div class="all-admin">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4 col-12">
+                    <div class="col-lg-4 col-md-6 col-12 pt-4">
                         <div class="admin-list">
-                            <p class="admin-ac-title">{{__('en.Products')}}</p>
-                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet consequuntur sint eveniet architecto sunt quidem nemo temporibus, ratione dolore, saepe excepturi atque rem delectus corporis ad earum. Ullam, possimus aliquam earum sed odit, illum vel, corrupti saepe quaerat sit commodi hic. Iusto, delectus? Fugit, doloribus pariatur! Eveniet illo modi nihil.</h5>
-                            {{-- <ul class="admin-ul">
-                                <li class="admin-li">
-                                    <img src="/assets/images/user1.png" alt="Image" class="admin-image">
-                                    <div class="admin-ac-details">
-                                        <div>
-                                            <a href="#" class="admin-name">Kaleem Ullah</a>
-                                            <p class="activity-text">Active Now</p>
-                                        </div>
-                                        <div class="status bg-success"></div>
-                                    </div>
-                                </li>
-                                <li class="admin-li">
-                                    <img src="/assets/images/user2.png" alt="Image" class="admin-image">
-                                    <div class="admin-ac-details">
-                                        <div>
-                                            <a href="#" class="admin-name">Muhammad Uzair</a>
-                                            <p class="activity-text">Active 15 min ago</p>
-                                        </div>
-                                        <div class="status bg-primary"></div>
-                                    </div>
-                                </li>
-                                <li class="admin-li">
-                                    <img src="/assets/images/user3.png" alt="Image" class="admin-image">
-                                    <div class="admin-ac-details">
-                                        <div>
-                                            <a href="#" class="admin-name">Ali Khan</a>
-                                            <p class="activity-text">Active 30 min ago</p>
-                                        </div>
-                                        <div class="status bg-warning"></div>
-                                    </div>
-                                </li>
-                                <li class="admin-li">
-                                    <img src="/assets/images/user4.png" alt="Image" class="admin-image">
-                                    <div class="admin-ac-details">
-                                        <div>
-                                            <a href="#" class="admin-name">Ahmad Khan</a>
-                                            <p class="activity-text">Active 2 days ago</p>
-                                        </div>
-                                        <div class="status bg-danger"></div>
-                                    </div>
-                                </li>
-                                <li class="admin-li">
-                                    <img src="/assets/images/user5.png" alt="Image" class="admin-image">
-                                    <div class="admin-ac-details">
-                                        <div>
-                                            <a href="#" class="admin-name">Shan Khan</a>
-                                            <p class="activity-text">Active Now</p>
-                                        </div>
-                                        <div class="status bg-success"></div>
-                                    </div>
-                                </li>
-                            </ul> --}}
-                        </div>
-                    </div>
-
-                    {{-- <div class="col-md-8 col-sm-7">
-                        <div class="order-list">
-                            <p class="order-ac-title">{{__('en.Order Status')}}</p>
-                            <div class="data-table-section table-responsive">
-                                <table id="order-table" class="table table-striped" style="width:100%">
+                            <p class="admin-ac-title ">{{__('en.Products')}}</p>
+                            <div class="table-responsive">
+                                <table class="table border table-striped">
                                     <thead>
                                         <tr>
+                                            <th>{{__('en.Id')}}</th>
                                             <th>{{__('en.Name')}}</th>
-                                            <th>{{__('en.Position')}}</th>
-                                            <th>{{__('en.Office')}}</th>
-                                            <th>{{__('en.Age')}}</th>
+                                            {{-- <th>{{__('en.Price')}}</th> --}}
+                                            {{-- <th>{{__('en.Selling price')}}</th> --}}
+                                            {{-- <th>{{__('en.Purchasing Price')}}</th> --}}
+                                            <th>{{__('en.Stock')}}</th>
+                                            <th>{{__('en.Stock alert')}}</th>
+                                            {{-- <th>{{__('en.Action')}}</th> --}}
                                         </tr>
                                     </thead>
-                                    <tbody class="order-view-tb">
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-cla">Success</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-clb">Open</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-clc">On Hold</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-cld">Checked</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-cla">Process</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                                <a href="#" class="status-tb-btn bg-clb">Open</a>
-                                            </td>
-                                        </tr>
+                                    <tbody>
+                                        {{-- @foreach ($products as $product )
+                                            <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
+                                                <th>{{$product->id}}</th>
+                                                <td>{{$product->name}}</td>
+                                                <td>{{$product->sale_price}}</td>
+                                                <td>{{$product->stock}}</td>
+                                                <td>{{$product->stock_alert}}</td>
+                                                <td>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                        <i class="bi bi-eye-fill"></i></a>
+                                                    <a href="{{route('product.edit',$product->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
+                                                        <i class="bi bi-pencil"></i></a>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                        <i class="bi bi-trash-fill"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 pt-4">
+                        <div class="admin-list">
+                            <p class="admin-ac-title ">{{__('en.Purchases')}}</p>
+                            <div class="table-responsive">
+                                <table class="table border table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('en.Id') }}</th>
+                                            <th>{{ __('en.Vendor') }}</th>
+                                            {{-- <th>{{ __('en.Selling price') }}</th> --}}
+                                            {{-- <th>{{ __('en.Price') }}</th> --}}
+                                            <th>{{ __('en.Quantity') }}</th>
+                                            {{-- <th>{{ __('en.Action') }}</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($purchases as $purchase)
+                                            <tr>
+                                                <th>{{ $purchase->id }}</th>
+                                                <td>{{ $purchase->user_id }}</td>
+                                                <td>{{ $purchase->sale_price }}</td>
+                                                <td>{{ $purchase->price }}</td>
+                                                <td>{{ $purchase->qty }}</td>
+                                                <td>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
+                                                        <i class="bi bi-eye-fill"></i></a>
+                                                    <a href="{{ route('purchase.edit', $purchase->id) }}" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" title="Edit"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
+                                                        <i class="bi bi-pencil"></i></a>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
+                                                        <i class="bi bi-trash-fill"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 pt-4">
+                        <div class="admin-list">
+                            <p class="admin-ac-title">{{__('en.Sales')}}</p>
+                            <div class="table-responsive">
+                                <table class="table border table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>{{__('en.Id')}}</th>
+                                            <th>{{__('en.Customer')}}</th>
+                                            <th>{{__('en.Product')}}</th>
+                                            {{-- <th>{{__('en.Price')}}</th> --}}
+                                            <th>{{__('en.Quantity')}}</th>
+                                            {{-- <th>{{__('en.Action')}}</th> --}}
+                                        </tr>
+                                      
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($sales as $sale )
+                                        <tr>
+                                            <th>{{$sale->id}}</th>
+                                            <td>{{$sale->user_id}}</td>
+                                            <td>{{$sale->product_id}}</td>
+                                            <td>{{$sale->sale_price}}</td>
+                                            <td>{{$sale->qty}}</td>
+                                            <td>
+                                                <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
+                                                    class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                    <i class="bi bi-eye-fill"></i></a>
+                                                <a href="{{route('sale.edit',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                                                    class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
+                                                    <i class="bi bi-pencil"></i></a>
+                                                <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                                                    class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                    <i class="bi bi-trash-fill"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 pt-4">
+                        <div class="admin-list">
+                            <p class="admin-ac-title">{{__('en.Expenses')}}</p>
+                            <div class="table-responsive">
+                                <table class="table border table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>{{__('en.Id')}}</th>
+                                            <th>{{__('en.Name')}}</th>
+                                            <th>{{__('en.Amount')}}</th>
+                                            <th>{{__('en.Date')}}</th>
+                                            {{-- <th>{{__('en.Action')}}</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- @foreach ($expenses as $expense )
+                                            <tr>
+                                                <th>{{$expense->id}}</th>
+                                                <td>{{$expense->name}}</td>
+                                                <td>{{$expense->amount}}</td>
+                                                <td>{{$expense->date}}</td>
+                                                <td>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                        <i class="bi bi-eye-fill"></i></a>
+                                                    <a href="{{route('expense.edit',$expense->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
+                                                        <i class="bi bi-pencil"></i></a>
+                                                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                                                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                                        <i class="bi bi-trash-fill"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
