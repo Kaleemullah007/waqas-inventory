@@ -33,6 +33,13 @@ Route::get('/', function () {
 });
 Route::get('get-csv-sales',[SaleController::class,'CSV']);
 
+
+
+Route::get('get-csv-products',[SaleController::class,'CSV']);
+Route::get('get-csv-purchases',[SaleController::class,'CSV']);
+Route::get('get-csv-expenses',[SaleController::class,'CSV']);
+Route::get('get-csv-productions',[SaleController::class,'CSV']);
+
 Route::group([
     'middleware' => ['avoid-back-history'],
 
@@ -45,13 +52,16 @@ Route::group([
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
-
+        Route::post('get-products',[ProductController::class,'getProducts']);
         Route::resource('product',ProductController::class);
         Route::get('get-price/{product}',[ProductController::class,'getPrice']);
         Route::post('get-sales',[SaleController::class,'getSales']);
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
+        Route::post('get-purchases',[SaleController::class,'getSales']);
         Route::resource('purchase',PurchaseController::class);
+        Route::post('get-expenses',[SaleController::class,'getSales']);
         Route::resource('expense',ExpenseController::class);
+        Route::post('get-productions',[SaleController::class,'getSales']);
         Route::resource('production',ProductionHistoryController::class);
 
 

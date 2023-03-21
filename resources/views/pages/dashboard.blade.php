@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('datefilter')
-@include('pages.list-filter')
+@include('pages.list-filter',['functionName'=>'getStatisticsForDashBoard'])
 @endsection
 
 
@@ -101,7 +101,7 @@ Dashboard
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($products as $product )
+                                        @foreach ($result['latest_products'] as $product )
                                             <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
                                                 <th>{{$product->id}}</th>
                                                 <td>{{$product->name}}</td>
@@ -120,7 +120,7 @@ Dashboard
                                                         <i class="bi bi-trash-fill"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -142,7 +142,7 @@ Dashboard
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($purchases as $purchase)
+                                        @foreach ($result['latest_purchases'] as $purchase)
                                             <tr>
                                                 <th>{{ $purchase->id }}</th>
                                                 <td>{{ $purchase->user_id }}</td>
@@ -162,7 +162,7 @@ Dashboard
                                                         <i class="bi bi-trash-fill"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -185,7 +185,7 @@ Dashboard
 
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($sales as $sale )
+                                        @foreach ($result['latest_sales'] as $sale )
                                         <tr>
                                             <th>{{$sale->id}}</th>
                                             <td>{{$sale->user_id}}</td>
@@ -204,7 +204,7 @@ Dashboard
                                                     <i class="bi bi-trash-fill"></i></a>
                                             </td>
                                         </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -225,7 +225,7 @@ Dashboard
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($expenses as $expense )
+                                        @foreach ($result['latest_expenses'] as $expense )
                                             <tr>
                                                 <th>{{$expense->id}}</th>
                                                 <td>{{$expense->name}}</td>
@@ -243,7 +243,7 @@ Dashboard
                                                         <i class="bi bi-trash-fill"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
