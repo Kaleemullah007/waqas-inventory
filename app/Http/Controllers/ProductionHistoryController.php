@@ -19,9 +19,9 @@ class ProductionHistoryController extends Controller
      */
     public function index(): View
     {
-        
-        $productions = ProductionHistory::paginate(10);
-        
+
+        $productions = ProductionHistory::with(['RawMaterial','Product'])->paginate(10);
+
         return view('pages.production',compact('productions'));
     }
 
@@ -30,7 +30,7 @@ class ProductionHistoryController extends Controller
      */
     public function create(): View
     {
-        // dd(auth()->user()->id); 
+        // dd(auth()->user()->id);
         $products = Product::get();
         $raws = Purchase::get();
         // dd($raws);
@@ -42,7 +42,7 @@ class ProductionHistoryController extends Controller
      */
     public function store(StoreProductionHistoryRequest $request): RedirectResponse
     {
-       
+
         $product = Product::find($request->product_id);
         if($product == null)
         throw new \ErrorException('Product not found');
@@ -71,7 +71,7 @@ class ProductionHistoryController extends Controller
      */
     public function edit(ProductionHistory $production): View
     {
-         // dd(auth()->user()->id); 
+         // dd(auth()->user()->id);
          $products = Product::get();
          $raws = Purchase::get();
          // dd($raws);
@@ -95,7 +95,7 @@ class ProductionHistoryController extends Controller
 
 
         $difference =  $production->qty - $request->qty;
-    
+
         $difference_wastage = $production->wastage_qty - $request->wastage_qty;
 
 
@@ -118,13 +118,13 @@ class ProductionHistoryController extends Controller
         }
 
 
-        
 
 
 
 
-        
-        
+
+
+
         $products = ProductionHistory::where('id',$production->id)->update($request->validated());
        return redirect('production/'.$production->id.'/edit');
     }

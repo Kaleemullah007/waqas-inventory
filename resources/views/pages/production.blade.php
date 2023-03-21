@@ -42,10 +42,10 @@
                         @foreach ($productions as $production)
                             <tr>
                                 <th>{{ $production->id }}</th>
-                                <td>{{ $production->raw }}</td>
-                                <td>{{ $production->product_id }}</td>
+                                <td>{{ $production->RawMaterial->name }}</td>
+                                <td>{{ $production->Product->name }}</td>
                                 <td>{{ $production->qty }}</td>
-                                <td>{{ $production->waste }}</td>
+                                <td>{{ $production->wastage_qty }}</td>
                                 <td>
                                     <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
