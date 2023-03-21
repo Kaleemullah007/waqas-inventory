@@ -17,6 +17,10 @@
         });
 
 
+        // $(".getSales").on("change", function () {
+        //     getSales();
+        // });
+
     }, 1000);
     // daterangepicker
 
@@ -79,5 +83,92 @@
     //     toggleFullScreen
     //  })
 
+    function getPrice()
+    {
+        var productid = $("#product_id").val();
+        $.ajax({
+            type: "GET",
+            url: "/get-price/"+productid,
+            success: function(data) {
+                $("#sale_price").val(data.sale_price)
+                calcualtePrice();
+            }
+        });
+    }
+
+    function calcualtePrice()
+    {
 
 
+        var paid_amount = $("#paid_amount").val();
+        var qty = $("#qty").val();
+        var discount = $("#discount").val();
+        var sale_price = $("#sale_price").val();
+        var total_amount = (parseFloat(sale_price)*parseFloat(qty))-parseFloat(discount);
+        var subtotal = (parseFloat(sale_price)*parseFloat(qty));
+        var remaining_amount=  total_amount - parseFloat(paid_amount);
+        $("#remaining_amount").val(remaining_amount);
+        $("#total").val(total_amount);
+        $("#remaining").text(remaining_amount);
+        $("#paid").text(paid_amount);
+        $("#sub_total").text(subtotal);
+        $("#show_discount").text(discount);
+        $("#show_total").text(total_amount);
+
+
+
+
+    }
+
+
+
+    $(".calculation").on("change", function () {
+        calcualtePrice();
+    });
+
+
+
+    function showLoader()
+    {
+    alert("showLoader");
+    }
+
+    function hideLoader()
+    {
+    alert("hideLoader");
+    }
+
+
+    function getSales()
+    {
+        var daterange = $("#daterange").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-sales",
+            data:{"daterange":daterange},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
+
+
+
+
+    $(document).on('click','.export-csv',function(){
+
+        //var restaurants_id = $('#restaurants_id').val();
+
+
+
+        var datetimerange = $('#daterange').val();
+        var url = "/get-csv-sales?daterange="+datetimerange,
+
+        new_window = window.open(url);
+    })

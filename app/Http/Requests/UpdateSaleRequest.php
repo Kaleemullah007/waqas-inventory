@@ -29,8 +29,12 @@ class UpdateSaleRequest extends FormRequest
             'qty'=>'required',
             'sale_price'=>'required',
             'owner_id'=>'required|integer',
-            'total'=>'required',
-            // 'flag'=>['required','boolean',Rule::notIn([false])]
+            'discount'=>'required|integer',
+            'payment_status'=>'required',
+            'payment_method'=>'required',
+            'paid_amount'=>'required|integer',
+            'remaining_amount'=>'required|integer',
+            'total'=>'required|integer',
         ];
     }
 
@@ -41,9 +45,11 @@ class UpdateSaleRequest extends FormRequest
         // $flag = false;
         // if($product->stock > $this->qty)
         //   $flag = true;
+        $total = $this->qty*$this->sale_price;
         $this->merge([
             'owner_id'=>auth()->id(),
-            'total'=>$this->qty*$this->sale_price,
+            'total'=>$total,
+            'remaining_amount'=> $total-$this->paid_amount-$this->discount
             // 'flag'=>$flag,
         ]);
     }

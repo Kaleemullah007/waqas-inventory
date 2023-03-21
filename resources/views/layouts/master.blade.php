@@ -27,6 +27,7 @@
     <script src="{{ asset('assets/libs/chart/apexcharts/apexcharts.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/chart/chart.js') }}" defer></script>
     <script src="{{ asset('assets/libs/datatable/datatables.min.js') }}" defer></script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
 
     <!-- Styles -->
@@ -47,11 +48,6 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-
-
-
-
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 
 <body>

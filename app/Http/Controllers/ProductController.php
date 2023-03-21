@@ -72,4 +72,11 @@ class ProductController extends Controller
         $product->dalete();
         return redirect('product/'.$product->id);
     }
+
+    public function getPrice(Product $product)
+    {
+
+        return response()->json(['sale_price'=>$product->sale_price],200);
+    }
+
 }

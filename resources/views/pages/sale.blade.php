@@ -24,15 +24,16 @@ Sales Listing
                         data-bs-target="#filters" aria-controls="filters"><i class="bi bi-funnel"></i> {{__('en.Filter')}}</button>
                     <button type="button" class="btn btn-sm me-2 btn-outline-success"><i class="bi bi-filetype-pdf"></i>
                         {{__('en.PDF')}}</button> --}}
-                    <button type="button" class="btn btn-sm me-2 btn-outline-danger"><i
+                    <button type="button" class="btn btn-sm me-2 btn-outline-danger export-csv" ><i
                             class="bi bi-file-earmark-excel-fill"></i> {{__('en.EXCEL')}}</button>
                     <!-- modal trigger for create sale -->
                     <a href="{{ route('sale.create') }}" class="btn btn-sm me-2 btn-primary">
                         <i class="bi bi-plus-circle me-2"></i>{{__('en.Create')}}</a>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table border table-striped">
+            <div class="table-responsive" id="searchable">
+                @include('pages.ajax-sale',['sales'=>$sales])
+                {{-- <table class="table border table-striped">
                     <thead>
                         <tr>
                             <th>{{__('en.Id')}}</th>
@@ -42,7 +43,7 @@ Sales Listing
                             <th>{{__('en.Quantity')}}</th>
                             <th>{{__('en.Action')}}</th>
                         </tr>
-                      
+
                     </thead>
                     <tbody>
                         @foreach ($sales as $sale )
@@ -66,7 +67,7 @@ Sales Listing
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
 
             {{-- row per page and pagination file below --}}
