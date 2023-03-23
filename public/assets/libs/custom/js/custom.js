@@ -142,6 +142,7 @@
     function getSales()
     {
         var daterange = $("#daterange").val();
+        var search = $("#search").val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -150,7 +151,73 @@
         $.ajax({
             type: "POST",
             url: "/get-sales",
-            data:{"daterange":daterange},
+            data:{"daterange":daterange,"search":search},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
+
+    //  Get products
+
+    
+    function getProducts()
+    {
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-products",
+            data:{"search":search},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
+
+    // Get Purchases
+
+   
+    function getPurchases()
+    {
+        var daterange = $("#daterange").val();
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-purchases",
+            data:{"daterange":daterange,"search":search},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
+
+    //  Get Productions
+    function getProductions()
+    {
+        var daterange = $("#daterange").val();
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-productions",
+            data:{"daterange":daterange,"search":search},
             success: function(data) {
                 $('#searchable').html(data.html);
             }
@@ -159,16 +226,94 @@
     }
 
 
+    // Get expenses
+    function getExpenses()
+    {
+        var daterange = $("#daterange").val();
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-expenses",
+            data:{"daterange":daterange,"search":search},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
 
 
-    $(document).on('click','.export-csv',function(){
+    $(document).on('click','.export-csv-sale',function(){
 
         //var restaurants_id = $('#restaurants_id').val();
 
 
 
         var datetimerange = $('#daterange').val();
-        var url = "/get-csv-sales?daterange="+datetimerange,
+        var search = $('#daterange').val();
+        var url = "/get-csv-sales?daterange="+datetimerange+'search='+search,
+
+        new_window = window.open(url);
+    })
+
+    
+    $(document).on('click','.export-csv-production',function(){
+
+        //var restaurants_id = $('#restaurants_id').val();
+
+
+
+        var datetimerange = $('#daterange').val();
+        var search = $('#daterange').val();
+        var url = "/get-csv-productions?daterange="+datetimerange+'search='+search,
+
+        new_window = window.open(url);
+    })
+
+
+    
+    $(document).on('click','.export-csv-expense',function(){
+
+        //var restaurants_id = $('#restaurants_id').val();
+
+
+
+        var datetimerange = $('#daterange').val();
+        var search = $('#daterange').val();
+        var url = "/get-csv-expenses?daterange="+datetimerange+'search='+search,
+
+        new_window = window.open(url);
+    })
+
+
+    
+    $(document).on('click','.export-csv-purchase',function(){
+
+        //var restaurants_id = $('#restaurants_id').val();
+
+
+
+        var datetimerange = $('#daterange').val();
+        var search = $('#daterange').val();
+        var url = "/get-csv-purchases?daterange="+datetimerange+'search='+search,
+
+        new_window = window.open(url);
+    })
+
+    
+    $(document).on('click','.export-csv-product',function(){
+
+        //var restaurants_id = $('#restaurants_id').val();
+
+
+
+        var datetimerange = $('#daterange').val();
+        var url = "/get-csv-products?daterange="+datetimerange,
 
         new_window = window.open(url);
     })

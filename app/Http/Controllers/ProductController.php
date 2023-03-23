@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -16,9 +17,101 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::paginate(10);
+        $products = $this->recordsQuery();
         return view('pages.product',compact('products'));
     }
+
+
+    public function recordsQuery($search = null)
+    {
+        // withoutGlobalScopes()->
+        $products = new Product();
+        
+        if($search != null){
+            
+            $products =$products->where('name','like',"%".$search."%");
+        }
+        $products = $products->paginate(10);
+        return $products ;
+    }
+
+    public function CSV(Request $request)
+    {
+
+        $sales = $this->recordsQuery($request->daterange);
+        $fileName = 'Sale Detail Report.csv';
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+
+        $columns = array('','Customer Name','Product Name', 'Sale Price','Qty','Stock','Discount','Price');
+
+
+        $callback = function() use($sales, $columns) {
+
+            $sale_price = 0;
+            $total_qty = 0;
+            $total_stock = 0;
+            $total_discount = 0;
+            $total_price = 0;
+                $file = fopen('php://output', 'w');
+                fputcsv($file, array(' ',' ',' ','Sale Detail Report'));
+                fputcsv($file, $columns);
+
+                foreach ($sales as $key => $sale) {
+                    $orders = array();
+                    $sale_price += $sale->sale_price;
+                    $total_qty += $sale->qty;
+                    $total_stock += $sale->stock;
+                    $total_discount += $sale->discount;
+                    $total_price += $sale->price;
+
+                    $orders = array(
+                        '',
+                        $sale->Customer->name,
+                        $sale->Product->name,
+                        $sale->sale_price,
+                        $sale->qty,
+                        $sale->stock,
+                        $sale->discount,
+                        $sale->price,
+                    );
+                    fputcsv($file, $orders);
+                }
+
+                $columns = array('','','', '','','','','');
+                $columns = array('','','', '','','','','');
+                $columns = array('','','', '','','','','');
+            $columns = array('','','', '','','','','');
+            fputcsv($file, $columns);
+
+            $columns = array('','','', $sale_price,$total_qty,$total_stock,$total_discount,$total_price);
+            fputcsv($file, $columns);
+
+            fclose($file);
+        };
+
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+
+    // Get Products
+
+    public function getProducts(Request $request)
+    {
+
+
+        $products = $this->recordsQuery($request->search);
+        $products_html = view('pages.ajax-product',compact('products'))->render();
+        return response()->json(['html'=>$products_html]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
