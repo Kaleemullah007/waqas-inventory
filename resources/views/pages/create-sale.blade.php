@@ -24,7 +24,7 @@
                                 <label for="user_id" class="form-label  fs-6">{{ __('en.Customer') }}</label>
                                 <div class="input-group input-group-md">
                                     <select
-                                        class="form-select bg-grey mb-2 border-dark select2 @error('user_id') is-invalid @enderror"
+                                        class="form-select mb-2 border-dark select2 @error('user_id') is-invalid @enderror"
                                         name="user_id" id="user_id" autocomplete="user_id" required>
                                         <option>{{ __('en.Choose') }}</option>
                                         @foreach ($customers as $customer)
@@ -44,7 +44,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                 <select
-                                    class="form-select bg-grey mb-2 border-dark @error('product_id') is-invalid @enderror"
+                                    class="form-select mb-2 border-dark @error('product_id') is-invalid @enderror"
                                     name="product_id" id="product_id" autocomplete="product_id" required  onchange="getPrice()">
                                     <option>{{ __('en.Choose') }}</option>
                                     @foreach ($products as $product)
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
-                                <input type="number"
+                                <input type="number" min="1"
                                     class="form-control calculation bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
                                     id="qty" name="qty" placeholder="20" value="{{ old('qty',1) }}"
                                     autocomplete="qty" required autofocus  onkeyup="calcualtePrice()" min="1">
@@ -71,8 +71,8 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                <input type="number"
-                                    class="form-control bg-grey calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                <input type="number" min="1"
+                                    class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                     id="sale_price" name="sale_price" placeholder="10" value="{{ old('sale_price') }}"
                                     autocomplete="sale_price" required autofocus  onkeyup="calcualtePrice()" min="0">
                                 @error('sale_price')
@@ -83,8 +83,8 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
-                                <input type="number"
-                                    class="form-control bg-grey mb-2 calculation border-dark @error('discount') is-invalid @enderror"
+                                <input type="number" min="0"
+                                    class="form-control mb-2 calculation border-dark @error('discount') is-invalid @enderror"
                                     id="discount" name="discount" placeholder="10" value="{{ old('discount',0) }}" min="0"  onkeyup="calcualtePrice()"
                                     autocomplete="discount" required autofocus>
                                 @error('discount')
@@ -96,7 +96,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="payment_status" class="form-label  fs-6">{{ __('en.Payment Status') }}</label>
                                 <select
-                                    class="form-select bg-grey mb-2 border-dark @error('payment_status') is-invalid @enderror"
+                                    class="form-select mb-2 border-dark @error('payment_status') is-invalid @enderror"
                                     name="payment_status" id="payment_status" autocomplete="payment_status" required>
                                     <option>Pending</option>
                                     <option value="1">Paid</option>
@@ -111,7 +111,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="payment_method" class="form-label  fs-6">{{ __('en.Payment Method') }}</label>
                                 <select
-                                    class="form-select bg-grey mb-2 border-dark @error('payment_method') is-invalid @enderror"
+                                    class="form-select mb-2 border-dark @error('payment_method') is-invalid @enderror"
                                     name="payment_method" id="payment_method" autocomplete="payment_method" required>
                                     <option>Cash</option>
                                     <option value="1">Bank Transfer</option>
@@ -125,13 +125,13 @@
                                     </span>
                                 @enderror
                             </div>
-                            {{-- <input type="number" name="sub_total" > --}}
+                            {{-- <input type="number" min="1" name="sub_total" > --}}
                             <input type="hidden" name="total" id="total">
                             <input type="hidden" name="remaining_amount" id="remaining_amount">
 
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
-                                <input type="number"
+                                <input type="number" min="0"
                                     class="form-control calculation bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
                                     id="paid_amount" name="paid_amount" placeholder="70" min="0"
                                     value="{{ old('paid_amount',0) }}" autocomplete="paid_amount" required autofocus onkeyup="calcualtePrice()">
@@ -189,7 +189,7 @@
                                     <div class="modal-body">
                                         <label for="first_name" class="form-label fs-6">{{ __('en.First Name') }}</label>
                                         <input type="text"
-                                            class="form-control bg-grey mb-2 border-dark @error('first_name') is-invalid @enderror"
+                                            class="form-control mb-2 border-dark @error('first_name') is-invalid @enderror"
                                             id="first_name" name="first_name" placeholder="First Name"
                                             value="{{ old('first_name') }}" autocomplete="first_name" required autofocus>
                                         @error('first_name')
@@ -199,7 +199,7 @@
                                         @enderror
                                         <label for="last_name" class="form-label fs-6">{{ __('en.Last Name') }}</label>
                                         <input type="text"
-                                            class="form-control bg-grey mb-2 border-dark @error('last_name') is-invalid @enderror"
+                                            class="form-control mb-2 border-dark @error('last_name') is-invalid @enderror"
                                             id="last_name" name="last_name" placeholder="Last Name"
                                             value="{{ old('last_name') }}" autocomplete="last_name" required autofocus>
                                         @error('last_name')
@@ -209,7 +209,7 @@
                                         @enderror
                                         <label for="phone" class="form-label fs-6">{{ __('en.Phone') }}</label>
                                         <input type="phone"
-                                            class="form-control bg-grey mb-2 border-dark @error('phone') is-invalid @enderror"
+                                            class="form-control mb-2 border-dark @error('phone') is-invalid @enderror"
                                             id="phone" name="phone" placeholder="03001234567"
                                             value="{{ old('phone') }}" autocomplete="phone" required autofocus>
                                         @error('phone')
@@ -219,7 +219,7 @@
                                         @enderror
                                         <label for="email" class="form-label fs-6">{{ __('en.Email') }}</label>
                                         <input type="email"
-                                            class="form-control bg-grey mb-2 border-dark @error('email') is-invalid @enderror"
+                                            class="form-control mb-2 border-dark @error('email') is-invalid @enderror"
                                             id="email" name="email" placeholder="abc123@example.com"
                                             value="{{ old('email') }}" autocomplete="email" required autofocus>
                                         @error('email')
@@ -229,7 +229,7 @@
                                         @enderror
                                         <label for="type" class="form-label fs-6">{{ __('en.Type') }}</label>
                                         <select
-                                            class="form-select bg-grey mb-2 border-dark @error('type') is-invalid @enderror"
+                                            class="form-select mb-2 border-dark @error('type') is-invalid @enderror"
                                             name="type" id="type" autocomplete="type" required>
                                             <option value="1" @if (old('type') == 1) 'selected' @endif
                                                 selected>{{ __('en.Customer') }}</option>

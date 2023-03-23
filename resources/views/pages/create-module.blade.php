@@ -16,7 +16,7 @@ Create Module
                 <div class="col-lg-6 col-md-6 col-12">
                     <label for="Name" class="form-label fs-6">{{__('en.Module Name')}} </label>
                     <input type="text"
-                        class="form-control bg-grey border-secondary @error('Name') is-invalid @enderror"
+                        class="form-control border-secondary @error('Name') is-invalid @enderror"
                         id="Name" name="Name" placeholder="{{__('en.Name')}}"
                         value="{{ old('Name') }}" autocomplete="Name" required autofocus>
                     @error('Name')
@@ -40,7 +40,7 @@ Create Module
                 </div>
                 <div class="col-lg-4 col-md-6 col-12 mt-3">
                     <label for="permissionName" class="form-label fs-6">{{__('en.Permission Name')}}</label>
-                    <input type="text" class="form-control bg-grey border-secondary @error('permissionName') is-invalid @enderror" id="permissionName" name="permission_name[{{$module_id}}][]"
+                    <input type="text" class="form-control border-secondary @error('permissionName') is-invalid @enderror" id="permissionName" name="permission_name[{{$module_id}}][]"
                     placeholder="View" value="{{ old('permissionName') }}" autocomplete="permissionName" required>
                     @error('permissionName')
                         <span class="invalid-feedback" role="alert">

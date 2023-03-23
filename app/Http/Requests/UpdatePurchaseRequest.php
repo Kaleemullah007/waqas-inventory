@@ -23,7 +23,7 @@ class UpdatePurchaseRequest extends FormRequest
     {
         return [
             'user_id'=>'required|integer',
-            // 'product_id'=>'required|integer',
+            'name'=>'required|string',
             'qty'=>'required',
             'price'=>'required',
             'sale_price'=>'required',

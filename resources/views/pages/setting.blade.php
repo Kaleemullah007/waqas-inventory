@@ -19,7 +19,7 @@ Settings
                         <div class="row pt-2">
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
                                 <label for="settingName" class="form-label fs-6">{{__('en.Name')}}</label>
-                                <input type="text" class="form-control bg-grey border-secondary @error('settingName') is-invalid @enderror" id="settingName" name="settingName"
+                                <input type="text" class="form-control border-secondary @error('settingName') is-invalid @enderror" id="settingName" name="settingName"
                                 value="Name 1" value="{{ old('settingName') }}" autocomplete="settingName" required>
                                 @error('settingName')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@ Settings
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
                                 <label for="settingValue" class="form-label fs-6">{{__('en.Value')}} </label>
-                                <input type="text" class="form-control bg-grey border-secondary @error('settingValue') is-invalid @enderror" id="settingValue" name="settingValue"
+                                <input type="text" class="form-control border-secondary @error('settingValue') is-invalid @enderror" id="settingValue" name="settingValue"
                                     value="Value 1" value="{{ old('settingValue') }}" autocomplete="settingValue" required>
                                 @error('settingValue')
                                     <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@ Settings
                                 <button type="button" class="btn btn-danger"><i class="bi bi-dash-lg"></i></button>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
-                                <input type="text" class="form-control bg-grey border-secondary @error('settingName') is-invalid @enderror" id="settingName" name="settingName"
+                                <input type="text" class="form-control border-secondary @error('settingName') is-invalid @enderror" id="settingName" name="settingName"
                                 value="Name 2" value="{{ old('settingName') }}" autocomplete="settingName" required>
                                 @error('settingName')
                                     <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@ Settings
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
-                                <input type="text" class="form-control bg-grey border-secondary @error('settingValue') is-invalid @enderror" id="settingValue" name="settingValue"
+                                <input type="text" class="form-control border-secondary @error('settingValue') is-invalid @enderror" id="settingValue" name="settingValue"
                                     value="Value 2" value="{{ old('settingValue') }}" autocomplete="settingValue" required>
                                 @error('settingValue')
                                     <span class="invalid-feedback" role="alert">

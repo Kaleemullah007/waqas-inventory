@@ -20,7 +20,7 @@ Placeholders
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
                                 <label for="name" class="form-label fs-6">{{__('en.Name')}}</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control bg-grey border-secondary @error('name') is-invalid @enderror" id="name" name="name"
+                                    <input type="text" class="form-control border-secondary @error('name') is-invalid @enderror" id="name" name="name"
                                     placeholder="Name" value="{{ old('name') }}" autocomplete="name" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

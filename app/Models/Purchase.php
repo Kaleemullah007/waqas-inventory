@@ -10,5 +10,5 @@ class Purchase extends Model
 {
     use HasFactory;
     use FilterByUser;
-    protected $fillable = ['sale_price','price','user_id','qty','owner_id','total'];
+    protected $fillable = ['sale_price','price','user_id','qty','owner_id','total','name'];
 }

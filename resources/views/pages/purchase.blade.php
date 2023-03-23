@@ -15,7 +15,7 @@
             <div class="row my-4">
                 <div class="col-lg-3 col-md-6 col-12 mt-2 d-flex">
                     <label for="search" class="form-label mt-1"><i class="bi bi-search fs-4"></i></label>
-                    <input type="text" class="form-control bg-grey form-control-css border-secondary ms-3 rounded"
+                    <input type="text" class="form-control form-control-css border-secondary ms-3 rounded"
                         placeholder="{{ __('en.Search this table...') }}" id="search">
                 </div>
                 
@@ -57,7 +57,7 @@
                                         <label for="qty" class="form-label fs-6 mt-1">{{__('en.Production Quantity')}}</label>
                                     </div>
                                     <div class="col-6 mb-3">
-                                        <input type="number" class="form-control bg-grey border-dark @error('qty') is-invalid @enderror" id="qty" name="qty"
+                                        <input type="number" class="form-control border-dark @error('qty') is-invalid @enderror" id="qty" name="qty"
                                         placeholder="10" value="{{ old('qty') }}" autocomplete="qty" required autofocus>
                                         @error('qty')
                                             <span class="invalid-feedback" role="alert">
@@ -76,7 +76,7 @@
                                         <label for="wastage_qty" class="form-label fs-6 mt-1">{{__('en.Wastage Quantity')}}</label>
                                     </div>
                                     <div class="col-6 ">
-                                        <input type="number" class="form-control bg-grey border-dark @error('wastage_qty') is-invalid @enderror" id="wastage_qty" name="wastage_qty"
+                                        <input type="number" class="form-control border-dark @error('wastage_qty') is-invalid @enderror" id="wastage_qty" name="wastage_qty"
                                         placeholder="10" value="{{ old('wastage_qty') }}" autocomplete="wastage_qty" required autofocus>
                                         @error('wastage_qty')
                                             <span class="invalid-feedback" role="alert">

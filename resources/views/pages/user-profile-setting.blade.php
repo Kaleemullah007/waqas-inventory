@@ -19,7 +19,7 @@
                             <div class="col-lg-6 col-md-6 col-12 pt-2">
                                 <label for="firstName" class="form-label pt-1 fs-6">{{ __('en.First Name') }}</label>
                                 <input type="text"
-                                    class="form-control bg-grey border-1px-css  @error('firstName') is-invalid @enderror"
+                                    class="form-control border-1px-css  @error('firstName') is-invalid @enderror"
                                     value="First name" id="firstName" name="firstName" value="{{ old('firstName') }}"
                                     autocomplete="firstName" required autofocus>
                                 @error('firstName')
@@ -31,7 +31,7 @@
                             <div class="col-lg-6 col-md-6 col-12 pt-2">
                                 <label for="lastName" class="form-label pt-1 fs-6">{{ __('en.Last Name') }}</label>
                                 <input type="text"
-                                    class="form-control bg-grey border-1px-css  @error('lastName') is-invalid @enderror"
+                                    class="form-control border-1px-css  @error('lastName') is-invalid @enderror"
                                     value="last name" id="lastName" name="lastName" value="{{ old('lastName') }}"
                                     autocomplete="lastName" required autofocus>
                                 @error('lastName')
@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 pt-2">
                                 <label for="dob" class="form-label pt-1 fs-6">{{ __('en.Date of Birth') }}</label>
-                                <input type="date" class="form-control bg-grey  @error('dob') is-invalid @enderror"
+                                <input type="date" class="form-control  @error('dob') is-invalid @enderror"
                                     value="Admin" id="dob" name="dob" value="{{ old('dob') }}"
                                     autocomplete="dob" required autofocus>
                                 @error('dob')
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 pt-2">
                                 <label for="password" class="form-label pt-1 fs-6">{{ __('en.Password') }}</label>
-                                <input type="password" class="form-control bg-grey  @error('password') is-invalid @enderror"
+                                <input type="password" class="form-control  @error('password') is-invalid @enderror"
                                     minlength="8" value="Pass1234" id="password" name="password"
                                     value="{{ old('password') }}" autocomplete="password" required autofocus>
                                 @error('password')
@@ -73,7 +73,7 @@
                                 <label for="conPassword"
                                     class="form-label pt-1 fs-6">{{ __('en.Confirm Password') }}</label>
                                 <input type="password"
-                                    class="form-control bg-grey  @error('conPassword') is-invalid @enderror" minlength="8"
+                                    class="form-control  @error('conPassword') is-invalid @enderror" minlength="8"
                                     value="Pass1234" id="conPassword" name="conPassword" value="{{ old('conPassword') }}"
                                     autocomplete="conPassword" required autofocus>
                                 @error('conPassword')
@@ -86,7 +86,7 @@
                                 <label for="secQuestionOne"
                                     class="form-label pt-1 fs-6">{{ __('en.What was the City you born in?') }}</label>
                                 <input type="text"
-                                    class="form-control bg-grey  @error('secQuestionOne') is-invalid @enderror"
+                                    class="form-control  @error('secQuestionOne') is-invalid @enderror"
                                     value="Lahore" id="secQuestionOne" name="secQuestionOne"
                                     value="{{ old('secQuestionOne') }}" autocomplete="secQuestionOne" required autofocus>
                                 @error('secQuestionOne')
@@ -99,7 +99,7 @@
                                 <label for="secQuestionTwo"
                                     class="form-label pt-1 fs-6">{{ __('en.What is the City you are living in?') }}</label>
                                 <input type="text"
-                                    class="form-control bg-grey  @error('secQuestionTwo') is-invalid @enderror"
+                                    class="form-control  @error('secQuestionTwo') is-invalid @enderror"
                                     value="Islamabad" id="secQuestionTwo" name="secQuestionTwo"
                                     value="{{ old('secQuestionTwo') }}" autocomplete="secQuestionTwo" required autofocus>
                                 @error('secQuestionTwo')
@@ -115,7 +115,7 @@
                             alt="">
                         <div class="d-flex justify-content-center">
                             <input type="file"
-                                class="w-75 mt-4 form-control bg-grey float-center  @error('profileImg') is-invalid @enderror"
+                                class="w-75 mt-4 form-control float-center  @error('profileImg') is-invalid @enderror"
                                 id="profileImg" name="profileImg" value="{{ old('profileImg') }}"
                                 autocomplete="profileImg" required>
                         </div>

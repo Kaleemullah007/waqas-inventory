@@ -3,6 +3,7 @@
         <tr>
             <th>{{ __('en.Id') }}</th>
             <th>{{ __('en.Vendor') }}</th>
+            <th>{{ __('en.Name') }}</th>
             <th>{{ __('en.Selling price') }}</th>
             <th>{{ __('en.Price') }}</th>
             <th>{{ __('en.Quantity') }}</th>
@@ -16,6 +17,7 @@
                 <tr>
                     <th>{{ $purchase->id }}</th>
                     <td>{{ $purchase->user_id }}</td>
+                    <th>{{ $purchase->name }}</th>
                     <td>{{ $purchase->sale_price }}</td>
                     <td>{{ $purchase->price }}</td>
                     <td>{{ $purchase->qty }}</td>
@@ -30,16 +32,12 @@
                         <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
                             class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
                             <i class="bi bi-trash-fill"></i></a>
-                        {{-- <button data-bs-toggle="modal" data-bs-target="#process_product" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Processed"
-                            class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
-                            <i class="bi bi-repeat"></i></button> --}}
                     </td>
                 </tr>
             @endforeach
         @else
             <tr>
-                <td class="text-center" colspan="6" >No record found</td>
+                <td class="text-center" colspan="7" >No record found</td>
             </tr>
         @endif
 

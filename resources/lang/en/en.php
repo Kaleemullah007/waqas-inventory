@@ -359,8 +359,6 @@ return
     "Home"=>"Home",
     "What was the City you born in?"=>"What was the City you born in?",
     "What is the City you are living in?"=>"What is the City you are living in?",
-
-        
     "Groups"=>"Groups",
     "Manage Users"=>"Manage Users",
     "Create Group"=>"Create Group",
@@ -395,7 +393,6 @@ return
     "Long Description"=>"Long Description",
     "Schedule Publish"=>"Schedule Publish",
     "Edit Blog"=>"Edit Blog",
-    
     "Id"=>"Id",
     "Selling price"=>"Selling price",
     "Stock alert"=>"Stock alert",
@@ -420,7 +417,22 @@ return
     "Wastage Quantity"=>"Wastage Quantity",
     "Type"=>"Type",
     "Net Profit"=>"Net Profit",
-    "Net Worth"=>"Net Worth"
+    "Net Worth"=>"Net Worth",
+
+    "Payment Method"=>"Payment Method",
+    "Total"=>"Total",
+    "Remaining"=>"Remaining",
+    "Production"=>"Production",
+    "Productions"=>"Productions",
+    "Raw Material"=>"Raw Material",
+    "Wastage"=>"Wastage",
+    "Waste"=>"Waste",
+    "Create Production"=>"Create Production",
+
+
+
+
+
 
 ];
 ?>

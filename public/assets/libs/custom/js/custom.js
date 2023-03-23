@@ -138,6 +138,25 @@
     alert("hideLoader");
     }
 
+    function getStatisticsForDashBoard()
+    {
+        var daterange = $("#daterange").val();
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-dashboard",
+            data:{"daterange":daterange},
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
 
     function getSales()
     {
