@@ -21,7 +21,6 @@ return new class extends Migration
             $table->float('paid_amount',10,2);
             $table->float('discount',10,2)->default(0);
             $table->float('total',10,2);
-            $table->float('discount',10,2);
             $table->string('payment_method',50);
             $table->string('payment_status',50);
             $table->foreign('user_id')->references('id')->on('users')->comments('user is Acutally customer id');
