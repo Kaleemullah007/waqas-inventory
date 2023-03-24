@@ -50,6 +50,10 @@ Route::group([
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::post('get-dashboard',[HomeController::class,'getDashboard']);
+    
+
+
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
         Route::post('get-products',[ProductController::class,'getProducts']);

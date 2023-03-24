@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,17 +20,17 @@ class SaleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
 
-        $sales = $this->recordsQuery();
+        $sales = $this->recordsQuery($request)->paginate(10);
         return view('pages.sale',compact('sales'));
     }
 
     public function CSV(Request $request)
     {
 
-        $sales = $this->recordsQuery($request->daterange);
+        $sales = $this->recordsQuery($request)->get();
         $fileName = 'Sale Detail Report.csv';
         $headers = array(
             "Content-type"        => "text/csv",
@@ -92,9 +93,11 @@ class SaleController extends Controller
     }
 
 
-    public function recordsQuery($dates = null)
+    public function recordsQuery($request)
     {
         // withoutGlobalScopes()->
+        $dates = $request->daterange;
+        $search = $request->search;
         $sales = Sale::
         with(['Customer','Product']);
         if($dates != null){
@@ -106,7 +109,21 @@ class SaleController extends Controller
             $sales =$sales->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }
-        $sales = $sales->paginate(10);
+        
+        if($search != null){
+           
+            $sales = $sales->whereHas('Product',function($q) use($search){
+                $q->where('name','like',"%".$search."%");
+            });
+            $sales = $sales->orWhereHas('Customer',function($q) use($search){
+                $q->where('name','like',"%".$search."%");
+            });
+
+            return $sales ;
+            // dd($search,$sales->get());
+        }
+
+       
         return $sales ;
     }
 
@@ -114,7 +131,7 @@ class SaleController extends Controller
     {
 
 
-        $sales = $this->recordsQuery($request->daterange);
+        $sales = $this->recordsQuery($request)->get();
         $sale_html = view('pages.ajax-sale',compact('sales'))->render();
         return response()->json(['html'=>$sale_html]);
     }

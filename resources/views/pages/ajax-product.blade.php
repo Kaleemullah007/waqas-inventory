@@ -1,4 +1,4 @@
-<table class="table border table-striped">
+<table class="table border">
     <thead>
         <tr>
             <th>{{__('en.Id')}}</th>

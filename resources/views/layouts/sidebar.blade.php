@@ -28,8 +28,8 @@
                             </li>
                             
                             <li class="{{ request()->is('production') ? 'active' : '' }}">
-                                <a href="{{ route('production.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
-                                        class="hide-menu ">{{ __('en.production') }}</span></a>
+                                <a href="{{ route('production.index') }}"><i class="bi fs-5 pe-2 bi-repeat"></i><span
+                                        class="hide-menu ">{{ __('en.Production') }}</span></a>
                             </li>
                                                         
                             {{-- <li class="{{ request()->is('raw') ? 'active' : '' }}">

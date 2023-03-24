@@ -22,7 +22,7 @@ Templates
                                     <label for="name" class="form-label fs-6 mt-1">{{__('en.Name')}}</label>
                                 </div>
                                 <div class="col-lg-5 col-md-8 col-sm-8 col-12">
-                                    <input type="text" class="form-control bg-grey border-secondary @error('name') is-invalid @enderror" id="name" name="name"
+                                    <input type="text" class="form-control border-secondary @error('name') is-invalid @enderror" id="name" name="name"
                                     value="{{ old('name') }}" placeholder="Name" autocomplete="name" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@ Templates
                                     <label for="subject" class="form-label fs-6">{{__('en.Subject')}}</label>
                                 </div>
                                 <div class="col-lg-5 col-md-8 col-sm-8 col-12">
-                                    <input type="text" class="form-control bg-grey border-secondary @error('subject') is-invalid @enderror" id="subject" name="subject"
+                                    <input type="text" class="form-control border-secondary @error('subject') is-invalid @enderror" id="subject" name="subject"
                                     value="{{ old('subject') }}" placeholder="Subject" autocomplete="subject" required>
                                     @error('subject')
                                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@ Templates
                                     <label for="message" class="form-label fs-6">{{__('en.Message')}}</label>
                                 </div>
                                 <div class="col-lg-5 col-md-8 col-sm-8 col-12">
-                                    <textarea type="text" class="form-control bg-grey border-secondary @error('message') is-invalid @enderror" id="message" name="message"
+                                    <textarea type="text" class="form-control border-secondary @error('message') is-invalid @enderror" id="message" name="message"
                                     placeholder="Message" autocomplete="message" required>{{ old('message') }}</textarea>
                                     @error('message')
                                         <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@ Templates
                         {{-- <div class="row pt-2">
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
                                 <label for="name" class="form-label fs-6">{{__('en.Name')}}</label>
-                                <input type="text" class="form-control bg-grey border-secondary @error('name') is-invalid @enderror" id="name" name="name"
+                                <input type="text" class="form-control border-secondary @error('name') is-invalid @enderror" id="name" name="name"
                                 value="{{ old('name') }}" placeholder="Name" autocomplete="name" required>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@ Templates
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 mt-3">
                                 <label for="subject" class="form-label fs-6">{{__('en.Subject')}}</label>
-                                <input type="text" class="form-control bg-grey border-secondary @error('subject') is-invalid @enderror" id="subject" name="subject"
+                                <input type="text" class="form-control border-secondary @error('subject') is-invalid @enderror" id="subject" name="subject"
                                 value="{{ old('subject') }}" placeholder="Subject" autocomplete="subject" required>
                                 @error('subject')
                                     <span class="invalid-feedback" role="alert">
@@ -111,7 +111,7 @@ Templates
                             </div>
                             <div class=" col-12 mt-3">
                                 <label for="message" class="form-label fs-6">{{__('en.Message')}}</label>
-                                <textarea type="text" class="form-control bg-grey border-secondary @error('message') is-invalid @enderror" id="message" name="message"
+                                <textarea type="text" class="form-control border-secondary @error('message') is-invalid @enderror" id="message" name="message"
                                 placeholder="Message" autocomplete="message" required>{{ old('message') }}</textarea>
                                 @error('message')
                                     <span class="invalid-feedback" role="alert">

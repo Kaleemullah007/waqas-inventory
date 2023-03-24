@@ -16,7 +16,7 @@ Create Group
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12">
                     <label for="Name" class="form-label fs-6">{{__('en.Name')}}</label>
-                    <input type="text" class="form-control bg-grey border-secondary @error('Name') is-invalid @enderror" placeholder="{{__('en.Name')}}"
+                    <input type="text" class="form-control border-secondary @error('Name') is-invalid @enderror" placeholder="{{__('en.Name')}}"
                         id="Name" name="Name"  value="{{ old('Name') }}" autocomplete="Name" required autofocus>
                     @error('Name')
                         <span class="invalid-feedback" role="alert">
@@ -26,7 +26,7 @@ Create Group
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
                     <label for="Description" class="form-label fs-6">{{__('en.Description')}}</label>
-                    <input type="text" class="form-control bg-grey border-secondary @error('Description') is-invalid @enderror" placeholder="{{__('en.Description')}}"
+                    <input type="text" class="form-control border-secondary @error('Description') is-invalid @enderror" placeholder="{{__('en.Description')}}"
                         id="Description" name="Description"  value="{{ old('Description') }}" autocomplete="Description" required>
                     @error('Description')
                         <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@ Create Group
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
                     <label for="Users" class="form-label fs-6">{{__('en.Users')}}</label>
-                    <select class="form-select bg-grey mb-2 border-dark @error('Users') is-invalid @enderror" multiple name="Users" id="Users" autocomplete="Users" required>
+                    <select class="form-select mb-2 border-dark @error('Users') is-invalid @enderror" multiple name="Users" id="Users" autocomplete="Users" required>
                         <option>{{__('en.Choose')}}</option>
                         <option value="1" @if(old('Users') == 1) 'selected' @endif >{{__('en.User')}} 1</option>
                         <option value="2" @if(old('Users') == 2) 'selected' @endif >{{__('en.User')}} 2</option>

@@ -22,7 +22,7 @@ Edit Blog
                                     <label for="title" class="form-label fs-6 mt-2">{{__('en.Title')}}</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                                    <input type="text" class="form-control bg-grey border-secondary @error('title') is-invalid @enderror" value="This is a title." id="title" name="title"
+                                    <input type="text" class="form-control border-secondary @error('title') is-invalid @enderror" value="This is a title." id="title" name="title"
                                     value="{{ old('title') }}" autocomplete="title" required>
                                     @error('title')
                                         <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@ Edit Blog
                                     <label for="shortDescription" class="form-label fs-6 mt-2">{{__('en.Short Description')}}</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                                    <input type="text" class="form-control bg-grey border-secondary @error('shortDescription') is-invalid @enderror" value="This is a Short Description" id="shortDescription" name="shortDescription"
+                                    <input type="text" class="form-control border-secondary @error('shortDescription') is-invalid @enderror" value="This is a Short Description" id="shortDescription" name="shortDescription"
                                     value="{{ old('shortDescription') }}" autocomplete="shortDescription" required>
                                     @error('shortDescription')
                                         <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@ Edit Blog
                                     <label for="longDescription" class="form-label fs-6 mt-2">{{__('en.Long Description')}}</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                                    <textarea type="text" class="form-control bg-grey border-secondary @error('longDescription') is-invalid @enderror" id="longDescription" name="longDescription"
+                                    <textarea type="text" class="form-control border-secondary @error('longDescription') is-invalid @enderror" id="longDescription" name="longDescription"
                                     autocomplete="longDescription" required>This is a Long Description.{{ old('longDescription') }}</textarea>
                                     @error('longDescription')
                                         <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@ Edit Blog
                                     <label for="tags" class="form-label fs-6 mt-2">{{__('en.Tags')}}</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                                    <select class="form-select bg-grey border-secondary @error('tags') is-invalid @enderror" multiple name="tags" id="tags" autocomplete="tags" required>
+                                    <select class="form-select border-secondary @error('tags') is-invalid @enderror" multiple name="tags" id="tags" autocomplete="tags" required>
                                         <option>{{__('en.Choose')}}</option>
                                         <option value="1" @if(old('tags') == 1) 'selected' @endif selected>{{__('en.Tag')}} 1</option>
                                         <option value="2" @if(old('tags') == 2) 'selected' @endif >{{__('en.Tag')}} 2</option>
@@ -90,7 +90,7 @@ Edit Blog
                                     <label for="schedule" class="form-label fs-6 mt-2">{{__('en.Schedule Publish')}}</label>
                                 </div>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                                    <input type="datetime-local" class="form-control bg-grey border-secondary @error('schedule') is-invalid @enderror" value="2023-03-12T19:30" id="schedule" name="schedule"
+                                    <input type="datetime-local" class="form-control border-secondary @error('schedule') is-invalid @enderror" value="2023-03-12T19:30" id="schedule" name="schedule"
                                     value="{{ old('schedule') }}" autocomplete="schedule" required>
                                     @error('schedule')
                                         <span class="invalid-feedback" role="alert">
@@ -106,7 +106,7 @@ Edit Blog
                             alt="">
                         <div class="d-flex justify-content-center">
                             <input type="file"
-                                class="w-75 mt-4 form-control bg-grey float-center  @error('profileImg') is-invalid @enderror"
+                                class="w-75 mt-4 form-control float-center  @error('profileImg') is-invalid @enderror"
                                 id="profileImg" name="profileImg" value="{{ old('profileImg') }}"
                                 autocomplete="profileImg" required>
                         </div>

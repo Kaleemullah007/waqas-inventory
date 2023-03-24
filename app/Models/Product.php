@@ -18,4 +18,7 @@ class Product extends Model
     public function PurchaseProduct(){
         return $this->hasMany('App\Models\Purchase');
     }
+    public function ProductionProduct(){
+        return $this->hasMany('App\Models\ProductionHistory');
+    }
 }

@@ -15,7 +15,7 @@ User Listing
             <div class="row my-4">
                 <div class="col-lg-3 col-12 mt-2 d-flex">
                     <label for="search" class="form-label mt-1"><i class="bi bi-search fs-4"></i></label>
-                    <input type="text" class="form-control bg-grey form-control-css border-secondary ms-3 rounded"
+                    <input type="text" class="form-control form-control-css border-secondary ms-3 rounded"
                         placeholder="{{__('en.Search this table...')}}" id="search">
                 </div>
                 <div class="col-lg-9 col-12 mt-2 text-end">
@@ -90,7 +90,7 @@ User Listing
         <form method="POST" action="" enctype="">
             <div class="offcanvas-body">
                 <label for="userName" class="form-label">{{__('en.Username')}}</label>
-                <input type="text" class="form-control bg-grey border-secondary @error('userName') is-invalid @enderror"
+                <input type="text" class="form-control border-secondary @error('userName') is-invalid @enderror"
                     id="userName" name="userName" placeholder="{{__('en.Search by Username')}}" value="{{ old('userName') }}"
                     autocomplete="userName">
                 @error('userName')
@@ -99,7 +99,7 @@ User Listing
                     </span>
                 @enderror
                 <label for="userPhone" class="form-label mt-3">{{__('en.Phone')}}</label>
-                <input type="text" class="form-control bg-grey border-secondary @error('userPhone') is-invalid @enderror"
+                <input type="text" class="form-control border-secondary @error('userPhone') is-invalid @enderror"
                     id="userPhone" name="userPhone" placeholder="+923001234567"
                     value="{{ old('userPhone') }}" autocomplete="userPhone">
                 @error('userPhone')
@@ -108,7 +108,7 @@ User Listing
                     </span>
                 @enderror
                 <label for="userEmail" class="form-label mt-3">{{__('en.Email')}}</label>
-                <input type="email" class="form-control bg-grey border-secondary @error('userEmail') is-invalid @enderror"
+                <input type="email" class="form-control border-secondary @error('userEmail') is-invalid @enderror"
                     id="userEmail" name="userEmail" placeholder="{{__('en.Search by Email')}}"
                     value="{{ old('userEmail') }}" autocomplete="userEmail">
                 @error('userEmail')

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\PurchaseHistory;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Termwind\Components\Raw;
 
 class HomeController extends Controller
 {
@@ -48,6 +51,22 @@ class HomeController extends Controller
 
         return view('pages.dashboard',compact('result'));
     }
+
+
+    public function getDashboard(Request $request)
+    {
+        
+        $dates = $request->daterange;
+        list($start_date,$end_date) = explode('-',$dates);
+        $start_date = changeDateFormat($start_date,'Y-m-d');
+        $end_date = changeDateFormat($end_date,'Y-m-d');
+        $result   = $this->dashboardStat($start_date,$end_date);
+        $dashboard_html = view('pages.ajax-dashboard',compact('result'))->render();
+        return response()->json(['html'=>$dashboard_html]);
+        
+    }
+
+
     public function dashboardStat($start_date,$end_date){
 
         $expenses = Expense::whereDate('created_at','>=',$start_date)
@@ -65,10 +84,10 @@ class HomeController extends Controller
                     $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
                 }],
                 'total')
-                ->withSum(['PurchaseProduct'
+                ->withSum(['ProductionProduct'
                 =>function($query) use($start_date,$end_date){
                     $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
-                }],'total')
+                }],'qty')
                 ->get();
 
         $latest_sales = Sale::whereDate('created_at','>=',$start_date)
@@ -80,6 +99,10 @@ class HomeController extends Controller
         $latest_purchases = Purchase::whereDate('created_at','>=',$start_date)
         ->whereDate('created_at','<=',$end_date)
         ->take(10)->latest()->get();
+
+        $purchases_history = PurchaseHistory::whereDate('created_at','>=',$start_date)
+        ->whereDate('created_at','<=',$end_date)
+        ->latest()->sum(DB::raw('price*qty'));
 
         $latest_products = Product::whereDate('created_at','>=',$start_date)
         ->whereDate('created_at','<=',$end_date)
@@ -93,8 +116,9 @@ class HomeController extends Controller
         ->get();
 
         $total_sales = $products->sum('sale_product_sum_total');
-        $total_purchase = $products->sum('purchase_product_sum_total');
-        $net_profit =   $total_sales -$total_purchase - $expenses;
+        $total_purchases_qty = $products->sum('production_product_sum_qty');
+
+        $net_profit =   $total_sales -$purchases_history - $expenses;
         return [
             'latest_products'=>$latest_products,
             'users'=>$users,
@@ -104,7 +128,9 @@ class HomeController extends Controller
             'latest_expenses'=>$latest_expenses,
             'expenses'=>$expenses,
             'total_sales'=>$total_sales,
-            'total_purchases'=>$total_purchase,
+            'total_purchases_qty'=>$total_purchases_qty,
+            'purchases_history'=>$purchases_history,
+
             'net_profits'=>$net_profit,
 
 

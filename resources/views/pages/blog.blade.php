@@ -15,7 +15,7 @@ Blogs
             <div class="row my-4">
                 <div class="col-lg-3 col-md-6 col-12 mt-2 d-flex">
                     <label for="search" class="form-label mt-1"><i class="bi bi-search fs-4"></i></label>
-                    <input type="text" class="form-control bg-grey form-control-css border-secondary ms-3 rounded"
+                    <input type="text" class="form-control form-control-css border-secondary ms-3 rounded"
                         placeholder="{{__('en.Search this table...')}}" id="search">
                 </div>
                 <div class="col-lg-9 col-md-6 col-12 mt-2 text-end">
@@ -91,7 +91,7 @@ Blogs
             <div class="offcanvas-body">
                 <label for="moduleName" class="form-label mt-3">{{__('en.Module Name')}}</label>
                 <input type="text"
-                    class="form-control bg-grey border-secondary @error('moduleName') is-invalid @enderror" id="moduleName"
+                    class="form-control border-secondary @error('moduleName') is-invalid @enderror" id="moduleName"
                     name="moduleName" placeholder="{{__('en.Search by Name')}}" value="{{ old('moduleName') }}" autocomplete="moduleName">
                 @error('moduleName')
                     <span class="invalid-feedback" role="alert">

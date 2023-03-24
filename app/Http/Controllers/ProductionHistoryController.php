@@ -115,7 +115,6 @@ class ProductionHistoryController extends Controller
         // dd(auth()->user()->id);
         $products = Product::get();
         $raws = Purchase::get();
-        // dd($raws);
         return view('pages.create-production',compact('raws','products'));
     }
 

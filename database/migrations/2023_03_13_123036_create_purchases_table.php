@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
+            // $table->unsignedBigInteger('product_id');
             $table->integer('qty');
             $table->float('price',10,2);
             $table->float('sale_price',10,2);
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');
-            $table->foreign('product_id')->references('id')->on('products');
+            // $table->foreign('product_id')->references('id')->on('products');
             $table->softDeletes();
             $table->timestamps();
         });
