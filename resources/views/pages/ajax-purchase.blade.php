@@ -17,7 +17,7 @@
                 <tr>
                     <th>{{ $purchase->id }}</th>
                     <td>{{ $purchase->user_id }}</td>
-                    <th>{{ $purchase->name }}</th>
+                    <td>{{ $purchase->name }}</td>
                     <td>{{ $purchase->sale_price }}</td>
                     <td>{{ $purchase->price }}</td>
                     <td>{{ $purchase->qty }}</td>

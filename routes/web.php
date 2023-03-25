@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -53,7 +54,6 @@ Route::group([
     Route::post('get-dashboard',[HomeController::class,'getDashboard']);
     
 
-
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
         Route::post('get-products',[ProductController::class,'getProducts']);
@@ -67,6 +67,7 @@ Route::group([
         Route::resource('expense',ExpenseController::class);
         Route::post('get-productions',[SaleController::class,'getSales']);
         Route::resource('production',ProductionHistoryController::class);
+        Route::resource('customer',CustomerController::class);
 
 
 });

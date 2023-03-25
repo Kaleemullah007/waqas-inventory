@@ -20,6 +20,54 @@
                         @csrf
 
                         <div class="row mt-3">
+                            @php
+                                 $counter=1;
+                            @endphp
+                            <div class="row d-flex">
+                                <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                    <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
+                                    <select
+                                        class="form-select border-dark @error('product_id') is-invalid @enderror"
+                                        name="products[{{$counter}}]['product_id']" id="{{$counter}}-product_id" autocomplete="product_id" required  onchange="getPrice()">
+                                        <option>{{ __('en.Choose') }}</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('product_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                    <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                    <input type="number" min="1"
+                                        class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
+                                        id="{{$counter}}-qty" name="products[{{$counter}}]['qty']" placeholder="20" value="{{ old('qty',1) }}"
+                                        autocomplete="qty" required autofocus  onkeyup="calcualtePrice()" min="1">
+                                    @error('qty')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-12 pt-1">
+                                    <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
+                                        <input type="number" min="1"
+                                            class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                            id="{{$counter}}-sale_price" name="products[{{$counter}}]['sale_price']" placeholder="10" value="{{ old('sale_price') }}"
+                                            autocomplete="sale_price" required autofocus  onkeyup="calcualtePrice()" min="0">
+                                        @error('sale_price')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                </div>
+                                <div class="col pt-4 mt-2">
+                                    <button type="btn" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
+                                </div>
+                            </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="user_id" class="form-label  fs-6">{{ __('en.Customer') }}</label>
                                 <div class="input-group input-group-md">
@@ -40,46 +88,6 @@
                                     <span class=" mb-2 ps-2" data-bs-toggle="modal" data-bs-target="#add_customer"><i
                                             class="bi fs-4 bi-person-plus-fill"></i></span>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
-                                <select
-                                    class="form-select mb-2 border-dark @error('product_id') is-invalid @enderror"
-                                    name="product_id" id="product_id" autocomplete="product_id" required  onchange="getPrice()">
-                                    <option>{{ __('en.Choose') }}</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('product_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
-                                <input type="number" min="1"
-                                    class="form-control calculation bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
-                                    id="qty" name="qty" placeholder="20" value="{{ old('qty',1) }}"
-                                    autocomplete="qty" required autofocus  onkeyup="calcualtePrice()" min="1">
-                                @error('qty')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                <input type="number" min="1"
-                                    class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
-                                    id="sale_price" name="sale_price" placeholder="10" value="{{ old('sale_price') }}"
-                                    autocomplete="sale_price" required autofocus  onkeyup="calcualtePrice()" min="0">
-                                @error('sale_price')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
@@ -132,7 +140,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
                                 <input type="number" min="0"
-                                    class="form-control calculation bg-grey mb-2 border-dark @error('paid_amount') is-invalid @enderror"
+                                    class="form-control calculation mb-2 border-dark @error('paid_amount') is-invalid @enderror"
                                     id="paid_amount" name="paid_amount" placeholder="70" min="0"
                                     value="{{ old('paid_amount',0) }}" autocomplete="paid_amount" required autofocus onkeyup="calcualtePrice()">
                                 @error('paid_amount')

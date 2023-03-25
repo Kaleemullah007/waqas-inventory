@@ -7,15 +7,17 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index():View
     {
-        //
+        $customers = Customer::paginate(10);
+        return view('pages.customer',compact('customers'));
     }
 
     /**

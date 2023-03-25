@@ -22,7 +22,7 @@ class SaleController extends Controller
      */
     public function index(Request $request): View
     {
-
+       
         $sales = $this->recordsQuery($request)->paginate(10);
         return view('pages.sale',compact('sales'));
     }
@@ -168,9 +168,10 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sale $sale): View
+    public function show(Sale $sale):View
     {
-        return redirect('edit-sale',compact('sale'));
+        
+        return view('pages.view-sale',compact('sale'));
     }
 
     /**
