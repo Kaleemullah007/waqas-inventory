@@ -7,15 +7,22 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(): View
     {
-        //
+        $customers = Customer::withSum(['customerSale'],'sale_price')
+                            ->withSum('customerSale','discount')
+                            ->withSum('customerSale','remaining_amount')
+                            ->withSum('customerSale','total')
+                            ->withSum('customerSale','paid_amount')
+                            ->get();
+                            // dd($customers[11]);
     }
 
     /**

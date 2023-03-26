@@ -23,12 +23,12 @@ class StoreProductionHistoryRequest extends FormRequest
     {
         return [
             'product_id'=>'required',
-            'name'=>'required|string',
+            // 'name'=>'required|string',
             'qty'=>'required',
             'owner_id'=>'required|integer',
             'wastage_qty'=>'required',
             'purchase_id'=>'required|integer'
-            
+
         ];
     }
      // Adding Owner Id To all Requests
