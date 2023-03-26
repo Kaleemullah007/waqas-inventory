@@ -24,7 +24,8 @@ class SaleController extends Controller
     {
 
         $sales = $this->recordsQuery($request)->paginate(10);
-        return view('pages.sale',compact('sales'));
+        $customers = User::where('user_type','customer')->get();
+        return view('pages.sale',compact('sales','customers'));
     }
 
     public function CSV(Request $request)
@@ -98,8 +99,10 @@ class SaleController extends Controller
         // withoutGlobalScopes()->
         $dates = $request->daterange;
         $search = $request->search;
+
+        $customer_id = $request->customer_id??null;
         $sales = Sale::
-        with(['Customer','Product']);
+        with(['Customer','Product','Products']);
         if($dates != null){
             list($start_date,$end_date) = explode('-',$dates);
 
@@ -109,9 +112,12 @@ class SaleController extends Controller
             $sales =$sales->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }
-        
+
+        if($customer_id != null){
+            $sales = $sales->where('user_id',$customer_id);
+        }
         if($search != null){
-           
+
             $sales = $sales->whereHas('Product',function($q) use($search){
                 $q->where('name','like',"%".$search."%");
             });
@@ -123,7 +129,7 @@ class SaleController extends Controller
             // dd($search,$sales->get());
         }
 
-       
+
         return $sales ;
     }
 
@@ -170,6 +176,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale): View
     {
+        $sale = $sale->load('Products');
         return redirect('edit-sale',compact('sale'));
     }
 

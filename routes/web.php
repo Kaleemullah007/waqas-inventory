@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductionHistoryController;
-
+use App\Models\Customer;
 use Auth\VerificationController;
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,7 @@ Route::group([
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::post('get-dashboard',[HomeController::class,'getDashboard']);
-    
+
 
 
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
@@ -67,6 +68,7 @@ Route::group([
         Route::resource('expense',ExpenseController::class);
         Route::post('get-productions',[SaleController::class,'getSales']);
         Route::resource('production',ProductionHistoryController::class);
+        Route::resource('customer',CustomerController::class);
 
 
 });

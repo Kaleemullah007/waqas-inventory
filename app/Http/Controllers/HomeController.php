@@ -41,7 +41,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        
+
         $start_date = date('Y-m-d');
         $end_date = date('Y-m-d');
 
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
     public function getDashboard(Request $request)
     {
-        
+
         $dates = $request->daterange;
         list($start_date,$end_date) = explode('-',$dates);
         $start_date = changeDateFormat($start_date,'Y-m-d');
@@ -63,7 +63,7 @@ class HomeController extends Controller
         $result   = $this->dashboardStat($start_date,$end_date);
         $dashboard_html = view('pages.ajax-dashboard',compact('result'))->render();
         return response()->json(['html'=>$dashboard_html]);
-        
+
     }
 
 
@@ -79,16 +79,54 @@ class HomeController extends Controller
         ->latest()
         ->get();
 
-        $products = Product::withSum(['SaleProduct'
-                =>function($query) use($start_date,$end_date){
-                    $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
-                }],
-                'total')
-                ->withSum(['ProductionProduct'
-                =>function($query) use($start_date,$end_date){
-                    $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
-                }],'qty')
+        // $products = Product::withSum(['SaleProduct'
+        //         =>function($query) use($start_date,$end_date){
+        //             $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
+        //         }],
+        //         'total')
+        //         ->withSum(['ProductionProduct'
+        //         =>function($query) use($start_date,$end_date){
+        //             $query->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date);
+        //         }],'qty')
+        //         ->get();
+
+
+                $sales = Sale::query()
+                ->withSum(['Products'],'cost_price')
+                ->withSum(['Products'],'sale_price')
+                ->withSum(['Products'],'qty')
+                ->whereDate('created_at','>=',$start_date)->whereDate('created_at','<=',$end_date)
+                // ->sum('total')
+                // ->sum('discount')
+                // ->sum('remaning_amount')
+                // ->sum('paid_amount')
                 ->get();
+
+                $products_sum_cost_price = $sales->sum('products_sum_cost_price');
+                $products_sum_sale_price = $sales->sum('products_sum_sale_price');
+                $products_sum_qty = $sales->sum('products_sum_qty');
+                $total = $sales->sum('total');
+                $discount = $sales->sum('discount');
+                $paid_amount = $sales->sum('paid_amount');
+                $remaining_amount = $sales->sum('remaining_amount');
+                $cost_total = $sales->sum('cost_total');
+                $total_qty = $sales->sum('total_qty');
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // dd($sales);
+
+
 
         $latest_sales = Sale::whereDate('created_at','>=',$start_date)
         ->whereDate('created_at','<=',$end_date)
@@ -115,8 +153,8 @@ class HomeController extends Controller
         ->latest()
         ->get();
 
-        $total_sales = $products->sum('sale_product_sum_total');
-        $total_purchases_qty = $products->sum('production_product_sum_qty');
+        $total_sales = $sales->sum('sale_product_sum_total');
+        $total_purchases_qty = $sales->sum('production_product_sum_qty');
 
         $net_profit =   $total_sales -$purchases_history - $expenses;
         return [
@@ -124,14 +162,22 @@ class HomeController extends Controller
             'users'=>$users,
             'latest_purchases'=>$latest_purchases,
             'latest_sales'=>$latest_sales,
-            'products'=>$products,
+            'products'=>$sales,
             'latest_expenses'=>$latest_expenses,
             'expenses'=>$expenses,
             'total_sales'=>$total_sales,
             'total_purchases_qty'=>$total_purchases_qty,
             'purchases_history'=>$purchases_history,
-
             'net_profits'=>$net_profit,
+            'products_sum_cost_price' => $products_sum_cost_price,
+            'products_sum_sale_price' => $products_sum_sale_price,
+            'products_sum_qty' => $products_sum_qty,
+            'total' => $total,
+            'discount' => $discount,
+            'paid_amount' => $paid_amount,
+            'remaining_amount' => $remaining_amount,
+            'cost_total' => $cost_total,
+            'total_qty' => $total_qty,
 
 
         ];
