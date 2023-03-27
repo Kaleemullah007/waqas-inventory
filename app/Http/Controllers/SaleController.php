@@ -174,7 +174,7 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sale $sale): View
+    public function show(Sale $sale):View
     {
         $sale = $sale->load('Products');
         return redirect('edit-sale',compact('sale'));

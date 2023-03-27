@@ -14,15 +14,16 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index():View
     {
+        $customers = Customer::paginate(10);
         $customers = Customer::withSum(['customerSale'],'sale_price')
                             ->withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')
                             ->withSum('customerSale','total')
                             ->withSum('customerSale','paid_amount')
-                            ->get();
-                            // dd($customers[11]);
+                            ->paginate(10);
+        return view('pages.customer',compact('customers'));
     }
 
     /**

@@ -39,16 +39,15 @@ class HomeController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $start_date = date('Y-m-d');
+        $start_date = date('Y-m-01');
         $end_date = date('Y-m-d');
 
         // $start_date = date('2023-03-14');
         // $end_date = date('2023-03-15');
         $result   = $this->dashboardStat($start_date,$end_date);
-
         return view('pages.dashboard',compact('result'));
     }
 
@@ -68,6 +67,7 @@ class HomeController extends Controller
 
 
     public function dashboardStat($start_date,$end_date){
+
 
         $expenses = Expense::whereDate('created_at','>=',$start_date)
         ->whereDate('created_at','<=',$end_date)

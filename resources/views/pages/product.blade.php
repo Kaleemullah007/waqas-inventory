@@ -25,8 +25,8 @@ Product Listing
                         data-bs-target="#filters" aria-controls="filters"><i class="bi bi-funnel"></i> {{__('en.Filter')}}</button>
                     <button type="button" class="btn btn-sm me-2 btn-outline-success"><i class="bi bi-filetype-pdf"></i>
                         {{__('en.PDF')}}</button> --}}
-                    <button type="button" class="btn btn-sm me-2 export-csv-product btn-outline-danger"><i
-                            class="bi bi-file-earmark-excel-fill"></i> {{__('en.EXCEL')}}</button>
+                    {{-- <button type="button" class="btn btn-sm me-2 export-csv-product btn-outline-danger"><i
+                            class="bi bi-file-earmark-excel-fill"></i> {{__('en.EXCEL')}}</button> --}}
                     <!-- modal trigger for create product -->
                     <a href="{{ route('product.create') }}" class="btn btn-sm me-2 btn-primary">
                         <i class="bi bi-plus-circle me-2"></i>{{__('en.Create')}}</a>

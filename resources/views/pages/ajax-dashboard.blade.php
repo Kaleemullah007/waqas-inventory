@@ -7,7 +7,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-people-fill"></i>
+                                    <i class="bi bi-cart4"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['total_sales']}}</p>
@@ -27,7 +27,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-people-fill"></i>
+                                    <i class="bi bi-receipt-cutoff"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['purchases_history']}}</p>
@@ -44,7 +44,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-people-fill"></i>
+                                    <i class="bi bi-wallet2"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['expenses']}}</p>
@@ -61,7 +61,75 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-people-fill"></i>
+                                    <i class="bi bi-cash-coin"></i>
+                                </div>
+                                <div class="sm-chart-text">
+                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <h5>{{__('en.Net Worth')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{-- </a> --}}
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                {{-- <a href="{{ route('sale.index') }}" class="w-100"> --}}
+                    <div class="revinue revinue-one_hybrid">
+                        <div class="revinue-hedding">
+                            <div class="w-title">
+                                <div class="w-icon">
+                                    <i class="bi bi-cash"></i>
+                                </div>
+                                <div class="sm-chart-text">
+                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <h5>{{__('en.Cash')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{-- </a> --}}
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                {{-- <a href="{{ route('sale.index') }}" class="w-100"> --}}
+                    <div class="revinue page-one_hybrid">
+                        <div class="revinue-hedding">
+                            <div class="w-title">
+                                <div class="w-icon">
+                                    <i class="bi bi-cash-coin"></i>
+                                </div>
+                                <div class="sm-chart-text">
+                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <h5>{{__('en.Remaining')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{-- </a> --}}
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                {{-- <a href="{{ route('sale.index') }}" class="w-100"> --}}
+                    <div class="revinue bounce-one_hybrid">
+                        <div class="revinue-hedding">
+                            <div class="w-title">
+                                <div class="w-icon">
+                                    <i class="bi bi-percent"></i>
+                                </div>
+                                <div class="sm-chart-text">
+                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <h5>{{__('en.Discount')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{-- </a> --}}
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                {{-- <a href="{{ route('sale.index') }}" class="w-100"> --}}
+                    <div class="revinue rv-status-one_hybrid">
+                        <div class="revinue-hedding">
+                            <div class="w-title">
+                                <div class="w-icon">
+                                    <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['net_profits']}}</p>
@@ -80,40 +148,15 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-12 pt-4">
                 <div class="admin-list">
-                    <p class="admin-ac-title ">{{__('en.Products')}}</p>
-                    <div class="table-responsive">
-                        <table class="table border table-striped">
-                            <thead>
-                                <tr>
-                                    <th>{{__('en.Id')}}</th>
-                                    <th>{{__('en.Name')}}</th>
-                                    <th>{{__('en.Stock')}}</th>
-                                    <th>{{__('en.Stock alert')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($result['latest_products'] as $product )
-                                    <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
-                                        <th>{{$product->id}}</th>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->stock}}</td>
-                                        <td>{{$product->stock_alert}}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12 pt-4">
-                <div class="admin-list">
-                    <p class="admin-ac-title ">{{__('en.Purchases')}}</p>
+                    <a href="{{route('purchase.index')}}">
+                        <p class="admin-ac-title ">{{__('en.Purchases')}}</p>
+                    </a>
                     <div class="table-responsive">
                         <table class="table border table-striped">
                             <thead>
                                 <tr>
                                     <th>{{ __('en.Id') }}</th>
-                                    <th>{{ __('en.Vendor') }}</th>
+                                    <th>{{ __('en.Name') }}</th>
                                     <th>{{ __('en.Quantity') }}</th>
                                 </tr>
                             </thead>
@@ -121,7 +164,7 @@
                                 @foreach ($result['latest_purchases'] as $purchase)
                                     <tr>
                                         <th>{{ $purchase->id }}</th>
-                                        <td>{{ $purchase->user_id }}</td>
+                                        <td>{{ $purchase->name }}</td>
                                         <td>{{ $purchase->qty }}</td>
                                     </tr>
                                 @endforeach
@@ -132,7 +175,9 @@
             </div>
             <div class="col-lg-4 col-md-6 col-12 pt-4">
                 <div class="admin-list">
-                    <p class="admin-ac-title">{{__('en.Sales')}}</p>
+                    <a href="{{route('sale.index')}}">
+                        <p class="admin-ac-title">{{__('en.Sales')}}</p>
+                    </a>
                     <div class="table-responsive">
                         <table class="table border table-striped">
                             <thead>
@@ -159,7 +204,9 @@
             </div>
             <div class="col-lg-4 col-md-6 col-12 pt-4">
                 <div class="admin-list">
-                    <p class="admin-ac-title">{{__('en.Expenses')}}</p>
+                    <a href="{{route('expense.index')}}">
+                        <p class="admin-ac-title">{{__('en.Expenses')}}</p>
+                    </a>
                     <div class="table-responsive">
                         <table class="table border table-striped">
                             <thead>

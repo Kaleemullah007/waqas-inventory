@@ -22,7 +22,7 @@
             <td>{{$sale->sale_price}}</td>
             <td>{{$sale->qty}}</td>
             <td>
-                <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
+                <a href="{{route('sale.show',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
                     <i class="bi bi-eye-fill"></i></a>
                 <a href="{{route('sale.edit',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"

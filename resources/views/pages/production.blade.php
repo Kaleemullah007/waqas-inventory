@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-12 mt-2 text-end">
-                    <button type="button" class="btn btn-sm export-csv-production me-2 btn-outline-danger"><i
-                            class="bi bi-file-earmark-excel-fill"></i> {{ __('en.EXCEL') }}</button>
+                    {{-- <button type="button" class="btn btn-sm export-csv-production me-2 btn-outline-danger"><i
+                            class="bi bi-file-earmark-excel-fill"></i> {{ __('en.EXCEL') }}</button> --}}
                     <!-- modal trigger for create production -->
                     <a href="{{ route('production.create') }}" class="btn btn-sm me-2 btn-primary">
                         <i class="bi bi-plus-circle me-2"></i>{{ __('en.Create') }}</a>

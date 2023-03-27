@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Customer extends Model
 {
 
-    use HasFactory,FilterByUser
-    ;
+    use HasFactory,FilterByUser;
     protected $table = 'users';
     public function customerSale():HasMany
     {
