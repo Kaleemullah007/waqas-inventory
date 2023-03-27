@@ -11,7 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductionHistoryController;
-
+use App\Models\Customer;
 use Auth\VerificationController;
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Route::group([
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::post('get-dashboard',[HomeController::class,'getDashboard']);
-    
+
 
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
