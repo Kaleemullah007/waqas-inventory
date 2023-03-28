@@ -19,7 +19,64 @@
                     <form method="POST" action="{{route('sale.update',$sale->id)}}" enctype="">
                         @method('patch')
                         @csrf
-                        <div class="row mt-3">
+                            <div class="row mt-3">
+                                @php
+                                $counter = 1;
+                            @endphp
+                            <div class="setting">
+                                <div class="setting-row row d-flex " id="setting-row{{ $counter }}">
+                                    <span class='totalrecord-settings'></span>
+                                    <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                        <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
+                                        <select class="form-select border-dark @error('product_id') is-invalid @enderror"
+                                            name="products[{{ $counter }}][product_id]"
+                                            id="{{ $counter }}-product_id" autocomplete="product_id" required
+                                            onchange="getPrice()">
+                                            <option>{{ __('en.Choose') }}</option>
+                                            @foreach ($products as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('product_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                        <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                        <input type="number" min="1"
+                                            class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
+                                            id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"
+                                            placeholder="20" value="{{ old('qty', 1) }}" autocomplete="qty" required
+                                            autofocus onkeyup="calcualtePrice()" min="1">
+                                        @error('qty')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-12 pt-1">
+                                        <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
+                                        <input type="number" min="1"
+                                            class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                            id="{{ $counter }}-sale_price"
+                                            name="products[{{ $counter }}][sale_price]" placeholder="10"
+                                            value="{{ old('sale_price') }}" autocomplete="sale_price" required autofocus
+                                            onkeyup="calcualtePrice()" min="0">
+                                        @error('sale_price')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2"
+                                        id="setting-row{{ $counter }}-btn">
+                                        <a href="#" class="btn btn-success" id="setting-row{{ $counter }}-href"
+                                            onclick="addSetting({{ $counter }})"><i class="bi bi-plus-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="user_id" class="form-label fs-6">{{ __('en.Customer') }}</label>
                                 <select class="form-select mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
@@ -30,44 +87,6 @@
 
                                 </select>
                                 @error('user_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
-                                <select class="form-select mb-2 border-dark @error('product_id') is-invalid @enderror" name="product_id" id="product_id" autocomplete="product_id" required onchange="getPrice()">
-                                    <option>{{__('en.Choose')}}</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{$product->id}}" @selected($product->id == $sale->product_id) >{{$product->name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('product_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
-                                <input type="number" min="1"
-                                    class="form-control calculation bg-grey mb-2 border-dark @error('qty') is-invalid @enderror"
-                                    id="qty" name="qty" value="{{ old('qty',$sale->qty) }}"
-                                    autocomplete="qty" required autofocus>
-                                @error('qty')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                <input type="number" min="1"
-                                    class="form-control calculation bg-grey mb-2 border-dark @error('sale_price') is-invalid @enderror"
-                                    id="sale_price" name="sale_price" value="{{ old('sale_price',$sale->sale_price) }}"
-                                    autocomplete="sale_price" required autofocus onchange="calcualtePrice()">
-                                @error('sale_price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

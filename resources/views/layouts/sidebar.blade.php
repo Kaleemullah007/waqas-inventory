@@ -8,7 +8,7 @@
                                         class="hide-menu ">{{ __('en.Dashboard') }}</span></a>
                             </li>
                             <li class="lii {{ request()->is('customer') ? 'active' : '' }}">
-                                <a href="{{ route('customer.index') }}"><i class="bi fs-5 pe-2 bi-boxes"></i><span
+                                <a href="{{ route('customer.index') }}"><i class="bi fs-5 pe-2 bi-people-fill"></i><span
                                     class="hide-menu ">{{ __('en.Customers') }}</span></a>
                             </li>
                             <li class="lii {{ request()->is('product') ? 'active' : '' }}">

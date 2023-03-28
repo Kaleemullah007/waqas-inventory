@@ -18,9 +18,10 @@
         <tr>
             <td>{{$sale->id}}</td>
             <td>{{$sale->Customer->name}}</td>
-            <td>{{$sale->Product->name}}</td>
-            <td>{{$sale->sale_price}}</td>
-            <td>{{$sale->qty}}</td>
+            
+            <td>{{$sale->Products->pluck('product_name')->join(',')}}</td>
+            <td>{{$sale->total}}</td>
+            <td>{{$sale->total_qty}}</td>
             <td>
                 <a href="{{route('sale.show',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
@@ -28,9 +29,6 @@
                 <a href="{{route('sale.edit',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                     <i class="bi bi-pencil"></i></a>
-                <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                    class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
-                    <i class="bi bi-trash-fill"></i></a>
             </td>
         </tr>
         @endforeach

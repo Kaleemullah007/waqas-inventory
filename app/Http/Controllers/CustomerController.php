@@ -16,8 +16,9 @@ class CustomerController extends Controller
      */
     public function index():View
     {
-        $customers = Customer::withSum(['customerSale'],'sale_price')
-                            ->withSum('customerSale','discount')
+        $customers = Customer:://withSum(
+                            // ['customerSale'],'sale_price')
+                            withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')
                             ->withSum('customerSale','total')
                             ->withSum('customerSale','paid_amount')

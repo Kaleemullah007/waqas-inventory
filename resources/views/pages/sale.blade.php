@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-12 mt-2 d-flex">
                     <select class="form-select border-dark select2 @error('customer_id') is-invalid @enderror"
-                        name="customer_id" id="customer_id" autocomplete="customer_id" required>
+                        onchange="getSales()" name="customer_id" id="customer_id" autocomplete="customer_id" required>
                         <option>{{ __('en.Choose Customer') }}</option>
                         @isset($customers)
                         @php

@@ -162,6 +162,7 @@
     {
         var daterange = $("#daterange").val();
         var search = $("#search").val();
+        var customer_id = $("#customer_id").val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -170,7 +171,7 @@
         $.ajax({
             type: "POST",
             url: "/get-sales",
-            data:{"daterange":daterange,"search":search},
+            data:{"daterange":daterange,"search":search,"customer_id":customer_id},
             success: function(data) {
                 $('#searchable').html(data.html);
             }
@@ -355,7 +356,7 @@
          });
 
          var addButton = '<a href="#" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
-         var removeButton = '<a href="#" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-minus-lg"></i> Remove</a>';
+         var removeButton = '<a href="#" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-trash"></i></a>';
          $("#"+FirstRowId+'-btn').html(removeButton);
 
         //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");

@@ -24,9 +24,6 @@
                     <a href="{{route('expense.edit',$expense->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                         <i class="bi bi-pencil"></i></a>
-                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
-                        <i class="bi bi-trash-fill"></i></a>
                 </td>
             </tr>
         @endforeach
