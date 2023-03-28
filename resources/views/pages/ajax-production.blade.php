@@ -29,13 +29,6 @@
                         data-bs-placement="bottom" title="Edit"
                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
                         <i class="bi bi-pencil"></i></a>
-                    <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
-                        <i class="bi bi-trash-fill"></i></a>
-                    {{-- <a href="{{ route('production.create') }}" data-bs-toggle="tooltip"
-                        data-bs-placement="bottom" title="Production"
-                        class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary me-2">
-                        <i class="bi bi-repeat"></i></a> --}}
                 </td>
             </tr>
         @endforeach

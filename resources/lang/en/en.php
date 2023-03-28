@@ -429,6 +429,12 @@ return
     "Waste"=>"Waste",
     "Create Production"=>"Create Production",
 
+    "Date Format"=>"Date Format",
+    "Logo"=>"Logo",
+    "Current Template"=>"Current Template",
+    "Business Phone"=>"Business Phone",
+    "Business Email"=>"Business Email",
+    "General Setting"=>"General Setting",
 
 
 

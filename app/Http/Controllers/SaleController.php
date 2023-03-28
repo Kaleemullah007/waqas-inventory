@@ -100,7 +100,7 @@ class SaleController extends Controller
         $dates = $request->daterange;
         $search = $request->search;
 
-        $customer_id = $request->customer_id??null;
+        $customer_id = $request->customer_id??null;        
         $sales = Sale::
         with(['Customer','Product','Products']);
         if($dates != null){
@@ -177,7 +177,7 @@ class SaleController extends Controller
     public function show(Sale $sale):View
     {
         $sale = $sale->load('Products');
-        return redirect('edit-sale',compact('sale'));
+        return view('pages.view-sale',compact('sale'));
     }
 
     /**
