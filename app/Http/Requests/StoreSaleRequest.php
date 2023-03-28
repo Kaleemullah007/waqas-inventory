@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Product;
+use App\Rules\ProductStockRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -26,16 +27,16 @@ class StoreSaleRequest extends FormRequest
     {
         return [
             'user_id'=>'required|integer',
-            'product_id'=>'required|integer',
-            'qty'=>'required',
-            'sale_price'=>'required',
-            'owner_id'=>'required|integer',
-            'discount'=>'required|integer',
-            'payment_status'=>'required',
-            'payment_method'=>'required',
-            'paid_amount'=>'required|integer',
-            'remaining_amount'=>'required|integer',
-            'total'=>'required|integer',
+            'products'=>['required','array',new ProductStockRule()],
+            // 'qty'=>'required',
+            // 'sale_price'=>'required',
+            // 'owner_id'=>'required|integer',
+            // 'discount'=>'required|integer',
+            // 'payment_status'=>'required',
+            // 'payment_method'=>'required',
+            // 'paid_amount'=>'required|integer',
+            // 'remaining_amount'=>'required|integer',
+            // 'total'=>'required|integer',
 
             // 'flag'=>['required','boolean',Rule::notIn([false])]
         ];
