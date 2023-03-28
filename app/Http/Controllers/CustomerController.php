@@ -16,7 +16,6 @@ class CustomerController extends Controller
      */
     public function index():View
     {
-        $customers = Customer::paginate(10);
         $customers = Customer::withSum(['customerSale'],'sale_price')
                             ->withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')

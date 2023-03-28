@@ -180,7 +180,7 @@
 
     //  Get products
 
-    
+
     function getProducts()
     {
         var search = $("#search").val();
@@ -202,7 +202,7 @@
 
     // Get Purchases
 
-   
+
     function getPurchases()
     {
         var daterange = $("#daterange").val();
@@ -280,7 +280,7 @@
         new_window = window.open(url);
     })
 
-    
+
     $(document).on('click','.export-csv-production',function(){
 
         //var restaurants_id = $('#restaurants_id').val();
@@ -295,7 +295,7 @@
     })
 
 
-    
+
     $(document).on('click','.export-csv-expense',function(){
 
         //var restaurants_id = $('#restaurants_id').val();
@@ -310,7 +310,7 @@
     })
 
 
-    
+
     $(document).on('click','.export-csv-purchase',function(){
 
         //var restaurants_id = $('#restaurants_id').val();
@@ -324,7 +324,7 @@
         new_window = window.open(url);
     })
 
-    
+
     $(document).on('click','.export-csv-product',function(){
 
         //var restaurants_id = $('#restaurants_id').val();
@@ -336,3 +336,51 @@
 
         new_window = window.open(url);
     })
+    function addSetting(id) {
+        $("#setting-row" +id+ "-href").attr('disabled',true)
+       var OldRow = id;
+            totalrows = $(".setting > .setting-row").length;
+            totalrecord = $('.totalrecord-settings').length;
+         var div = $(".setting > .setting-row:last");
+         FirstRowId = div.attr('id');
+         lastRow = FirstRowId.split("").reverse().join("");
+        //  console.log(lastRow);
+         var NextRow = parseInt(lastRow) + 1;
+
+         $.ajaxSetup({
+
+           headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+         });
+
+         var addButton = '<a href="#" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
+         var removeButton = '<a href="#" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-minus-lg"></i> Remove</a>';
+         $("#"+FirstRowId+'-btn').html(removeButton);
+
+        //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");
+
+         console.log(totalrows+ ' '+ NextRow);
+         $.ajax({
+
+           type: 'get',
+
+           url: '/add-new-row',
+
+           data: { new_row: NextRow,totalrecord:totalrecord },
+           dataType: 'html',
+
+           success: function (data) {
+            $("#" + FirstRowId+ "-btn").html(removeButton)
+             $(".setting").append(data)
+           }
+         })
+
+
+     }
+
+
+       function removeSetting(id) {
+           $("#"+id).remove();
+
+       }

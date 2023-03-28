@@ -162,7 +162,7 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request): RedirectResponse
     {
-        // dd($request->validated());
+        dd($request->all());
         $product = Product::find($request->product_id);
         $product->decrement('stock',$request->qty);
         // $product->save();
@@ -235,4 +235,21 @@ class SaleController extends Controller
         $sale->dalete();
         return redirect('sale/'.$sale->id);
     }
+
+        /**
+     * Add the specified row from .
+     *
+     * @param  \App\Models\Setting  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function addNewRow(Request $request)
+    {
+        $new_row = $request->new_row;
+        $totalrecords = $request->totalrecords;
+        $products = Product::get();
+        $html = view('pages.row',compact('new_row','totalrecords','products'))->render();
+        return $html;
+
+    }
+
 }
