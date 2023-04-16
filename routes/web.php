@@ -55,12 +55,15 @@ Route::group([
 
 
     Route::get('/user-profile-setting', [SettingController::class, 'userProfileSetting'])->name('user-profile-setting');
+    Route::post('profile-update', [SettingController::class, 'update'])->name('profile-update');
+
     Route::get('/setting', [SettingController::class, 'Setting'])->name('setting');
         Route::post('get-products',[ProductController::class,'getProducts']);
         Route::resource('product',ProductController::class);
         Route::get('get-price/{product}',[ProductController::class,'getPrice']);
         route::get('add-new-row',[SaleController::class,'addNewRow']);
         Route::post('get-sales',[SaleController::class,'getSales']);
+        Route::get('generate-pdf/{id}', [SaleController::class, 'generatePDF'])->name('generate-pdf');
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
         Route::post('get-purchases',[SaleController::class,'getSales']);
         Route::resource('purchase',PurchaseController::class);

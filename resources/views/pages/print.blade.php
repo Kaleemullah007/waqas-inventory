@@ -3,29 +3,159 @@
   <head>
     <meta charset="utf-8">
     <title>Invoice</title>
-    <link rel="stylesheet" href="{{asset('style.css')}}" media="all" />
+    <style>
+        .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+a {
+  color: #5D6975;
+  text-decoration: underline;
+}
 
-  </head>
+body {
+  margin: auto !important;
+  position: relative;
+  width: 21cm;
+  height: 29.7cm;
+  /* margin: 0 auto;  */
+  color: #001028;
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-family: Arial;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+h1 {
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  color: #5D6975;
+  font-size: 2.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px 0;
+  background: url(dimension.png);
+}
+
+#project {
+  float: left;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+table tr:nth-child(2n-1) td {
+  background: #F5F5F5;
+}
+
+table th,
+table td {
+  text-align: center;
+}
+
+table th {
+  padding: 5px 20px;
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+table .service,
+table .desc {
+  text-align: left;
+}
+
+table td {
+  padding: 20px;
+  text-align: center;
+}
+
+table td.service,
+table td.desc {
+  vertical-align: top;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.2em;
+}
+
+table td.grand {
+  border-top: 1px solid #5D6975;;
+}
+
+#notices .notice {
+  color: #5D6975;
+  font-size: 1.2em;
+}
+
+footer {
+  color: #5D6975;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #C1CED9;
+  padding: 8px 0;
+  text-align: center;
+}
+.text-alignment{
+    text-align: right !important;
+}
+
+    </style>
+    </head>
   <body>
       <header class="clearfix">
         <div class="row d-flex justify-content-between">
-          <div class="col">
-          <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
-        </div>
-          <div class="col" id="logo">
 
-            <img src="/images/{{auth()->user()->logo}}">
-          </div>
-          <div class="col">
-            <form method="get" action="{{route('generate-pdf',$sales->id)}}">
-                {{-- <button type="submit">Download!</button> --}}
-                <button class="btn btn-success float-end"  ><i class="bi bi-printer me-2"></i>Print</button>
-             </form>
-            {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
+          <div class="col" id="logo">
+            {{-- <img src="{{public_path().'/logo.png'}}"> --}}
+            <img src="{{public_path()}}/images/{{auth()->user()->logo}}">
+
+
           </div>
         </div>
 
@@ -90,13 +220,4 @@
   </body>
 </html>
 
-<script>
-    function printPageArea(areaID){
-    // var printContent = document.getElementByTag('body').innerHTML;
-    // var originalContent = document.body.innerHTML;
-    // document.body.innerHTML = printContent;
-    window.print();
-    document.body.innerHTML = originalContent;
-}
 
-</script>

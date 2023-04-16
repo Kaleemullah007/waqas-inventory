@@ -27,32 +27,26 @@ class StoreSaleRequest extends FormRequest
     {
         return [
             'user_id'=>'required|integer',
-            'products'=>['required','array',new ProductStockRule()],
-            // 'qty'=>'required',
-            // 'sale_price'=>'required',
-            // 'owner_id'=>'required|integer',
-            // 'discount'=>'required|integer',
-            // 'payment_status'=>'required',
-            // 'payment_method'=>'required',
-            // 'paid_amount'=>'required|integer',
-            // 'remaining_amount'=>'required|integer',
-            // 'total'=>'required|integer',
 
-            // 'flag'=>['required','boolean',Rule::notIn([false])]
+            'products.*.product_id' => 'required|integer|max:255',
+            'products'=>[new ProductStockRule()],
+            'products.*.qty'=>'required',
+            'products.*.sale_price'=>'required',
+            'owner_id'=>'required|integer',
+            'discount'=>'required|decimal:0,2',
+            'payment_status'=>'required',
+            'payment_method'=>'required',
+            'paid_amount'=>'required|decimal:0,2',
+            'remaining_amount'=>'required|decimal:0,2',
+            'total'=>'required|decimal:0,2',
         ];
     }
     // Adding Owner Id To all Requests
     protected function prepareForValidation(){
 
-        // $product = Product::find($this->product_id);
-
-        // $flag = false;
-        // if($product->stock > $this->qty)
-        //   $flag = true;
-
         $this->merge([
             'owner_id'=>auth()->id(),
-            'total'=>$this->qty*$this->sale_price,
+            'total'=>0.0,
             // 'flag'=>$flag,
         ]);
     }

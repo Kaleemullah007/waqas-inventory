@@ -14,6 +14,39 @@ if (! function_exists('langUrl')) {
     }
 }
 
+if (! function_exists('paymentStatus')) {
+    function paymentStatus($status=null) {
+        $options = '';
+
+        $payments = array('Pending','Paid','Partial');
+
+        foreach($payments as $payment){
+            $select='';
+            if($payment == $status)
+            $select = 'selected';
+        $options .='<option value="'.$payment.'" '.$select.' >'.$payment.'</option>';
+        }
+
+        return $options;
+    }
+}
+
+if (! function_exists('paymentMethods')) {
+    function paymentMethods($method=null) {
+        $options = '';
+
+        $payment_methods = array('Cash','Bank Transfer','Mobile Account','Other');
+        foreach($payment_methods as $payment_method){
+            $select='';
+            if($payment_method == $method)
+            $select = 'selected';
+        $options .='<option value="'.$payment_method.'" '.$select.'>'.$payment_method.'</option>';
+        }
+
+        return $options;
+    }
+}
+
 if (! function_exists('changeDateFormat')) {
     function changeDateFormat($date,$format) {
         return date($format, strtotime($date));

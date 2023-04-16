@@ -15,78 +15,160 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
+                    @include('message')
                     <form method="POST" action="{{ route('sale.store') }}" enctype="">
                         @csrf
 
                         <div class="row mt-3">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $key1 => $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @php
-                                $counter = 1;
+
+                                $counter = 0;
+
                             @endphp
                             <div class="setting">
-                                <div class="setting-row row d-flex " id="setting-row{{ $counter }}">
-                                    <span class='totalrecord-settings'></span>
-                                    <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                        <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
-                                        <select class="form-select border-dark @error('product_id') is-invalid @enderror"
-                                            name="products[{{ $counter }}][product_id]"
-                                            id="{{ $counter }}-product_id" autocomplete="product_id" required
-                                            onchange="getPrice()">
-                                            <option>{{ __('en.Choose') }}</option>
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('product_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                @if (old('products'))
+                                    @foreach (old('products') as $key => $product_old)
+                                        <div class="setting-row row d-flex " id="setting-row{{ $key }}">
+                                            <span class='totalrecord-settings'></span>
+                                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                                <label for="product_id"
+                                                    class="form-label fs-6">{{ __('en.Product') }}</label>
+
+                                                <select class="form-select  {!! $errors->has('products.' . $key . '.product_id') ? '  is-invalid' : 'border-dark' !!}"
+                                                    name="products[{{ $key }}][product_id]"
+                                                    id="{{ $key }}-product_id" autocomplete="product_id" required
+                                                    onchange="getPrice({{$key}})"
+                                                    >
+                                                    <option>{{ __('en.Choose') }}</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}" @selected($product_old['product_id'] == $product->id)>
+                                                            {{ $product->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('products.' . $key . '.product_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $errors->has("products.$key.product_id") }}
+                                                        <strong>{{ $errors->first('products.' . $key . '.product_id') }} </strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                                <label for="qty"
+                                                    class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                                <input name="products[{{ $key }}][qty]" type="number" min="1"
+                                                    class="form-control  mb-2 border-dark @error('qty') is-invalid @enderror"
+                                                    id="{{ $key }}-qty"
+                                                    placeholder="20" value="{{ old('qty', $product_old['qty']) }}"
+                                                    autocomplete="qty" required autofocus onkeyup="calcualtePrice()"
+                                                    min="1">
+                                                @error('products.' . $key . '.qty')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('products.' . $key . '.qty') }} </strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-lg-2 col-md-6 col-12 pt-1">
+                                                <label for="sale_price"
+                                                    class="form-label fs-6">{{ __('en.Price') }}</label>
+                                                <input type="number" min="1"
+                                                    class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                                    id="{{ $key }}-sale_price"
+                                                    name="products[{{ $key }}][sale_price]" placeholder="10"
+                                                    value="{{ old('sale_price', $product_old['sale_price']) }}"
+                                                    autocomplete="sale_price" required autofocus onkeyup="calcualtePrice()"
+                                                    min="0">
+                                                @error('products.' . $key . '.sale_price')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('products.' . $key . '.sale_price') }} </strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            @if ($loop->last)
+                                                <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2"
+                                                    id="setting-row{{ $key }}-btn">
+                                                    <a href="#" class="btn btn-success"
+                                                        id="setting-row{{ $key }}-href"
+                                                        onclick="addSetting({{ $key }})"><i
+                                                            class="bi bi-plus-lg"></i></a>
+                                                </div>
+                                            @else
+                                                <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2"
+                                                    id="setting-row{{ $key }}-btn">
+                                                    <a href="#" class="btn btn-danger"
+                                                        id="setting-row{{ $key }}-href"
+                                                        onclick="removeSetting({{ $key }})"><i
+                                                            class="bi bi-trash"></i></a>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="setting-row row d-flex " id="setting-row{{ $counter }}">
+                                        <span class='totalrecord-settings'></span>
+                                        <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                            <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
+                                            <select
+                                                class="form-select border-dark @error('product_id') is-invalid @enderror"
+                                                name="products[{{ $counter }}][product_id]"
+                                                id="{{ $counter }}-product_id" autocomplete="product_id" required
+                                                onchange="getPrice({{$counter}})"
+                                                >
+                                                <option>{{ __('en.Choose') }}</option>
+                                                @foreach ($products as $product)
+                                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('product_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                            <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                            <input type="number" min="1"
+                                                class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
+                                                id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"
+                                                placeholder="20" value="{{ old('qty', 1) }}" autocomplete="qty" required
+                                                autofocus onkeyup="calcualtePrice()" min="1">
+                                            @error('qty')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-lg-2 col-md-6 col-12 pt-1">
+                                            <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
+                                            <input type="number" min="1"
+                                                class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
+                                                id="{{ $counter }}-sale_price"
+                                                name="products[{{ $counter }}][sale_price]" placeholder="10"
+                                                value="{{ old('sale_price') }}" autocomplete="sale_price" required
+                                                autofocus onkeyup="calcualtePrice()" min="0">
+                                            @error('sale_price')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2"
+                                            id="setting-row{{ $counter }}-btn">
+                                            <a href="#" class="btn btn-success"
+                                                id="setting-row{{ $counter }}-href"
+                                                onclick="addSetting({{ $counter }})"><i
+                                                    class="bi bi-plus-lg"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                        <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
-                                        <input type="number" min="1"
-                                            class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
-                                            id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"
-                                            placeholder="20" value="{{ old('qty', 1) }}" autocomplete="qty" required
-                                            autofocus onkeyup="calcualtePrice()" min="1">
-                                        @error('qty')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-2 col-md-6 col-12 pt-1">
-                                        <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                        <input type="number" min="1"
-                                            class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
-                                            id="{{ $counter }}-sale_price"
-                                            name="products[{{ $counter }}][sale_price]" placeholder="10"
-                                            value="{{ old('sale_price') }}" autocomplete="sale_price" required autofocus
-                                            onkeyup="calcualtePrice()" min="0">
-                                        @error('sale_price')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2"
-                                        id="setting-row{{ $counter }}-btn">
-                                        <a href="#" class="btn btn-success" id="setting-row{{ $counter }}-href"
-                                            onclick="addSetting({{ $counter }})"><i class="bi bi-plus-lg"></i></a>
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="user_id" class="form-label  fs-6">{{ __('en.Customer') }}</label>
@@ -96,7 +178,7 @@
                                         name="user_id" id="user_id" autocomplete="user_id" required>
                                         <option>{{ __('en.Choose') }}</option>
                                         @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                            <option value="{{ $customer->id }}"  @selected($customer->id == old('user_id')) >{{ $customer->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('user_id')
@@ -121,13 +203,13 @@
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="payment_status" class="form-label  fs-6">{{ __('en.Payment Status') }}</label>
+                                <label for="payment_status"
+                                    class="form-label  fs-6">{{ __('en.Payment Status') }}</label>
                                 <select class="form-select mb-2 border-dark @error('payment_status') is-invalid @enderror"
                                     name="payment_status" id="payment_status" autocomplete="payment_status" required>
-                                    <option>Pending</option>
-                                    <option value="1">Paid</option>
-                                    <option value="2">Partial</option>
+                                    {!! paymentStatus(old('payment_status')) !!}
                                 </select>
                                 @error('payment_status')
                                     <span class="invalid-feedback" role="alert">
@@ -140,10 +222,7 @@
                                     class="form-label  fs-6">{{ __('en.Payment Method') }}</label>
                                 <select class="form-select mb-2 border-dark @error('payment_method') is-invalid @enderror"
                                     name="payment_method" id="payment_method" autocomplete="payment_method" required>
-                                    <option>Cash</option>
-                                    <option value="1">Bank Transfer</option>
-                                    <option value="2">Mobile Account</option>
-                                    <option value="3">Other</option>
+                                   {!! paymentMethods(old('payment_method')) !!}
 
                                 </select>
                                 @error('payment_method')
@@ -284,5 +363,10 @@
     </div>
 @endsection
 @section('script')
-    <script></script>
+
+<script>
+  $(document).ready(function() {
+    calcualtePrice();
+  })
+</script>
 @endsection

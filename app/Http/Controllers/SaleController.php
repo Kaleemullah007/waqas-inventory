@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Product;
+use App\Models\SaleProduct;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
@@ -13,7 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SaleController extends Controller
 {
@@ -100,7 +101,7 @@ class SaleController extends Controller
         $dates = $request->daterange;
         $search = $request->search;
 
-        $customer_id = $request->customer_id??null;        
+        $customer_id = $request->customer_id??null;
         $sales = Sale::
         with(['Customer','Product','Products']);
         if($dates != null){
@@ -130,7 +131,7 @@ class SaleController extends Controller
         }
 
 
-        return $sales ;
+        return $sales->orderBy('created_at','DESC') ;
     }
 
     public function getSales(Request $request)
@@ -162,13 +163,64 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request): RedirectResponse
     {
-        dd($request->all());
-        $product = Product::find($request->product_id);
-        $product->decrement('stock',$request->qty);
-        // $product->save();
+        $products = array_filter($request->products);
+        $productIds = collect($products)->pluck('product_id');
+        $qty_sum = collect($products)->sum('qty');
 
-        $sales = Sale::create($request->validated());
-        return redirect('sale');
+        $DBProducts = Product::find($productIds)
+        ->keyBy('id');
+        $sub_total_cost = 0;
+
+        $sale_products  = array();
+        // dd($qty_sum,$request->products);
+        $subtotal = collect($request->products)->reduce(function($carry,$item){
+            return $carry + $item['sale_price']*$item['qty'];
+        },0);
+
+        $total = $subtotal - $request->discount;
+
+        $request->total = $total;
+
+        foreach ($products as $index => $products_array) {
+            if(!isset($DBProducts[$products_array['product_id']]))
+            continue;
+            $temp = array();
+            $temp['product_name'] = $DBProducts[$products_array['product_id']]->name;
+            $temp['product_id']   = $DBProducts[$products_array['product_id']]->id;
+            $temp['sale_id']   = 0;  // $sales->id
+            $temp['qty']   = $products_array['qty'];
+            $sub_total_cost += $products_array['qty'] * $DBProducts[$products_array['product_id']]->price;
+            $DBProducts[$products_array['product_id']]->decrement('stock',$products_array['qty']);
+            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->cost_price;
+            $temp['sale_price']   = $products_array['sale_price'];
+            $sale_products[] = $temp;
+        }
+
+        $cost_total = $sub_total_cost - $request->discount;
+        $calcualted_values = [
+            'sub_total'=>$subtotal,
+            'cost_total'=>$sub_total_cost,
+            'total_qty'=>$qty_sum,
+            'total'=>$total,
+            'cost_total'=>$cost_total,
+            'tax'=>0
+
+        ];
+        $sale_data = array_merge($request->validated(),$calcualted_values);
+        $sales = Sale::create($sale_data);
+
+        $sale_products= array_map(function($item) use($sales) {
+            $item['sale_id'] =  $sales->id;
+            return $item;
+       },$sale_products);
+
+
+        SaleProduct::insert($sale_products);
+
+
+        $request->session()->flash('success','Sale created successfully.');
+
+        return redirect()->route('sale.create');
     }
 
     /**
@@ -176,8 +228,9 @@ class SaleController extends Controller
      */
     public function show(Sale $sale):View
     {
-        $sale = $sale->load('Products');
-        return view('pages.view-sale',compact('sale'));
+        $sales = $sale->load('Products','Customer');
+
+        return view('pages.view-sale',compact('sales'));
     }
 
     /**
@@ -205,26 +258,71 @@ class SaleController extends Controller
         // negative decrement abs($d)
 
         // dd($request->all());
-        $product = Product::find($request->product_id);
-        if($product == null){
-            $request->session()->flash('warning','Product not found.');
-            throw new \ErrorException('Product not found');
+        $products = array_filter($request->products);
+        $productIds = collect($products)->pluck('product_id');
+        $qty_sum = collect($products)->sum('qty');
+
+        $DBProducts = Product::find($productIds)
+        ->keyBy('id');
+        $sub_total_cost = 0;
+
+        $sale_products  = array();
+        $subtotal = collect($request->products)->reduce(function($carry,$item){
+            return $carry + $item['sale_price']*$item['qty'];
+        },0);
+
+        $total = $subtotal - $request->discount;
+        $request->total = $total;
+        $DBSaleProducts = SaleProduct::where('sale_id',$sale->id)
+        ->get()
+        ->keyBy('product_id');
+        foreach ($products as $index => $products_array) {
+            if(!isset($DBProducts[$products_array['product_id']]))
+            continue;
+            $temp = array();
+            $temp['product_name'] = $DBProducts[$products_array['product_id']]->name;
+            $temp['product_id']   = $DBProducts[$products_array['product_id']]->id;
+            $temp['sale_id']   = 0;  // $sales->id
+            $temp['qty']   = $products_array['qty'];
+            $sub_total_cost += $products_array['qty'] * $DBProducts[$products_array['product_id']]->price;
+            $difference = $DBSaleProducts[$products_array['product_id']]->qty -  $products_array['qty'];
+            if($difference > 0){
+                $DBProducts[$products_array['product_id']]->increment('stock',abs($difference));
+            }else{
+                $DBProducts[$products_array['product_id']]->decrement('stock',abs($difference));
+            }
+
+
+
+            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->cost_price;
+            $temp['sale_price']   = $products_array['sale_price'];
+            $sale_products[] = $temp;
         }
 
+        $cost_total = $sub_total_cost - $request->discount;
+        $calcualted_values = [
+            'sub_total'=>$subtotal,
+            'cost_total'=>$sub_total_cost,
+            'total_qty'=>$qty_sum,
+            'total'=>$total,
+            'cost_total'=>$cost_total,
+            'tax'=>0
 
-        $difference = $sale->qty -  $request->qty;
+        ];
+        $sale_data = array_merge($request->validated(),$calcualted_values);
+        unset($sale_data['products']);
+        // dd($sale_data);
+        $sale_products= array_map(function($item) use($sale) {
+            $item['sale_id'] =  $sale->id;
+            return $item;
+       },$sale_products);
 
-        if($difference > 0){
-            $product->increment('stock',$difference);
-        }else{
-            $product->decrement('stock',abs($difference));
-        }
+       SaleProduct::where('sale_id',$sale->id)->delete();
+       SaleProduct::insert($sale_products);
+       Sale::where('id',$sale->id)->update($sale_data);
 
-
-
-        Sale::where('id',$sale->id)->update($request->validated());
-        $request->session()->flash('success','Sale updated successfully.');
-        return redirect('sale/'.$sale->id.'/edit');
+       $request->session()->flash('success','Sale updated successfully.');
+       return redirect('sale/'.$sale->id.'/edit');
     }
 
     /**
@@ -246,10 +344,20 @@ class SaleController extends Controller
     {
         $new_row = $request->new_row;
         $totalrecords = $request->totalrecords;
-        $products = Product::get();
+        $products  = $request->products;
+
+        $products = Product::whereNotIn('id',array_values($products))->get();
         $html = view('pages.row',compact('new_row','totalrecords','products'))->render();
         return $html;
 
+    }
+
+    public function generatePDF($id){
+        $sales = Sale::with(['Products','Customer'])
+        ->whereId($id)->first();
+
+        $pdf = Pdf::loadView('pages.print', compact('sales'));
+        return $pdf->download('invoice.pdf');
     }
 
 }

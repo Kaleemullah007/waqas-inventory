@@ -12,7 +12,22 @@ class Sale extends Model
 {
     use HasFactory;
     use FilterByUser;
-    protected $fillable = ['sale_price','product_id','user_id','qty','owner_id','total','paid_amount','discount','remaining_amount','payment_method','payment_status'];
+    protected $fillable = [
+        'sale_price',
+        'product_id',
+        'user_id',
+        'total_qty',
+        'owner_id',
+        'total',
+        'paid_amount',
+        'discount',
+        'remaining_amount',
+        'payment_method',
+        'payment_status',
+        'payment_due_date',
+        'sub_total_cost',
+        'sub_total'
+    ];
 
 
     public function Customer():BelongsTo

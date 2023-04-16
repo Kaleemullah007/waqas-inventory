@@ -4,7 +4,8 @@
                                         <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                         <select
                                             class="form-select border-dark @error('product_id') is-invalid @enderror"
-                                            name="products[{{$new_row}}][product_id]" id="{{$new_row}}-product_id" autocomplete="product_id" required  onchange="getPrice()">
+                                            name="products[{{$new_row}}][product_id]" id="{{$new_row}}-product_id" autocomplete="product_id"
+                                             required  onchange="getPrice({{$new_row}})">
                                             <option>{{ __('en.Choose') }}</option>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>

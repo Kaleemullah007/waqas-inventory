@@ -83,14 +83,15 @@
     //     toggleFullScreen
     //  })
 
-    function getPrice()
+    function getPrice(id)
     {
-        var productid = $("#product_id").val();
+        var productid = $("#"+id+"-product_id").val();
+
         $.ajax({
             type: "GET",
             url: "/get-price/"+productid,
             success: function(data) {
-                $("#sale_price").val(data.sale_price)
+                $("#"+id+"-sale_price").val(data.sale_price)
                 calcualtePrice();
             }
         });
@@ -103,9 +104,33 @@
         var paid_amount = $("#paid_amount").val();
         var qty = $("#qty").val();
         var discount = $("#discount").val();
-        var sale_price = $("#sale_price").val();
-        var total_amount = (parseFloat(sale_price)*parseFloat(qty))-parseFloat(discount);
-        var subtotal = (parseFloat(sale_price)*parseFloat(qty));
+
+        var n = $("input[name^='products']").length;
+        var price = 0;
+        var qty = 0;
+        $("input[name^='products']").each(function (index,val) {
+            var id = this.id;
+            if(id.includes('qty')){
+                var row_id = parseInt(id);
+                row_qty =  $("#"+row_id+"-qty").val();
+                row_price =  $("#"+row_id+"-sale_price").val();
+                qty += row_qty;
+                price += row_qty * row_price;
+            }
+         });
+        // var values = $("input[name='products[]']")
+        //       .map(function(){return $(this).val();}).get();
+
+
+        sale_price = price;
+        qty = qty;
+
+
+
+
+
+        var total_amount = parseFloat(sale_price)-parseFloat(discount);
+        var subtotal = parseFloat(sale_price);
         var remaining_amount=  total_amount - parseFloat(paid_amount);
         $("#remaining_amount").val(remaining_amount);
         $("#total").val(total_amount);
@@ -122,7 +147,7 @@
 
 
 
-    $(".calculation").on("change", function () {
+    $(document).on("change",".calculation", function () {
         calcualtePrice();
     });
 
@@ -361,14 +386,25 @@
 
         //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");
 
-         console.log(totalrows+ ' '+ NextRow);
+        products = [];
+        $("input[name^='products']").each(function (index,val) {
+            var id = this.id;
+            if(id.includes('qty')){
+                var row_id = parseInt(id);
+                product_id =  $("#"+row_id+"-product_id").val();
+                products.push(product_id);
+            }
+         });
+
+
+        //  console.log(totalrows+ ' '+ NextRow);
          $.ajax({
 
            type: 'get',
 
            url: '/add-new-row',
 
-           data: { new_row: NextRow,totalrecord:totalrecord },
+           data: { new_row: NextRow,totalrecord:totalrecord,"products":products },
            dataType: 'html',
 
            success: function (data) {
@@ -382,6 +418,7 @@
 
 
        function removeSetting(id) {
+
            $("#"+id).remove();
 
        }
