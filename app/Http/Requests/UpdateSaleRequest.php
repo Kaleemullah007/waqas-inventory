@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\Product;
+use App\Rules\ProductStockRule;
+use App\Rules\UpdateProductStockRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,31 +27,29 @@ class UpdateSaleRequest extends FormRequest
     {
         return [
             'user_id'=>'required|integer',
-            'product_id'=>'required|integer',
-            'qty'=>'required',
-            'sale_price'=>'required',
+
+            'products.*.product_id' => 'required|integer|max:255',
+            'products'=>[new UpdateProductStockRule()],
+            'products.*.qty'=>'required',
+            'products.*.sale_price'=>'required',
+
             'owner_id'=>'required|integer',
-            'discount'=>'required|integer',
+            'discount'=>'required|decimal:0,2',
             'payment_status'=>'required',
             'payment_method'=>'required',
-            'paid_amount'=>'required|integer',
-            'remaining_amount'=>'required|integer',
-            'total'=>'required|integer',
+            'paid_amount'=>'required|decimal:0,2',
+            'remaining_amount'=>'required|decimal:0,2',
+            'total'=>'required|decimal:0,2',
         ];
     }
 
     // Adding Owner Id To all Requests
     protected function prepareForValidation(){
 
-        // $product = Product::find($this->product_id);
-        // $flag = false;
-        // if($product->stock > $this->qty)
-        //   $flag = true;
-        $total = $this->qty*$this->sale_price;
         $this->merge([
             'owner_id'=>auth()->id(),
-            'total'=>$total,
-            'remaining_amount'=> $total-$this->paid_amount-$this->discount
+            'total'=>0,
+            'remaining_amount'=>0
             // 'flag'=>$flag,
         ]);
     }
