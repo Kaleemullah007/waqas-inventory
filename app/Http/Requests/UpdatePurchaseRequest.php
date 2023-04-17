@@ -28,7 +28,8 @@ class UpdatePurchaseRequest extends FormRequest
             'price'=>'required',
             'sale_price'=>'required',
             'owner_id'=>'required|integer',
-            'total'=>'required|integer'
+            'total'=>'required|integer',
+            'sale_price'=> 'gte:price',
         ];
     }
     // Adding Owner Id To all Requests

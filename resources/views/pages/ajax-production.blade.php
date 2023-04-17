@@ -14,11 +14,18 @@
 
         @if ($productions->count() > 0)
 
+        @php
+         if(request('page')>1)
+
+        $counter = (request('page')-1)*10;
+        else
+        $counter = 1;
+        @endphp
         @foreach ($productions as $production)
             <tr>
-                <th>{{ $production->id }}</th>
-                <td>{{ $production->RawMaterial->name }}</td>
-                {{-- <td>{{ $production->Product->name }}</td> --}}
+                <th>{{ $counter }}</th>
+                <td>{{ $production->RawMaterial->name??null }}</td>
+                <td>{{ $production->Product->name??null }}</td>
                 <td>{{ $production->qty }}</td>
                 <td>{{ $production->wastage_qty }}</td>
                 <td>
@@ -31,6 +38,9 @@
                         <i class="bi bi-pencil"></i></a>
                 </td>
             </tr>
+            @php
+            $counter++;
+        @endphp
         @endforeach
     @else
         <tr>

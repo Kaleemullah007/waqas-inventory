@@ -1,3 +1,4 @@
+@include('message')
 <table class="table border table-striped">
     <thead>
         <tr>
@@ -13,10 +14,18 @@
     <tbody>
         @if ($purchases->count() > 0)
 
+        @php
+         if(request('page')>1)
+
+        $counter = (request('page')-1)*10;
+        else
+        $counter = 1;
+        @endphp
+
             @foreach ($purchases as $purchase)
                 <tr>
-                    <th>{{ $purchase->id }}</th>
-                    <td>{{ $purchase->user_id }}</td>
+                    <th>{{ $counter }}</th>
+                    <td>{{ $purchase->vendor->name }}</td>
                     <td>{{ $purchase->name }}</td>
                     <td>{{ $purchase->sale_price }}</td>
                     <td>{{ $purchase->price }}</td>
@@ -31,6 +40,9 @@
                             <i class="bi bi-pencil"></i></a>
                     </td>
                 </tr>
+                @php
+                $counter++;
+            @endphp
             @endforeach
         @else
             <tr>

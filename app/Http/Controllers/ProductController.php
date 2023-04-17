@@ -26,12 +26,12 @@ class ProductController extends Controller
     {
         // withoutGlobalScopes()->
         $products = new Product();
-        
+
         if($search != null){
-            
+
             $products =$products->where('name','like',"%".$search."%");
         }
-        $products = $products->paginate(10);
+        $products = $products->paginate(4);
         return $products ;
     }
 
@@ -162,8 +162,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product): RedirectResponse
     {
-        $product->dalete();
-        return redirect('product/'.$product->id);
+        $product->delete();
+        return redirect()->route('product.index');
     }
 
     public function getPrice(Product $product)

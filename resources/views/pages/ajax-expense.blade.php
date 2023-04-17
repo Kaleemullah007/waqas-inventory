@@ -11,9 +11,17 @@
     <tbody>
         @if ($expenses->count() > 0)
 
+        @php
+         if(request('page')>1)
+
+        $counter = (request('page')-1)*10;
+        else
+        $counter = 1;
+        @endphp
+
         @foreach ($expenses as $expense )
             <tr>
-                <th>{{$expense->id}}</th>
+                <th>{{$counter}}</th>
                 <td>{{$expense->name}}</td>
                 <td>{{$expense->amount}}</td>
                 <td>{{$expense->date}}</td>
@@ -26,6 +34,9 @@
                         <i class="bi bi-pencil"></i></a>
                 </td>
             </tr>
+            @php
+            $counter++;
+        @endphp
         @endforeach
     @else
         <tr>
