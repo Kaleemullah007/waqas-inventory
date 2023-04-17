@@ -19,7 +19,7 @@ class PurchaseController extends Controller
      */
     public function index(): View
     {
-        $purchases = Purchase::paginate(10);
+        $purchases = Purchase::with('vendor')->paginate(10);
         return view('pages.purchase',compact('purchases'));
 
     }
@@ -41,7 +41,7 @@ class PurchaseController extends Controller
         $sales = $sales->paginate(10);
         return $sales ;
     }
-    
+
     public function CSV(Request $request)
     {
 

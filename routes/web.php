@@ -66,11 +66,11 @@ Route::group([
         Route::post('get-sales',[SaleController::class,'getSales']);
         Route::get('generate-pdf/{id}', [SaleController::class, 'generatePDF'])->name('generate-pdf');
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
-        Route::post('get-purchases',[SaleController::class,'getSales']);
+        Route::post('get-purchases',[PurchaseController::class,'getPurchases']); // Pending
         Route::resource('purchase',PurchaseController::class);
-        Route::post('get-expenses',[SaleController::class,'getSales']);
+        Route::post('get-expenses',[ExpenseController::class,'getSales']); // Pending
         Route::resource('expense',ExpenseController::class);
-        Route::post('get-productions',[SaleController::class,'getSales']);
+        Route::post('get-productions',[ProductionHistoryController::class,'getSales']);// Pending
         Route::resource('production',ProductionHistoryController::class);
         Route::resource('customer',CustomerController::class);
         Route::resource('vendor',VendorController::class);

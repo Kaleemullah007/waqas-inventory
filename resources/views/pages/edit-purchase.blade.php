@@ -13,6 +13,7 @@
                 </div>
             </div>
             <hr>
+            {{-- @dd($errors->all()) --}}
             <div class="row p-3">
                 <div class="shadow-css">
                     <form method="POST" action="{{route('purchase.update',$purchase->id)}}" enctype="">
@@ -22,7 +23,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="user_id" class="form-label fs-6">{{ __('en.Vendor') }}</label>
                                 <select class="form-select mb-2 border-dark @error('user_id') is-invalid @enderror" name="user_id" id="user_id" autocomplete="user_id" required>
-                                    <option>{{__('en.Choose')}}</option>                                    
+                                    <option>{{__('en.Choose')}}</option>
                                     @foreach ($vendors as $vendor)
                                         <option value="{{$vendor->id}}" @selected($vendor->id == $purchase->user_id) >{{$vendor->name}}</option>
                                     @endforeach
@@ -32,14 +33,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>                            
+                            </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="Name" class="form-label fs-6">{{ __('en.Name') }}</label>
                                 <input type="text"
                                     class="form-control mb-2 border-dark @error('Name') is-invalid @enderror"
-                                    id="Name" name="Name" value="{{ old('Name',$purchase->name) }}"
+                                    id="Name" name="name" value="{{ old('Name',$purchase->name) }}"
                                     autocomplete="Name" required autofocus>
-                                @error('Name')
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
