@@ -287,7 +287,7 @@
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <form method="POST" action="" enctype="">
+                                <form method="POST" id="FormData" action="" enctype="">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="add_customerLabel">Add Customer</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"

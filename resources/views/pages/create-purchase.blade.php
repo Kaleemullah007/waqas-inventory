@@ -89,12 +89,12 @@
                         @include('pages.table-footer',['link'=>'purchase.index'])
                     </form>
 
-                    
+
                           <!-- Modal itself for add Vendor -->
-                          <div class="modal fade" id="add_vendor" tabindex="-1" aria-labelledby="add_vendorLabel" aria-hidden="true">
+                          <div class="modal fade" id="add_vendor"  tabindex="-1" aria-labelledby="add_vendorLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <form method="POST" action="" enctype="">
+                                <form method="POST" action="" enctype="" id="FormDataVendor" >
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="add_vendorLabel">Add Vendor</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

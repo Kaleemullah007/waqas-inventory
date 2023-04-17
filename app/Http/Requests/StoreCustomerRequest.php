@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class StoreCustomerRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,6 +23,8 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
+        'first_name'=>'required',
+        'last_name'=>'required',
         'name'=>'required',
         'email'=>'sometimes|nullable|required',
         'phone'=>'required',
@@ -32,7 +35,10 @@ class StoreCustomerRequest extends FormRequest
     protected function prepareForValidation(){
         $this->merge([
             'owner_id'=>auth()->id(),
-            'user_type'=>'customer'
+            'user_type'=>'customer',
+            'name'=>$this->first_name.' '.$this->last_name,
+            'password'=>Hash::make('password'),
         ]);
     }
 }
+
