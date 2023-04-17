@@ -334,19 +334,6 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                        <label for="type" class="form-label fs-6">{{ __('en.Type') }}</label>
-                                        <select class="form-select mb-2 border-dark @error('type') is-invalid @enderror"
-                                            name="type" id="type" autocomplete="type" required>
-                                            <option value="1" @if (old('type') == 1) 'selected' @endif
-                                                selected>{{ __('en.Customer') }}</option>
-                                            <option value="2" @if (old('type') == 2) 'selected' @endif>
-                                                {{ __('en.Vendor') }}</option>
-                                        </select>
-                                        @error('type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="modal-footer">
                                         <!-- save button row included below -->

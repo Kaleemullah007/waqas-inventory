@@ -42,5 +42,5 @@
                                             @enderror
                                     </div>
                                     <div class="col-lg-2 col-md-6 col-12 d-flex align-items-end mb-2" id="setting-row{{$new_row}}-btn">
-                                        <a href="#" class="btn btn-success " id="setting-row{{$new_row}}-href" onclick="addSetting({{$new_row}})"><i class="bi bi-plus-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-success " id="setting-row{{$new_row}}-href" onclick="addSetting({{$new_row}})"><i class="bi bi-plus-lg"></i></a>
                                     </div>
