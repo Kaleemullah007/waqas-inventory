@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('sale_id');
             $table->string('product_name');
-            $table->integer('qty');
-            $table->float('cost_price',10,2);
-            $table->float('sale_price',10,2);
+            $table->integer('qty')->default(1);
+            $table->float('cost_price',10,2)->default(0);
+            $table->float('sale_price',10,2)->default(0);
             $table->foreign('sale_id')->references('id')->on('sales')->comments('sale id from sales table');
             $table->foreign('product_id')->references('id')->on('products');
             $table->softDeletes();

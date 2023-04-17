@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductionHistoryController;
+use App\Http\Controllers\VendorController;
 use App\Models\Customer;
 use Auth\VerificationController;
 /*
@@ -72,6 +73,7 @@ Route::group([
         Route::post('get-productions',[SaleController::class,'getSales']);
         Route::resource('production',ProductionHistoryController::class);
         Route::resource('customer',CustomerController::class);
+        Route::resource('vendor',VendorController::class);
 
 
 });

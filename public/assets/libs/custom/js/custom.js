@@ -422,3 +422,62 @@
            $("#"+id).remove();
 
        }
+
+
+           //  Get Productions
+           $("#FormData").submit(function (event) {
+
+            event.preventDefault();
+
+               $.ajaxSetup({
+                   headers: {
+                       "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                           "content"
+                       ),
+                   },
+               });
+               FormData = $("#FormData").serialize();
+               $.ajax({
+                   type: "POST",
+                   url: '/customer',
+                   data: FormData,
+                   success: function (data) {
+                    dropdownElement = $("#user_id");
+                    dropdownElement.find('option[value='+data.data.id+']').remove();
+
+                    var updateOptionPP = '<option value='+data.data.id+' selected>'+data.data.name+'</option>';
+                    $("#user_id").append(updateOptionPP)
+
+                    $("#add_customer").modal('hide');
+                   },
+               });
+           });
+
+                      //  Get Productions
+                      $("#FormDataVendor").submit(function (event) {
+
+                        event.preventDefault();
+
+                           $.ajaxSetup({
+                               headers: {
+                                   "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                                       "content"
+                                   ),
+                               },
+                           });
+                           FormData = $("#FormDataVendor").serialize();
+                           $.ajax({
+                               type: "POST",
+                               url: '/vendor',
+                               data: FormData,
+                               success: function (data) {
+                                dropdownElement = $("#user_id");
+                                dropdownElement.find('option[value='+data.data.id+']').remove();
+
+                                var updateOptionPP = '<option value='+data.data.id+' selected>'+data.data.name+'</option>';
+                                $("#user_id").append(updateOptionPP)
+
+                                $("#add_vendor").modal('hide');
+                               },
+                           });
+                       });

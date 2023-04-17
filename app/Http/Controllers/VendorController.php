@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vendor;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
+use App\Models\Customer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -29,9 +30,17 @@ class VendorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVendorRequest $request): RedirectResponse
+    public function store(StoreVendorRequest $request)
     {
-        //
+       $user = Customer::create($request->only([
+        'name',
+        'email',
+        'phone',
+        'user_type',
+        'owner_id',
+        'password'
+        ]));
+       return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
     }
 
     /**

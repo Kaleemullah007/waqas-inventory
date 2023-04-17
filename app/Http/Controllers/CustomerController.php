@@ -37,9 +37,17 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCustomerRequest $request): RedirectResponse
+    public function store(StoreCustomerRequest $request)
     {
-        //
+       $user = Customer::create($request->only([
+        'name',
+        'email',
+        'phone',
+        'user_type',
+        'owner_id',
+        'password'
+        ]));
+       return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
     }
 
     /**

@@ -30,13 +30,13 @@ return new class extends Migration
             $table->string('address',255)->nullable();
             $table->string('postal_code',10)->nullable();
             $table->string('business_phone',20)->nullable();
-            $table->string('country',2)->nullable();
+            $table->string('country',20)->nullable();
             $table->string('invoice_template')->default('view-sale');
             $table->integer('per_page')->default(10);
             $table->text('logo')->nullable();
             $table->string('currency',10)->default('Rs.');
-            $table->string('custom_note')->default('A finance charge of 1.5% will be made on unpaid balances after 30 days.');
-            $table->string('custom_note_heading')->default('NOTICE:');
+            $table->string('custom_note',255)->default('A finance charge of 1.5% will be made on unpaid balances after 30 days.');
+            $table->string('custom_note_heading',40)->default('NOTICE:');
             $table->rememberToken();
             $table->timestamp('activated_at')->nullable();
             $table->timestamps();
