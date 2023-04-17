@@ -363,15 +363,17 @@
         new_window = window.open(url);
     })
     function addSetting(id) {
+
         $("#setting-row" +id+ "-href").attr('disabled',true)
        var OldRow = id;
             totalrows = $(".setting > .setting-row").length;
             totalrecord = $('.totalrecord-settings').length;
          var div = $(".setting > .setting-row:last");
          FirstRowId = div.attr('id');
-         lastRow = FirstRowId.split("").reverse().join("");
+         lastRow = FirstRowId.split("setting-row");
         //  console.log(lastRow);
-         var NextRow = parseInt(lastRow) + 1;
+        
+         var NextRow = parseInt(lastRow[1]) + 1;
 
          $.ajaxSetup({
 
@@ -380,8 +382,8 @@
            }
          });
 
-         var addButton = '<a href="#" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
-         var removeButton = '<a href="#" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-trash"></i></a>';
+         var addButton = '<a href="javascript:void(0)" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
+         var removeButton = '<a href="javascript:void(0)" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-trash"></i></a>';
          $("#"+FirstRowId+'-btn').html(removeButton);
 
         //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");

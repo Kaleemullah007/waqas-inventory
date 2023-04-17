@@ -15,7 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
-                    <form method="POST" action="{{route('purchase.update',1)}}" enctype="">
+                    <form method="POST" action="{{route('purchase.update',$purchase->id)}}" enctype="">
                         @method('patch')
                         @csrf
                         <div class="row mt-3">

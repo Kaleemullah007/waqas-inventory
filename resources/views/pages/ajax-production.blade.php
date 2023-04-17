@@ -18,7 +18,7 @@
             <tr>
                 <th>{{ $production->id }}</th>
                 <td>{{ $production->RawMaterial->name }}</td>
-                <td>{{ $production->Product->name }}</td>
+                {{-- <td>{{ $production->Product->name }}</td> --}}
                 <td>{{ $production->qty }}</td>
                 <td>{{ $production->wastage_qty }}</td>
                 <td>

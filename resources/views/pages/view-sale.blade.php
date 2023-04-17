@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td colspan="3" class="text-alignment">TAX 25%</td>
-              <td class="total">{{auth()->user()->currency}}{{$sales->tax}}</td>
+              <td class="total">{{auth()->user()->currency}}{{$sales->tax??0}}</td>
             </tr>
             <tr>
               <td colspan="3" class="grand total text-alignment" >GRAND TOTAL</td>
@@ -90,13 +90,3 @@
   </body>
 </html>
 
-<script>
-    function printPageArea(areaID){
-    // var printContent = document.getElementByTag('body').innerHTML;
-    // var originalContent = document.body.innerHTML;
-    // document.body.innerHTML = printContent;
-    window.print();
-    document.body.innerHTML = originalContent;
-}
-
-</script>

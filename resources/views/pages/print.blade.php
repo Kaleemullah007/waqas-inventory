@@ -18,7 +18,7 @@ a {
 body {
   margin: auto !important;
   position: relative;
-  width: 21cm;
+  /* width: 21cm; */
   height: 29.7cm;
   /* margin: 0 auto;  */
   color: #001028;
