@@ -33,7 +33,7 @@
                     {{-- <button type="button" class="btn btn-sm me-2 btn-outline-danger export-csv-sale"><i
                             class="bi bi-file-earmark-excel-fill"></i> {{ __('en.EXCEL') }}</button> --}}
                     <!-- modal trigger for create sale -->
-                    <a href="{{ route('sale.create') }}" class="btn btn-sm me-2 btn-primary">
+                    <a href="{{ route('customer.create') }}" class="btn btn-sm me-2 btn-primary">
                         <i class="bi bi-plus-circle me-2"></i>{{ __('en.Create') }}</a>
                 </div>
             </div>

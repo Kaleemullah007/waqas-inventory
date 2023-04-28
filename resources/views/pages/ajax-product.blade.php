@@ -1,4 +1,4 @@
-<table class="table border">
+<table class="table border ">
     <thead>
         <tr>
             <th>{{__('en.Id')}}</th>
@@ -27,20 +27,21 @@
                     <td>{{$product->sale_price}}</td>
                     <td>{{$product->stock}}</td>
                     <td>{{$product->stock_alert}}</td>
-                    <td>
+                    <td class="d-flex">
                         <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                             class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
                             <i class="bi bi-eye-fill"></i></a>
                         <a href="{{route('product.edit',$product->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                             class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
-                            <i class="bi bi-pencil"></i></a>
-                            <form action="{{ route('product.destroy', $product->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-
-                        <button type="submit"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                            class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
-                            <i class="bi bi-trash-fill"></i></button>
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form class="" action="{{ route('product.destroy', $product->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                                class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>

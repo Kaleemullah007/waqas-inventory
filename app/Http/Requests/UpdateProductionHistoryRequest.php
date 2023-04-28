@@ -23,7 +23,7 @@ class UpdateProductionHistoryRequest extends FormRequest
     {
         return [
             'product_id'=>'required',
-            'name'=>'required|string',
+            // 'name'=>'required|string',
             'qty'=>'required',
             'owner_id'=>'required|integer',
             'wastage_qty'=>'required',
