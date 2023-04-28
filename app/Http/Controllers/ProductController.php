@@ -31,7 +31,7 @@ class ProductController extends Controller
 
             $products =$products->where('name','like',"%".$search."%");
         }
-        $products = $products->paginate(4);
+        $products = $products->paginate(10);
         return $products ;
     }
 

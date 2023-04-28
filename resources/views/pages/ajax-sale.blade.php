@@ -23,8 +23,9 @@
         @endphp
         @foreach ($sales as $sale )
         <tr>
+            
             <td>{{$counter}}</td>
-            <td>{{$sale->Customer->name}}</td>
+            <td> {{$sale->Customer->name}}</td>
 
             <td>{{$sale->Products->pluck('product_name')->join(',')}}</td>
             <td>{{$sale->total}}</td>
@@ -39,8 +40,8 @@
             </td>
         </tr>
         @php
-        $counter++;
-    @endphp
+            $counter++;
+        @endphp
         @endforeach
         @else
         <tr>

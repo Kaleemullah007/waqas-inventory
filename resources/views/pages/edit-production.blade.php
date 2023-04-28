@@ -20,7 +20,7 @@
                         @csrf
                         <div class="row mt-3">
                             <div class="col-lg-3 col-md-6 col-12 pt-1">
-                                <label for="purchase_id" class="form-label  fs-6">{{ __('en.purchase_id Material') }}</label>
+                                <label for="purchase_id" class="form-label  fs-6">{{ __('en.Raw Material') }}</label>
                                 <select
                                     class="form-select mb-2 border-dark select2 @error('purchase_id') is-invalid @enderror"
                                     name="purchase_id" id="purchase_id" autocomplete="purchase_id" required>
@@ -64,7 +64,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-2 col-md-4 col-12 pt-1">
-                                <label for="wastage_qty" class="form-label fs-6">{{ __('en.wastage_qty') }}</label>
+                                <label for="wastage_qty" class="form-label fs-6">{{ __('en.Waste') }}</label>
                                 <input type="number" min="0"
                                     class="form-control mb-2 border-dark @error('wastage_qty') is-invalid @enderror"
                                     id="wastage_qty" name="wastage_qty" value="{{ old('wastage_qty',$production->wastage_qty) }}"

@@ -29,9 +29,10 @@ class CustomerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create(): View
     {
-        //
+        
+        return view('pages.create-customer');
     }
 
     /**
@@ -61,9 +62,10 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer): Response
+    public function edit(Customer $customer): View
     {
-        //
+        return view('pages.edit-customer',compact('customer'));
+
     }
 
     /**

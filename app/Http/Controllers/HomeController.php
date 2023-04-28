@@ -125,7 +125,7 @@ class HomeController extends Controller
 
 
 
-        $latest_sales = Sale::whereDate('created_at','>=',$start_date)
+        $latest_sales = Sale::with(['Customer','Products'])->whereDate('created_at','>=',$start_date)
         ->whereDate('created_at','<=',$end_date)
         ->take(10)
         ->latest()

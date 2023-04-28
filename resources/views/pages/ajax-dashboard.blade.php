@@ -190,11 +190,12 @@
                             </thead>
                             <tbody>
                                 @foreach ($result['latest_sales'] as $sale )
+                              
                                 <tr>
                                     <th>{{$sale->id}}</th>
-                                    <td>{{$sale->user_id}}</td>
-                                    <td>{{$sale->product_id}}</td>
-                                    <td>{{$sale->qty}}</td>
+                                    <td>{{$sale->Customer->name}}</td>
+                                    <td>{{$sale->Products->pluck('product_name')->join(',')}}</td>
+                                    <td>{{$sale->total_qty}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

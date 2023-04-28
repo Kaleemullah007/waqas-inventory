@@ -435,7 +435,8 @@ return
     "Business Phone"=>"Business Phone",
     "Business Email"=>"Business Email",
     "General Setting"=>"General Setting",
-
+    "Edit Production"=>"Edit Production",
+    "Edit Customer"=>"Edit Customer",
 
 
 
