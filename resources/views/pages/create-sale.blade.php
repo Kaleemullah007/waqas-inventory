@@ -68,7 +68,7 @@
                                                     class="form-control  mb-2 border-dark @error('qty') is-invalid @enderror"
                                                     id="{{ $key }}-qty"
                                                     placeholder="20" value="{{ old('qty', $product_old['qty']) }}"
-                                                    autocomplete="qty" required autofocus onkeyup="calcualtePrice()"
+                                                    autocomplete="qty" required onkeyup="calcualtePrice()"
                                                     min="1">
                                                 @error('products.' . $key . '.qty')
                                                     <span class="invalid-feedback" role="alert">
@@ -84,7 +84,7 @@
                                                     id="{{ $key }}-sale_price"
                                                     name="products[{{ $key }}][sale_price]" placeholder="10"
                                                     value="{{ old('sale_price', $product_old['sale_price']) }}"
-                                                    autocomplete="sale_price" required autofocus onkeyup="calcualtePrice()"
+                                                    autocomplete="sale_price" required onkeyup="calcualtePrice()"
                                                     min="0">
                                                 @error('products.' . $key . '.sale_price')
                                                     <span class="invalid-feedback" role="alert">
@@ -139,7 +139,7 @@
                                                 class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
                                                 id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"
                                                 placeholder="20" value="{{ old('qty', 1) }}" autocomplete="qty" required
-                                                autofocus onkeyup="calcualtePrice()" min="1">
+                                             onkeyup="calcualtePrice()" min="1">
                                             @error('qty')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -153,7 +153,7 @@
                                                 id="{{ $counter }}-sale_price"
                                                 name="products[{{ $counter }}][sale_price]" placeholder="10"
                                                 value="{{ old('sale_price') }}" autocomplete="sale_price" required
-                                                autofocus onkeyup="calcualtePrice()" min="0">
+                                             onkeyup="calcualtePrice()" min="0">
                                             @error('sale_price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -196,7 +196,7 @@
                                 <input type="number" min="0"
                                     class="form-control mb-2 calculation border-dark @error('discount') is-invalid @enderror"
                                     id="discount" name="discount" placeholder="10" value="{{ old('discount', 0) }}"
-                                    min="0" onkeyup="calcualtePrice()" autocomplete="discount" required autofocus>
+                                    min="0" onkeyup="calcualtePrice()" autocomplete="discount" required>
                                 @error('discount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -240,7 +240,7 @@
                                 <input type="number" min="0"
                                     class="form-control calculation mb-2 border-dark @error('paid_amount') is-invalid @enderror"
                                     id="paid_amount" name="paid_amount" placeholder="70" min="0"
-                                    value="{{ old('paid_amount', 0) }}" autocomplete="paid_amount" required autofocus
+                                    value="{{ old('paid_amount', 0) }}" autocomplete="paid_amount" required
                                     onkeyup="calcualtePrice()">
                                 @error('paid_amount')
                                     <span class="invalid-feedback" role="alert">
@@ -298,7 +298,7 @@
                                         <input type="text"
                                             class="form-control mb-2 border-dark @error('first_name') is-invalid @enderror"
                                             id="first_name" name="first_name" placeholder="First Name"
-                                            value="{{ old('first_name') }}" autocomplete="first_name" required autofocus>
+                                            value="{{ old('first_name') }}" autocomplete="first_name" required>
                                         @error('first_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -308,7 +308,7 @@
                                         <input type="text"
                                             class="form-control mb-2 border-dark @error('last_name') is-invalid @enderror"
                                             id="last_name" name="last_name" placeholder="Last Name"
-                                            value="{{ old('last_name') }}" autocomplete="last_name" required autofocus>
+                                            value="{{ old('last_name') }}" autocomplete="last_name" required>
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -318,7 +318,7 @@
                                         <input type="phone"
                                             class="form-control mb-2 border-dark @error('phone') is-invalid @enderror"
                                             id="phone" name="phone" placeholder="03001234567"
-                                            value="{{ old('phone') }}" autocomplete="phone" required autofocus>
+                                            value="{{ old('phone') }}" autocomplete="phone" required>
                                         @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -328,7 +328,7 @@
                                         <input type="email"
                                             class="form-control mb-2 border-dark @error('email') is-invalid @enderror"
                                             id="email" name="email" placeholder="abc123@example.com"
-                                            value="{{ old('email') }}" autocomplete="email" required autofocus>
+                                            value="{{ old('email') }}" autocomplete="email" required>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

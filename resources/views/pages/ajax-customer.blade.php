@@ -17,7 +17,7 @@
         @php
          if(request('page')>1)
 
-        $counter = (request('page')-1)*10;
+        $counter = ((request('page')-1)*10) +1;
         else
         $counter = 1;
         @endphp

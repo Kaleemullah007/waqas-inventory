@@ -26,6 +26,7 @@ class Sale extends Model
         'payment_status',
         'payment_due_date',
         'sub_total_cost',
+        'cost_total',
         'sub_total'
     ];
 
