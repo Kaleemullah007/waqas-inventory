@@ -127,7 +127,7 @@ class SaleController extends Controller
             });
 
             return $sales ;
-            // dd($search,$sales->get());
+
         }
 
 

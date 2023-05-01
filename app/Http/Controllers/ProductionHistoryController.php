@@ -40,7 +40,8 @@ class ProductionHistoryController extends Controller
     public function recordsQuery($request)
     {
 
-        $productions = ProductionHistory::query();
+        $productions = ProductionHistory::query()
+        ->with(['Product','RawMaterial']);
 
         $search = $request->search;
         $dates = $request->daterange;
