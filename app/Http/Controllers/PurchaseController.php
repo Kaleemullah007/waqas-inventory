@@ -28,7 +28,8 @@ class PurchaseController extends Controller
     public function recordsQuery($request)
     {
         // withoutGlobalScopes()->
-        $purchases = Purchase::query();
+        $purchases = Purchase::query()
+        ->with('vendor');
         $search = $request->search;
         $dates = $request->daterange;
 
