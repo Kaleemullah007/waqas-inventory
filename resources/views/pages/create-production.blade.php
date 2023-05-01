@@ -53,7 +53,7 @@
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number" min="1"
                                     class="form-control mb-2 border-dark @error('qty') is-invalid @enderror"
-                                    id="qty" name="qty" placeholder="20" value="{{ old('qty') }}"
+                                    id="qty" name="qty" value="{{ old('qty') }}"
                                     autocomplete="qty" required autofocus>
                                 @error('qty')
                                     <span class="invalid-feedback" role="alert">
@@ -65,7 +65,7 @@
                                 <label for="wastage_qty" class="form-label fs-6">{{ __('en.Waste') }}</label>
                                 <input type="number" min="0"
                                     class="form-control mb-2 border-dark @error('wastage_qty') is-invalid @enderror"
-                                    id="wastage_qty" name="wastage_qty" placeholder="5" value="{{ old('wastage_qty') }}"
+                                    id="wastage_qty" name="wastage_qty" value="{{ old('wastage_qty') }}"
                                     autocomplete="wastage_qty" required autofocus>
                                 @error('wastage_qty')
                                     <span class="invalid-feedback" role="alert">

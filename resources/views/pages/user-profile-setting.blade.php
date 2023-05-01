@@ -23,7 +23,7 @@
                                 <input type="text"
                                     class="form-control border-dark  @error('firstName') is-invalid @enderror"
                                      id="firstName" name="firstName" value="{{ old('firstName',auth()->user()->name) }}"
-                                    autocomplete="firstName" required autofocus>
+                                    autocomplete="firstName" required >
                                 @error('firstName')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -35,7 +35,7 @@
                                 <input type="text"
                                     class="form-control border-dark  @error('lastName') is-invalid @enderror"
                                     value="last name" id="lastName" name="lastName" value="{{ old('lastName',auth()->user()->name) }}"
-                                    autocomplete="lastName" required autofocus>
+                                    autocomplete="lastName" required >
                                 @error('lastName')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
                                 <label for="dob" class="form-label pt-1 fs-6">{{ __('en.Date of Birth') }}</label>
                                 <input type="date" class="form-control  @error('dob') is-invalid @enderror"
                                     id="dob" name="dob" value="{{ old('dob',date('Y-m-d')) }}"
-                                    autocomplete="dob" required autofocus>
+                                    autocomplete="dob" required >
                                 @error('dob')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -88,7 +88,7 @@
                                     class="form-label pt-1 fs-6">{{ __('en.What was the City you born in?') }}</label>
                                 <input type="text" class="form-control  @error('secQuestionOne') is-invalid @enderror"
                                     id="secQuestionOne" name="secQuestionOne"
-                                    value="{{ old('secQuestionOne',auth()->user()->address) }}" autocomplete="secQuestionOne" required autofocus>
+                                    value="{{ old('secQuestionOne',auth()->user()->address) }}" autocomplete="secQuestionOne" required >
                                 @error('secQuestionOne')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -100,7 +100,7 @@
                                     class="form-label pt-1 fs-6">{{ __('en.What is the City you are living in?') }}</label>
                                 <input type="text" class="form-control  @error('secQuestionTwo') is-invalid @enderror"
                                     value="Islamabad" id="secQuestionTwo" name="secQuestionTwo"
-                                    value="{{ old('secQuestionTwo') }}" autocomplete="secQuestionTwo" required autofocus>
+                                    value="{{ old('secQuestionTwo') }}" autocomplete="secQuestionTwo" required >
                                 @error('secQuestionTwo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -162,7 +162,7 @@
                                 <input type="file"
                                     class="form-control border-dark  @error('logo') is-invalid @enderror"
                                     id="logo" name="logo" value="{{ old('logo') }}"
-                                    autocomplete="logo" required autofocus>
+                                    autocomplete="logo" required >
                                 @error('logo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -190,7 +190,7 @@
                                 <input type="text"
                                     class="form-control border-dark  @error('business_phone') is-invalid @enderror"
                                     id="business_phone" name="business_phone" placeholder="+923001234567" value="{{ old('business_phone',auth()->user()->business_phone) }}"
-                                    autocomplete="business_phone" required autofocus>
+                                    autocomplete="business_phone" required >
                                 @error('business_phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -202,7 +202,7 @@
                                 <input type="email"
                                     class="form-control border-dark  @error('business_email') is-invalid @enderror"
                                     id="business_email" name="business_email" placeholder="abc123@example.com" value="{{ old('business_email',auth()->user()->business_email) }}"
-                                    autocomplete="business_email" required autofocus>
+                                    autocomplete="business_email" required >
                                 @error('business_email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -214,7 +214,7 @@
                                 <input type="text"
                                     class="form-control border-dark  @error('address') is-invalid @enderror"
                                     id="address" name="address" placeholder="236, chemin Hortense Berger" value="{{ old('address',auth()->user()->address) }}"
-                                    autocomplete="address" required autofocus>
+                                    autocomplete="address" required >
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
