@@ -191,7 +191,7 @@ class SaleController extends Controller
             $temp['qty']   = $products_array['qty'];
             $sub_total_cost += $products_array['qty'] * $DBProducts[$products_array['product_id']]->price;
             $DBProducts[$products_array['product_id']]->decrement('stock',$products_array['qty']);
-            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->cost_price;
+            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->price;
             $temp['sale_price']   = $products_array['sale_price'];
             $sale_products[] = $temp;
         }
@@ -199,10 +199,10 @@ class SaleController extends Controller
         $cost_total = $sub_total_cost - $request->discount;
         $calcualted_values = [
             'sub_total'=>$subtotal,
-            'cost_total'=>$sub_total_cost,
+            'sub_total_cost'=>$sub_total_cost-$request->discount,
             'total_qty'=>$qty_sum,
             'total'=>$total,
-            'cost_total'=>$cost_total,
+            'cost_total'=>$sub_total_cost,
             'tax'=>0
 
         ];

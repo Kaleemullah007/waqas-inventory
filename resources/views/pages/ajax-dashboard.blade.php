@@ -64,7 +64,7 @@
                                     <i class="bi bi-cash-coin"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <p class="w-value">{{$result['net_worth']}}</p>
                                     <h5>{{__('en.Net Worth')}}</h5>
                                 </div>
                             </div>
@@ -74,15 +74,24 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 my-2">
                 {{-- <a href="{{ route('sale.index') }}" class="w-100"> --}}
-                    <div class="revinue revinue-one_hybrid">
+                    <div class="revinue py-1 revinue-one_hybrid">
                         <div class="revinue-hedding">
-                            <div class="w-title">
+                            <div class="w-title mt-1">
                                 <div class="w-icon">
                                     <i class="bi bi-cash"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_profits']}}</p>
-                                    <h5>{{__('en.Cash')}}</h5>
+                                    <p class="w-value">{{__('en.Cash')}} : {{$result['cash_in_hand']}}
+                                    {{-- <h5>{{__('en.Cash')}}</h5> --}}
+                                        <br>
+                                    <span class="w-value">{{__('en.Other')}}: {{$result['other_in_hand']}}</span>
+                                    {{-- <h5>{{__('en.Other')}}</h5> --}}
+                                    <br>
+                                    <span class="w-value">{{__('en.Total')}}  :{{$result['other_in_hand'] + $result['cash_in_hand']}}</span>
+                                </p>
+
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -98,7 +107,7 @@
                                     <i class="bi bi-cash-coin"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <p class="w-value">{{$result['remaining_amount']}}</p>
                                     <h5>{{__('en.Remaining')}}</h5>
                                 </div>
                             </div>
@@ -115,7 +124,7 @@
                                     <i class="bi bi-percent"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <p class="w-value">{{$result['discount']}}</p>
                                     <h5>{{__('en.Discount')}}</h5>
                                 </div>
                             </div>
