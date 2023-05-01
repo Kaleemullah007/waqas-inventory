@@ -6,32 +6,63 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index():View
+
+    public function recordsQuery($request)
     {
-        $customers = Customer:://withSum(
+        $search = $request->search;
+
+        $customers = Customer::
+                            //withSum(
                             // ['customerSale'],'sale_price')
                             withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')
                             ->withSum('customerSale','total')
-                            ->withSum('customerSale','paid_amount')
-                            ->paginate(10);
+                            ->withSum('customerSale','paid_amount');
+                            if($search != null)
+                                $customers = $customers->where('name','like',"%".$search."%");
+
+
+
+
+        return $customers ;
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index( Request $request):View
+    {
+        $customers = $this->recordsQuery($request)->paginate(10);
         return view('pages.customer',compact('customers'));
     }
+
+
+
+
+    public function getCustomers(Request $request)
+    {
+
+
+        $customers = $this->recordsQuery($request)->get();
+        $customer_html = view('pages.ajax-customer',compact('customers'))->render();
+        $pagination_html = view('pages.pagination',compact('customers'))->render();
+        return response()->json(['html'=>$customer_html,'phtml'=>$pagination_html]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(): View
     {
-        
+
         return view('pages.create-customer');
     }
 
@@ -48,7 +79,13 @@ class CustomerController extends Controller
         'owner_id',
         'password'
         ]));
-       return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
+        if($request->ajax())
+            return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
+
+        $request->session()->flash('success','Customer created successfully.');
+        return redirect('customer');
+
+
     }
 
     /**
@@ -73,7 +110,12 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer): RedirectResponse
     {
-        //
+        $data = $request->validated();
+        $validated = collect($data)->except(['last_name','first_name','page'])->toArray();
+        // dd($validated);
+        Customer::where('id',$customer->id)->update($validated);
+        $request->session()->flash('success','Customer updated successfully.');
+        return redirect('customer?page='.$request->page);
     }
 
     /**

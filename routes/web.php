@@ -68,10 +68,11 @@ Route::group([
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
         Route::post('get-purchases',[PurchaseController::class,'getPurchases']); // Pending
         Route::resource('purchase',PurchaseController::class);
-        Route::post('get-expenses',[ExpenseController::class,'getSales']); // Pending
+        Route::post('get-expenses',[ExpenseController::class,'getExpenses']); // Pending
         Route::resource('expense',ExpenseController::class);
-        Route::post('get-productions',[ProductionHistoryController::class,'getSales']);// Pending
+        Route::post('get-productions',[ProductionHistoryController::class,'getProduction']);// Pending
         Route::resource('production',ProductionHistoryController::class);
+        Route::post('get-customers',[CustomerController::class,'getCustomers']); // Pending
         Route::resource('customer',CustomerController::class);
         Route::resource('vendor',VendorController::class);
 

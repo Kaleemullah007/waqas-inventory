@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\PurchaseHistory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -17,30 +18,49 @@ class PurchaseController extends Controller
  /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $purchases = Purchase::with('vendor')->paginate(10);
+        $purchases = $this->recordsQuery($request)->paginate(10);
         return view('pages.purchase',compact('purchases'));
 
     }
 
-    public function recordsQuery($dates = null)
+    public function recordsQuery($request)
     {
         // withoutGlobalScopes()->
-        $sales = Sale::
-        with(['Customer','Product']);
+        $purchases = Purchase::query();
+        $search = $request->search;
+        $dates = $request->daterange;
+
         if($dates != null){
             list($start_date,$end_date) = explode('-',$dates);
-
-
            $start_date = changeDateFormat($start_date,'Y-m-d');
            $end_date = changeDateFormat($end_date,'Y-m-d');
-            $sales =$sales->whereDate('created_at','>=',$start_date)
+            $purchases =$purchases->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }
-        $sales = $sales->paginate(10);
-        return $sales ;
+        if($search != null)
+
+            $purchases = $purchases->whereHas('vendor',function($q) use ($search){
+                $q->where('name','like',"%".$search."%");
+            })->orWhere('name','like',"%".$search."%");;
+
+
+
+        return $purchases ;
     }
+
+
+    public function getPurchases(Request $request)
+    {
+
+
+        $purchases = $this->recordsQuery($request)->get();
+        $purchase_html = view('pages.ajax-purchase',compact('purchases'))->render();
+        $pagination_html = view('pages.pagination',compact('purchases'))->render();
+        return response()->json(['html'=>$purchase_html,'phtml'=>$pagination_html]);
+    }
+
 
     public function CSV(Request $request)
     {

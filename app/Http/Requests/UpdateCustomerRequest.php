@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateCustomerRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,17 +23,23 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
+        'first_name'=>'required',
+        'last_name'=>'required',
         'name'=>'required',
-        'email'=>'sometimes|nullable|required',
+        'email'=>'sometimes|nullable|required|unique:users,email,'.$this->customer->id,
         'phone'=>'required',
         'user_type'=>'required',
-        'owner_id'=>'required'
+        'owner_id'=>'required',
+        'password'=>'required',
+        'page'=>'required|integer',
         ];
     }
     protected function prepareForValidation(){
         $this->merge([
             'owner_id'=>auth()->id(),
-            'user_type'=>'customer'
+            'user_type'=>'customer',
+            'name'=>$this->first_name.' '.$this->last_name,
+            'password'=>Hash::make('password'),
         ]);
     }
 }

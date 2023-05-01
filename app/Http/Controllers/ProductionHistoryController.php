@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductionHistoryRequest;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -17,31 +18,57 @@ class ProductionHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
 
-        $productions = ProductionHistory::with(['RawMaterial','Product'])->paginate(10);
+        $productions = $this->recordsQuery($request)->paginate(10);
 
         return view('pages.production',compact('productions'));
     }
 
-    public function recordsQuery($dates = null)
+    public function getProduction(Request $request)
     {
-        // withoutGlobalScopes()->
-        $sales = Sale::
-        with(['Customer','Product']);
+
+
+        $productions = $this->recordsQuery($request)
+        ->get();
+        $productions_html = view('pages.ajax-production',compact('productions'))->render();
+        $pagination_html = view('pages.pagination',compact('productions'))->render();
+        return response()->json(['html'=>$productions_html,'phtml'=>$pagination_html]);
+    }
+
+    public function recordsQuery($request)
+    {
+
+        $productions = ProductionHistory::query();
+
+        $search = $request->search;
+        $dates = $request->daterange;
+
         if($dates != null){
             list($start_date,$end_date) = explode('-',$dates);
-
-
            $start_date = changeDateFormat($start_date,'Y-m-d');
            $end_date = changeDateFormat($end_date,'Y-m-d');
-            $sales =$sales->whereDate('created_at','>=',$start_date)
+            $productions =$productions->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }
-        $sales = $sales->paginate(10);
-        return $sales ;
+        if($search != null)
+
+            $productions = $productions
+            ->whereHas('RawMaterial',function($q) use ($search){
+                $q->where('name','like',"%".$search."%");
+            })->
+            orWhereHas('Product',function($q) use ($search){
+                $q->where('name','like',"%".$search."%");
+            });
+
+
+        return $productions;
+
     }
+
+
+
     public function CSV(Request $request)
     {
 

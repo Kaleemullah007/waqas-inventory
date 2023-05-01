@@ -18,12 +18,16 @@
                     <form method="POST" action="{{route('customer.update',$customer->id)}}" enctype="">
                         @method('patch')
                         @csrf
+                        @php
+                            $names = explode(' ',$customer->name)
+                        @endphp
+                        <input type="text" name="page" value="<?=request('page',1)?>" >
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="first_name" class="form-label fs-6">{{ __('en.First Name') }}</label>
                                 <input type="text"
                                     class="form-control mb-2 border-dark @error('first_name') is-invalid @enderror"
-                                    id="first_name" name="first_name" value="{{ old('first_name',$customer->first_name) }}"
+                                    id="first_name" name="first_name" value="{{ old('first_name',$names[0]) }}"
                                      autocomplete="first_name" required autofocus>
                                 @error('first_name')
                                     <span class="invalid-feedback" role="alert">
@@ -35,7 +39,7 @@
                                 <label for="last_name" class="form-label fs-6">{{ __('en.Last Name') }}</label>
                                 <input type="text"
                                     class="form-control mb-2 border-dark @error('last_name') is-invalid @enderror"
-                                    id="last_name" name="last_name" value="{{ old('last_name',$customer->last_name) }}"
+                                    id="last_name" name="last_name" value="{{ old('last_name',$names[1]) }}"
                                     autocomplete="last_name" required autofocus>
                                 @error('last_name')
                                     <span class="invalid-feedback" role="alert">

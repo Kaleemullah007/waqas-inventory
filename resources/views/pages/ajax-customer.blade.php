@@ -30,7 +30,7 @@
                     <a href="{{ route('sale.index',['customer_id'=>$customer->id]) }} " data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
                         <i class="bi bi-eye-fill"></i></a>
-                    <a href="{{route('customer.edit',$customer->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                    <a href="{{route('customer.edit',$customer->id)}}?page={{request('page',1)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                         <i class="bi bi-pencil"></i></a>
                 </td>

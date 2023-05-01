@@ -6,6 +6,7 @@ use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -14,30 +15,44 @@ class ExpenseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $expenses = Expense::paginate(10);
+        $expenses = $this->recordsQuery($request)->paginate(10);
         return view('pages.expense',compact('expenses'));
     }
 
-    public function recordsQuery($dates = null)
+    public function recordsQuery($request)
     {
         // withoutGlobalScopes()->
-        $sales = Sale::
-        with(['Customer','Product']);
+        $expenses = Expense::query();
+        $search = $request->search;
+        $dates = $request->daterange;
+
         if($dates != null){
             list($start_date,$end_date) = explode('-',$dates);
-
-
            $start_date = changeDateFormat($start_date,'Y-m-d');
            $end_date = changeDateFormat($end_date,'Y-m-d');
-            $sales =$sales->whereDate('created_at','>=',$start_date)
+            $expenses =$expenses->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }
-        $sales = $sales->paginate(10);
-        return $sales ;
+        if($search != null)
+            $expenses = $expenses->where('name','like',"%".$search."%");
+
+
+
+        return $expenses ;
     }
-    
+
+    public function getExpenses(Request $request)
+    {
+
+
+        $expenses = $this->recordsQuery($request)->get();
+        $expenses_html = view('pages.ajax-expense',compact('expenses'))->render();
+        $pagination_html = view('pages.pagination',compact('expenses'))->render();
+        return response()->json(['html'=>$expenses_html,'phtml'=>$pagination_html]);
+    }
+
     public function CSV(Request $request)
     {
 
@@ -146,7 +161,7 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense): RedirectResponse
     {
-        
+
         Expense::where('id',$expense->id)->update($request->validated());
         return redirect('expense/'.$expense->id.'/edit');
     }
