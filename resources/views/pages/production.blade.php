@@ -16,7 +16,7 @@
                 <div class="col-lg-3 col-md-6 col-12 mt-2 d-flex">
                     <label for="search" class="form-label mt-1"><i class="bi bi-search fs-4"></i></label>
                     <input type="text" class="form-control form-control-css border-secondary ms-3 rounded"
-                        placeholder="{{ __('en.Search this table...') }}" id="search">
+                        placeholder="{{ __('en.Search this table...') }}" id="search" onkeyup="getProductions()">
                 </div>
                 <div class="col-lg-6 col-md-6 col-12 mt-2 d-flex">
                     @include('pages.list-filter',['functionName'=>'getProductions'])

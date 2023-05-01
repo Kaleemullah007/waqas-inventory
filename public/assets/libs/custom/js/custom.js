@@ -244,6 +244,7 @@
             data:{"daterange":daterange,"search":search},
             success: function(data) {
                 $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
             }
         });
 
@@ -287,10 +288,35 @@
             data:{"daterange":daterange,"search":search},
             success: function(data) {
                 $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
             }
         });
 
     }
+
+    // Get customers
+    function getCustomers()
+    {
+
+        var search = $("#search").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/get-customers",
+            data:{"search":search},
+            success: function(data) {
+                $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
+
+            }
+        });
+
+    }
+
 
 
     $(document).on('click','.export-csv-sale',function(){
@@ -372,7 +398,7 @@
          FirstRowId = div.attr('id');
          lastRow = FirstRowId.split("setting-row");
         //  console.log(lastRow);
-        
+
          var NextRow = parseInt(lastRow[1]) + 1;
 
          $.ajaxSetup({

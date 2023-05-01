@@ -26,7 +26,7 @@ class StoreCustomerRequest extends FormRequest
         'first_name'=>'required',
         'last_name'=>'required',
         'name'=>'required',
-        'email'=>'sometimes|nullable|required',
+        'email'=>'sometimes|nullable|required|unique:users,email',
         'phone'=>'required',
         'user_type'=>'required',
         'owner_id'=>'required'
