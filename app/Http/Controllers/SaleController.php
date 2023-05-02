@@ -114,7 +114,8 @@ class SaleController extends Controller
             ->whereDate('created_at','<=',$end_date);
         }
 
-        if($customer_id != null){
+        
+        if($customer_id != null && $customer_id != 'Choose Customer'){
             $sales = $sales->where('user_id',$customer_id);
         }
         if($search != null){
