@@ -156,6 +156,8 @@ class PurchaseController extends Controller
         // $product->save();
         $purchases = Purchase::create($request->validated());
         PurchaseHistory::create($request->validated());
+        $request->session()->flash('success','Purchase created successfully.');
+
         return redirect('purchase');
     }
 
@@ -218,6 +220,7 @@ class PurchaseController extends Controller
 
 
 
+        $request->session()->flash('success','Purchase updated successfully.');
 
         return redirect('purchase/'.$purchase->id.'/edit');
     }

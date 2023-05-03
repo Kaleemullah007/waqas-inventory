@@ -141,7 +141,10 @@ class SaleController extends Controller
 
         $sales = $this->recordsQuery($request)->get();
         $sale_html = view('pages.ajax-sale',compact('sales'))->render();
-        return response()->json(['html'=>$sale_html]);
+        $pagination_html = view('pages.pagination',compact('sales'))->render();
+        return response()->json(['html'=>$sale_html,'phtml'=>$pagination_html]);
+
+        
     }
 
 

@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                 @include('message')
                     <form method="POST" action="{{ route('production.store') }}" enctype="">
                         @csrf
                         <div class="row mt-3">
@@ -72,10 +73,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-12 pt-1">
-                                <label for="" class="form-label fs-6">{{ __('en.Action') }}</label><br>
-                                <button type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
                             </div>
                         </div>
                         <!-- save button row included below -->

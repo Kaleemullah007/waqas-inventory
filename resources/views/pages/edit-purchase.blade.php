@@ -16,6 +16,7 @@
             {{-- @dd($errors->all()) --}}
             <div class="row p-3">
                 <div class="shadow-css">
+                    @include('message')
                     <form method="POST" action="{{route('purchase.update',$purchase->id)}}" enctype="">
                         @method('patch')
                         @csrf

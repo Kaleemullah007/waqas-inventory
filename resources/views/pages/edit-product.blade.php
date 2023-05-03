@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                    @include('message')
                     <form method="POST" action="{{route('product.update',$product->id)}}" enctype="">
                         @method('patch')
                         @csrf
