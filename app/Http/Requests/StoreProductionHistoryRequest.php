@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class StoreProductionHistoryRequest extends FormRequest
 {
     /**
@@ -23,11 +24,10 @@ class StoreProductionHistoryRequest extends FormRequest
     {
         return [
             'product_id'=>'required',
-            // 'name'=>'required|string',
             'qty'=>'required',
             'owner_id'=>'required|integer',
             'wastage_qty'=>'required',
-            'purchase_id'=>'required|integer'
+            'purchase_id'=>'required|integer',
 
         ];
     }

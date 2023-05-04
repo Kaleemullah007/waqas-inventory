@@ -32,8 +32,8 @@ class ExpenseController extends Controller
             list($start_date,$end_date) = explode('-',$dates);
            $start_date = changeDateFormat($start_date,'Y-m-d');
            $end_date = changeDateFormat($end_date,'Y-m-d');
-            $expenses =$expenses->whereDate('created_at','>=',$start_date)
-            ->whereDate('created_at','<=',$end_date);
+            $expenses =$expenses->whereDate('date','>=',$start_date)
+            ->whereDate('date','<=',$end_date);
         }
         if($search != null)
             $expenses = $expenses->where('name','like',"%".$search."%");
@@ -135,6 +135,7 @@ class ExpenseController extends Controller
     public function store(StoreExpenseRequest $request): RedirectResponse
     {
         $expenses = Expense::create($request->validated());
+        $request->session()->flash('success','Expense created successfully.');
         return redirect('expense');
     }
 
@@ -163,6 +164,7 @@ class ExpenseController extends Controller
     {
 
         Expense::where('id',$expense->id)->update($request->validated());
+        $request->session()->flash('success','Expense updated successfully.');
         return redirect('expense/'.$expense->id.'/edit');
     }
 

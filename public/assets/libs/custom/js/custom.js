@@ -199,6 +199,7 @@
             data:{"daterange":daterange,"search":search,"customer_id":customer_id},
             success: function(data) {
                 $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
             }
         });
 
@@ -221,6 +222,7 @@
             data:{"search":search},
             success: function(data) {
                 $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
             }
         });
 
@@ -266,6 +268,7 @@
             data:{"daterange":daterange,"search":search},
             success: function(data) {
                 $('#searchable').html(data.html);
+                $('#searchable_pagination').html(data.phtml);
             }
         });
 

@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                    @include('message')
                     <form method="POST" action="{{route('production.update',$production->id)}}" enctype="">
                         @method('patch')
                         @csrf
@@ -51,7 +52,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-lg-2 col-md-4 col-12 pt-1">
+                            <div class="col-lg-3 col-md-6 col-12 pt-1">
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number" min="1"
                                     class="form-control mb-2 border-dark @error('qty') is-invalid @enderror"
@@ -63,7 +64,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-lg-2 col-md-4 col-12 pt-1">
+                            <div class="col-lg-3 col-md-6 col-12 pt-1">
                                 <label for="wastage_qty" class="form-label fs-6">{{ __('en.Waste') }}</label>
                                 <input type="number" min="0"
                                     class="form-control mb-2 border-dark @error('wastage_qty') is-invalid @enderror"
@@ -74,10 +75,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-12 pt-1">
-                                <label for="button" class="form-label fs-6">{{ __('en.Action') }}</label><br>
-                                <button type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
                             </div>
                         </div>
                         <!-- save button row included below -->

@@ -109,7 +109,8 @@ class ProductController extends Controller
 
         $products = $this->recordsQuery($request->search);
         $products_html = view('pages.ajax-product',compact('products'))->render();
-        return response()->json(['html'=>$products_html]);
+        $pagination_html = view('pages.pagination',compact('products'))->render();
+        return response()->json(['html'=>$products_html,'phtml'=>$pagination_html]);
     }
 
 
@@ -128,6 +129,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $products = Product::create($request->validated());
+        $request->session()->flash('success','Product created successfully.');
         return redirect('product');
     }
 
@@ -154,6 +156,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
         $products = Product::where('id',$product->id)->update($request->validated());
+        $request->session()->flash('success','Product updated successfully.');
        return redirect('product/'.$product->id.'/edit');
     }
 

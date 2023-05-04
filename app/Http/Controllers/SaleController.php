@@ -114,7 +114,8 @@ class SaleController extends Controller
             ->whereDate('created_at','<=',$end_date);
         }
 
-        if($customer_id != null){
+        
+        if($customer_id != null && $customer_id != 'Choose Customer'){
             $sales = $sales->where('user_id',$customer_id);
         }
         if($search != null){
@@ -140,7 +141,10 @@ class SaleController extends Controller
 
         $sales = $this->recordsQuery($request)->get();
         $sale_html = view('pages.ajax-sale',compact('sales'))->render();
-        return response()->json(['html'=>$sale_html]);
+        $pagination_html = view('pages.pagination',compact('sales'))->render();
+        return response()->json(['html'=>$sale_html,'phtml'=>$pagination_html]);
+
+        
     }
 
 

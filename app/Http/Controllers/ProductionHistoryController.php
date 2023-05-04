@@ -151,6 +151,14 @@ class ProductionHistoryController extends Controller
      */
     public function store(StoreProductionHistoryRequest $request): RedirectResponse
     {
+        $perchase = Purchase::find($request->purchase_id);
+        $total_purchase_stock = $request->qty + $request->wastage_qty;
+        if($perchase->qty < $total_purchase_stock){
+            $request->session()->flash('warning','Production can not be greater than Purchased Stock');
+
+        return redirect()->to(route('production.create'))->withInput($request->input());
+        }
+
 
         $product = Product::find($request->product_id);
         if($product == null)
@@ -158,12 +166,10 @@ class ProductionHistoryController extends Controller
 
         $product->increment('stock',abs($request->qty));
 
-        $perchase = Purchase::find($request->purchase_id);
-
-        $total_purchase_stock = $request->qty + $request->wastage_qty;
         $perchase->decrement('qty',$total_purchase_stock);
         // dd($request->validated());
         ProductionHistory::create($request->validated());
+        $request->session()->flash('success','Production created successfully.');
         return redirect('production');
     }
 
@@ -187,22 +193,63 @@ class ProductionHistoryController extends Controller
         return view('pages.edit-production',compact('products','raws','production'));
 
     }
+    
+    
+    /**
+     * Checking Purchase stock before update Production.
+     */
 
+    public function checkPurchaseBeforeUpdateProduction($purchase,$request,$production)
+    {
+        $flag = true;
+        $difference_wastage = $request->wastage_qty - $production->wastage_qty;
+        $difference =  $request->qty - $production->qty;
+
+
+        if($difference < 0){
+            $product_q =$difference;
+        }else{
+            $product_q = $difference;
+        }
+
+        if($difference_wastage < 0){
+            $product_w =$difference_wastage;
+            
+        }else{
+            $product_w = $difference_wastage;
+            
+        }
+
+        $total_qty = $product_q + $product_w;
+        if($purchase->qty < $total_qty){
+            $flag = false;
+        }
+        return $flag;
+
+
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateProductionHistoryRequest $request, ProductionHistory $production): RedirectResponse
     {
 
+        $purchase = Purchase::find($request->purchase_id);
+        
+       if($this->checkPurchaseBeforeUpdateProduction($purchase,$request,$production) == false)
+       {
+        $request->session()->flash('warning','Production can not be greater than Purchased Stock');
+
+
+        return redirect()->back();
+
+       }
+        
         $product = Product::find($request->product_id);
         if($product == null)
         throw new \ErrorException('Product not found');
 
-        $purchase = Purchase::find($request->purchase_id);
-
-
-
-
+    
         $difference =  $production->qty - $request->qty;
 
         $difference_wastage = $production->wastage_qty - $request->wastage_qty;
@@ -235,6 +282,8 @@ class ProductionHistoryController extends Controller
 
 
         $products = ProductionHistory::where('id',$production->id)->update($request->validated());
+        $request->session()->flash('success','Production updated successfully.');
+
        return redirect('production/'.$production->id.'/edit');
     }
 

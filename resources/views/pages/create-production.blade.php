@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                 @include('message')
                     <form method="POST" action="{{ route('production.store') }}" enctype="">
                         @csrf
                         <div class="row mt-3">
@@ -53,7 +54,7 @@
                                 <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
                                 <input type="number" min="1"
                                     class="form-control mb-2 border-dark @error('qty') is-invalid @enderror"
-                                    id="qty" name="qty" placeholder="20" value="{{ old('qty') }}"
+                                    id="qty" name="qty" value="{{ old('qty') }}"
                                     autocomplete="qty" required autofocus>
                                 @error('qty')
                                     <span class="invalid-feedback" role="alert">
@@ -65,17 +66,13 @@
                                 <label for="wastage_qty" class="form-label fs-6">{{ __('en.Waste') }}</label>
                                 <input type="number" min="0"
                                     class="form-control mb-2 border-dark @error('wastage_qty') is-invalid @enderror"
-                                    id="wastage_qty" name="wastage_qty" placeholder="5" value="{{ old('wastage_qty') }}"
+                                    id="wastage_qty" name="wastage_qty" value="{{ old('wastage_qty') }}"
                                     autocomplete="wastage_qty" required autofocus>
                                 @error('wastage_qty')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-12 pt-1">
-                                <label for="" class="form-label fs-6">{{ __('en.Action') }}</label><br>
-                                <button type="button" class="btn btn-success"><i class="bi bi-plus-lg"></i></button>
                             </div>
                         </div>
                         <!-- save button row included below -->

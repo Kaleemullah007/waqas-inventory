@@ -61,7 +61,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-cash-coin"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['net_worth']}}</p>
@@ -78,7 +78,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title mt-1">
                                 <div class="w-icon">
-                                    <i class="bi bi-cash"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{__('en.Cash')}} : {{$result['cash_in_hand']}}
@@ -104,7 +104,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-cash-coin"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['remaining_amount']}}</p>
@@ -121,7 +121,7 @@
                         <div class="revinue-hedding">
                             <div class="w-title">
                                 <div class="w-icon">
-                                    <i class="bi bi-percent"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
                                     <p class="w-value">{{$result['discount']}}</p>

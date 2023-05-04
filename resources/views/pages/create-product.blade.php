@@ -15,6 +15,7 @@
             <hr>
             <div class="row p-3">
                 <div class="shadow-css">
+                    @include('message')
                     <form method="POST" action="{{route('product.store')}}" enctype="">
                         @csrf
                         <div class="row mt-3">
@@ -22,7 +23,7 @@
                                 <label for="name" class="form-label fs-6">{{ __('en.Name') }}</label>
                                 <input type="text"
                                     class="form-control mb-2 border-dark @error('name') is-invalid @enderror"
-                                    id="name" name="name" placeholder="Name 1" value="{{ old('name') }}"
+                                    id="name" name="name" placeholder="Name" value="{{ old('name') }}"
                                     autocomplete="name" required autofocus>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
