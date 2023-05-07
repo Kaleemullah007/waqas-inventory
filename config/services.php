@@ -21,6 +21,10 @@ return [
         'scheme' => 'https',
     ],
 
+    'emails'=>[
+        'from'=>'kaleemullahdev@gmail.com'
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
