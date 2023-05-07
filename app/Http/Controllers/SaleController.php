@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Mail\SendInvoice;
 use App\Models\Product;
 use App\Models\SaleProduct;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class SaleController extends Controller
 {
@@ -114,7 +116,7 @@ class SaleController extends Controller
             ->whereDate('created_at','<=',$end_date);
         }
 
-        
+
         if($customer_id != null && $customer_id != 'Choose Customer'){
             $sales = $sales->where('user_id',$customer_id);
         }
@@ -144,7 +146,7 @@ class SaleController extends Controller
         $pagination_html = view('pages.pagination',compact('sales'))->render();
         return response()->json(['html'=>$sale_html,'phtml'=>$pagination_html]);
 
-        
+
     }
 
 
@@ -167,6 +169,8 @@ class SaleController extends Controller
      */
     public function store(StoreSaleRequest $request): RedirectResponse
     {
+
+
         $products = array_filter($request->products);
         $productIds = collect($products)->pluck('product_id');
         $qty_sum = collect($products)->sum('qty');
@@ -221,6 +225,9 @@ class SaleController extends Controller
 
         SaleProduct::insert($sale_products);
 
+        $sales = Sale::with(['Products','Customer'])->find($sales->id);
+        if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
+            Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'New Order '));
 
         $request->session()->flash('success','Sale created successfully.');
 
@@ -323,7 +330,10 @@ class SaleController extends Controller
 
        SaleProduct::where('sale_id',$sale->id)->delete();
        SaleProduct::insert($sale_products);
-       Sale::where('id',$sale->id)->update($sale_data);
+      Sale::where('id',$sale->id)->update($sale_data);
+       $sales = Sale::with('Products','Customer')->where('id',$sale->id)->first();
+       if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
+            Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'Update Order '));
 
        $request->session()->flash('success','Sale updated successfully.');
        return redirect('sale/'.$sale->id.'/edit');
