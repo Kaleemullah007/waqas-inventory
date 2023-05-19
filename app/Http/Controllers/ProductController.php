@@ -183,7 +183,7 @@ class ProductController extends Controller
     public function getPrice(Product $product)
     {
 
-        return response()->json(['sale_price'=>$product->sale_price],200);
+        return response()->json(['sale_price'=>$product->sale_price,'stock'=>$product->stock],200);
     }
 
 }

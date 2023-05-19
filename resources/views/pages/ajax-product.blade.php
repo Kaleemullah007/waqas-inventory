@@ -25,7 +25,7 @@
                 <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
                     <th>{{$counter}}</th>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->sale_price}}</td>
+                    <td>{{auth()->user()->currency}} {{$product->sale_price}}</td>
                     <td>{{$product->stock}}</td>
                     <td>{{$product->stock_alert}}</td>
                     <td class="d-flex">

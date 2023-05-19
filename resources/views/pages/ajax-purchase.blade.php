@@ -28,8 +28,8 @@
                     <th>{{ $counter }}</th>
                     <td>{{ $purchase->vendor->name }}</td>
                     <td>{{ $purchase->name }}</td>
-                    <td>{{ $purchase->sale_price }}</td>
-                    <td>{{ $purchase->price }}</td>
+                    <td>{{auth()->user()->currency}} {{ $purchase->sale_price }}</td>
+                    <td>{{auth()->user()->currency}} {{ $purchase->price }}</td>
                     <td>{{ $purchase->qty }}</td>
                     <td>
                         <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"

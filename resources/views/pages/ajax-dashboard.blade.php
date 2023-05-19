@@ -11,7 +11,7 @@
                                     <i class="bi bi-cart4"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['total_sales']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['total_sales']}}</p>
                                     <h5>{{__('en.Sales')}}</h5>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                     <i class="bi bi-receipt-cutoff"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['purchases_history']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['purchases_history']}}</p>
                                     <h5>{{__('en.Purchases')}}</h5>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                     <i class="bi bi-wallet2"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['expenses']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['expenses']}}</p>
                                     <h5>{{__('en.Expenses')}}</h5>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                     <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_worth']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['net_worth']}}</p>
                                     <h5>{{__('en.Net Worth')}}</h5>
                                 </div>
                             </div>
@@ -82,13 +82,13 @@
                                     <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{__('en.Cash')}} : {{$result['cash_in_hand']}}
+                                    <p class="w-value">{{__('en.Cash')}} : {{auth()->user()->currency}} {{$result['cash_in_hand']}}
                                     {{-- <h5>{{__('en.Cash')}}</h5> --}}
                                         <br>
-                                    <span class="w-value">{{__('en.Other')}}: {{$result['other_in_hand']}}</span>
+                                    <span class="w-value">{{__('en.Other')}}: {{auth()->user()->currency}} {{$result['other_in_hand']}}</span>
                                     {{-- <h5>{{__('en.Other')}}</h5> --}}
                                     <br>
-                                    <span class="w-value">{{__('en.Total')}}  :{{$result['other_in_hand'] + $result['cash_in_hand']}}</span>
+                                    <span class="w-value">{{__('en.Total')}}  :{{auth()->user()->currency}} {{$result['other_in_hand'] + $result['cash_in_hand']}}</span>
                                 </p>
 
 
@@ -108,7 +108,7 @@
                                     <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['remaining_amount']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['remaining_amount']}}</p>
                                     <h5>{{__('en.Remaining')}}</h5>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['discount']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['discount']}}</p>
                                     <h5>{{__('en.Discount')}}</h5>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                     <i class="bi bi-cash-stack"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{$result['net_profits']}}</p>
+                                    <p class="w-value">{{auth()->user()->currency}} {{$result['net_profits']}}</p>
                                     <h5>{{__('en.Net Profit')}}</h5>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@
                                     <tr>
                                         <th>{{$expense->id}}</th>
                                         <td>{{$expense->name}}</td>
-                                        <td>{{$expense->amount}}</td>
+                                        <td>{{auth()->user()->currency}} {{$expense->amount}}</td>
                                         <td>{{$expense->date}}</td>
                                     </tr>
                                 @endforeach

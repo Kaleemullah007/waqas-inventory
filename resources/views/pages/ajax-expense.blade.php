@@ -24,7 +24,7 @@
             <tr>
                 <th>{{$counter}}</th>
                 <td>{{$expense->name}}</td>
-                <td>{{$expense->amount}}</td>
+                <td>{{auth()->user()->currency}} {{$expense->amount}}</td>
                 <td>{{$expense->date}}</td>
                 <td>
                     <a href="" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"

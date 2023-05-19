@@ -92,6 +92,11 @@
             url: "/get-price/"+productid,
             success: function(data) {
                 $("#"+id+"-sale_price").val(data.sale_price)
+
+                $("#"+id+"-available-stock").css({"font-size":"12px","color":"red","font-weight":"bold"}).text(" Available("+data.stock+")");
+                
+                
+                
                 calcualtePrice();
             }
         });

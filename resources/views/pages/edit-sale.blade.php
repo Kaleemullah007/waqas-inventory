@@ -41,7 +41,7 @@
                                         <div class="col-lg-4 col-md-6 col-12 pt-1">
                                             <label for="product_id"
                                                 class="form-label fs-6">{{ __('en.Product') }}</label>
-
+                                            <?php $selected_qty =0; ?>
                                             <select class="form-select  {!! $errors->has('products.' . $key . '.product_id') ? '  is-invalid' : 'border-dark' !!}"
                                                 name="products[{{ $key }}][product_id]"
                                                 id="{{ $key }}-product_id" autocomplete="product_id" required
@@ -49,6 +49,11 @@
                                                 >
                                                 <option>{{ __('en.Choose') }}</option>
                                                 @foreach ($products as $product)
+                                                @if($product_old['product_id'] == $product->id)
+                                                @php
+                                                    $selected_qty =$product->stock
+                                                @endphp 
+                                                @endif
                                                     <option value="{{ $product->id }}" @selected($product_old['product_id'] == $product->id)>
                                                         {{ $product->name }}</option>
                                                 @endforeach
@@ -62,7 +67,7 @@
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12 pt-1">
                                             <label for="qty"
-                                                class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                                class="form-label fs-6">{{ __('en.Quantity') }}<span id="{{ $key }}-available-stock" style="color: red; font-size: 12px; font-weight: bold;" > Available({{$selected_qty}})</span></label>
                                             <input name="products[{{ $key }}][qty]" type="number" min="1"
                                                 class="form-control  mb-2 border-dark @error('qty') is-invalid @enderror"
                                                 id="{{ $key }}-qty"
@@ -116,13 +121,23 @@
                                     <div class="setting-row row d-flex " id="setting-row{{ $counter }}">
                                         <span class='totalrecord-settings'></span>
                                         <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                            @php
+                                                $selected_qty =0
+                                            @endphp
                                             <label for="product_id" class="form-label fs-6">{{ __('en.Product') }}</label>
                                             <select class="form-select border-dark @error('product_id') is-invalid @enderror"
                                                 name="products[{{ $counter }}][product_id]"
                                                 id="{{ $counter }}-product_id" autocomplete="product_id" required
-                                                onchange="getPrice()">
+                                                onchange="getPrice({{$counter}})">
                                                 <option>{{ __('en.Choose') }}</option>
                                                 @foreach ($products as $product)
+
+                                                @if($sale_product->product_id == $product->id)
+                                                @php
+                                                    $selected_qty =$product->stock
+                                                @endphp 
+                                                @endif
+
                                                     <option value="{{ $product->id }}" @selected($sale_product->product_id==$product->id) >{{ $product->name }}</option>
                                                 @endforeach
                                             </select>
@@ -133,7 +148,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                            <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                            <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}<span id="{{ $counter }}-available-stock" style="color: red; font-size: 12px; font-weight: bold;" > Available({{$selected_qty}})</span></label>
                                             <input type="number" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
                                                 id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"
