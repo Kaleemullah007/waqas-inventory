@@ -12,13 +12,24 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
         $products = $this->recordsQuery();
-        return view('pages.product',compact('products'));
+                
+        if($products->lastPage() >= request('page')){
+            return view('pages.product',compact('products'));
+        }
+             
+        return to_route('product.index',['page'=>$products->lastPage()]);
+
     }
 
 
@@ -31,7 +42,7 @@ class ProductController extends Controller
 
             $products =$products->where('name','like',"%".$search."%");
         }
-        $products = $products->paginate(10);
+        $products = $products->paginate(config('services.per_page',10));
         return $products ;
     }
 

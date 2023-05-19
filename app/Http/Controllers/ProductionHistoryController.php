@@ -14,16 +14,24 @@ use Illuminate\View\View;
 
 class ProductionHistoryController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
 
-        $productions = $this->recordsQuery($request)->paginate(10);
-
-        return view('pages.production',compact('productions'));
+        $productions = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        if($productions->lastPage() >= request('page')){
+            return view('pages.production',compact('productions'));
+        }
+             
+        return to_route('production.index',['page'=>$productions->lastPage()]);
     }
 
     public function getProduction(Request $request)

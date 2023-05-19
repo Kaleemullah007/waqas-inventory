@@ -1,3 +1,4 @@
+@include('message')
 <div class="sm-chart-sec mt-3">
     <div class="container-fluid">
         <div class="row">

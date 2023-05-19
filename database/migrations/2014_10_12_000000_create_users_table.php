@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone',50);
-            $table->string('user_type',15);
+            $table->string('user_type',15)->default('customer');
             $table->boolean('is_factory_user')->default(0)->comment('0 for vendor and 1 for factory user');
             $table->unsignedBigInteger('owner_id')->nullable();
             $table->text('picture')->nullable();

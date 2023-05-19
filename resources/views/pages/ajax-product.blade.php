@@ -1,3 +1,4 @@
+@include('message')
 <table class="table border ">
     <thead>
         <tr>

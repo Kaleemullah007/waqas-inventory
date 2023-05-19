@@ -1,5 +1,5 @@
 
-
+@include('message')
 
 <table class="table border table-striped">
     <thead>

@@ -12,13 +12,21 @@ use Illuminate\View\View;
 
 class ExpenseController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $expenses = $this->recordsQuery($request)->paginate(10);
-        return view('pages.expense',compact('expenses'));
+        $expenses = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        if($expenses->lastPage() >= request('page')){
+            return view('pages.expense',compact('expenses'));
+        }
+        return to_route('expense.index',['page'=>$expenses->lastPage()]);
     }
 
     public function recordsQuery($request)
@@ -136,7 +144,7 @@ class ExpenseController extends Controller
     {
         $expenses = Expense::create($request->validated());
         $request->session()->flash('success','Expense created successfully.');
-        return redirect('expense');
+        return redirect()->route('expense.create');
     }
 
     /**

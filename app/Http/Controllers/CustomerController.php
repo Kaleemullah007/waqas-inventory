@@ -13,17 +13,24 @@ use Illuminate\View\View;
 class CustomerController extends Controller
 {
 
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
+    
     public function recordsQuery($request)
     {
         $search = $request->search;
 
-        $customers = Customer::
+        $customers = Customer::query()->
                             //withSum(
                             // ['customerSale'],'sale_price')
                             withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')
                             ->withSum('customerSale','total')
-                            ->withSum('customerSale','paid_amount');
+                            ->withSum('customerSale','paid_amount')
+                            ->where('user_type','customer');
                             if($search != null)
                                 $customers = $customers->where('name','like',"%".$search."%");
 
@@ -37,10 +44,17 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $request):View
+    public function index( Request $request)
     {
-        $customers = $this->recordsQuery($request)->paginate(10);
-        return view('pages.customer',compact('customers'));
+        $customers = $this->recordsQuery($request)
+        ->paginate(config('services.per_page',10));
+        
+        if($customers->lastPage() >= request('page')){
+            return view('pages.customer',compact('customers'));
+        }
+             
+        return to_route('customer.index',['page'=>$customers->lastPage()]);
+        
     }
 
 
