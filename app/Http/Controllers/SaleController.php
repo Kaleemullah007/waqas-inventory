@@ -20,15 +20,26 @@ use Illuminate\Support\Facades\Mail;
 
 class SaleController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
+    
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
 
-        $sales = $this->recordsQuery($request)->paginate(10);
+        $sales = $this->recordsQuery($request)->paginate(config('services.per_page',10));
         $customers = User::where('user_type','customer')->get();
-        return view('pages.sale',compact('sales','customers'));
+        if($sales->lastPage() >= request('page')){
+            return view('pages.sale',compact('sales','customers'));
+        }
+             
+        return to_route('sale.index',['page'=>$sales->lastPage()]);
     }
 
     public function CSV(Request $request)

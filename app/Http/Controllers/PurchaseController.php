@@ -15,14 +15,25 @@ use Illuminate\View\View;
 
 class PurchaseController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->middleware(['auth', 'verified']);
+    }
+    
  /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
-        $purchases = $this->recordsQuery($request)->paginate(10);
-        return view('pages.purchase',compact('purchases'));
-
+        $purchases = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        if($purchases->lastPage() >= request('page')){
+            return view('pages.purchase',compact('purchases'));
+        }
+             
+        return to_route('purchase.index',['page'=>$purchases->lastPage()]);
+        
     }
 
     public function recordsQuery($request)

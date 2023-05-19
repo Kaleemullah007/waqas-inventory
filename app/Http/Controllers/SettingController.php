@@ -10,7 +10,12 @@ class SettingController extends Controller
 {
 
 
+    public function __construct()
+    {
 
+        $this->middleware(['auth', 'verified']);
+    }
+    
     public function adminPanelSetting()
     {
         return view('pages.admin-panel-setting');

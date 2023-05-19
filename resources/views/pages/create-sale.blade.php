@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                                 <label for="qty"
-                                                    class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                                    class="form-label fs-6">{{ __('en.Quantity') }}  <span id="{{ $key }}-available-stock" style="color:red" ></span> </label>
                                                 <input name="products[{{ $key }}][qty]" type="number" min="1"
                                                     class="form-control  mb-2 border-dark @error('qty') is-invalid @enderror"
                                                     id="{{ $key }}-qty"
@@ -134,7 +134,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                            <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                            <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}<span id="{{ $counter }}-available-stock" style="color:red" ></span></label>
                                             <input type="number" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
                                                 id="{{ $counter }}-qty" name="products[{{ $counter }}][qty]"

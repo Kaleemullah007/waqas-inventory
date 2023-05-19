@@ -1,3 +1,4 @@
+@include('message')
 <table class="table border table-striped">
     <thead>
         <tr>
@@ -28,7 +29,7 @@
             <td> {{$sale->Customer->name}}</td>
 
             <td>{{$sale->Products->pluck('product_name')->join(',')}}</td>
-            <td>{{$sale->total}}</td>
+            <td>{{auth()->user()->currency}} {{$sale->total}}</td>
             <td>{{$sale->total_qty}}</td>
             <td>
                 <a href="{{route('sale.show',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
