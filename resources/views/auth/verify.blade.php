@@ -19,7 +19,7 @@
 
             <div class="card border-white">
                 <div class="card-body">
-                  <h5 class="card-title">{{ __('en.Send Activation Link') }} </h5>
+                  <h5 class="card-title">{{ __('en.Sent Activation Link') }} </h5>
                   <p class="card-text text-center"> {{ __('en.Before proceeding, please check your email for a verification link.') }}
                     {{ __('en.If you did not receive the email') }}.</p>
                 </div>

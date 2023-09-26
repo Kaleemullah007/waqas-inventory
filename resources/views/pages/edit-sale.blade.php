@@ -83,7 +83,7 @@
                                         <div class="col-lg-2 col-md-6 col-12 pt-1">
                                             <label for="sale_price"
                                                 class="form-label fs-6">{{ __('en.Price') }}</label>
-                                            <input type="number" min="1"
+                                            <input type="text" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{ $key }}-sale_price"
                                                 name="products[{{ $key }}][sale_price]" placeholder="10"
@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="col-lg-2 col-md-6 col-12 pt-1">
                                             <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                            <input type="number" min="1"
+                                            <input type="text" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{ $counter }}-sale_price"
                                                 name="products[{{ $counter }}][sale_price]" placeholder="10"
