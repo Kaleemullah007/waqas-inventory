@@ -316,7 +316,7 @@ return
     "All Categories"=>"All Categories",
     "List of Brand"=>"List of Brand",
     "All Brands"=>"All Brands",
-    "Send Activation Link"=>"Send Activation Link",
+    "Sent Activation Link"=>"Sent Activation Link",
     "Server Rebooted"=>"Server Rebooted",
     "Stay Blessed"=>"Stay Blessed",
     "Love your work"=>"Love your work",

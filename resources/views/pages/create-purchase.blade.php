@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                <input type="number" min="1"
+                                <input type="text" min="1"
                                     class="form-control mb-2 border-dark @error('price') is-invalid @enderror"
                                     id="price" name="price" placeholder="8" value="{{ old('price') }}"
                                     autocomplete="price" required autofocus>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="sale_price" class="form-label fs-6">{{ __('en.Sale Price') }}</label>
-                                <input type="number" min="1"
+                                <input type="text" min="1"
                                     class="form-control mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                     id="sale_price" name="sale_price" placeholder="10" value="{{ old('sale_price') }}"
                                     autocomplete="sale_price" required autofocus>
