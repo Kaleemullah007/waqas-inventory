@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DepositHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -63,6 +64,9 @@ Route::group([
         Route::resource('product',ProductController::class);
         Route::get('get-price/{product}',[ProductController::class,'getPrice']);
         route::get('add-new-row',[SaleController::class,'addNewRow']);
+        route::get('update-products',[SaleController::class,'UpdateProducts']);
+
+
         Route::post('get-sales',[SaleController::class,'getSales']);
         Route::get('generate-pdf/{id}', [SaleController::class, 'generatePDF'])->name('generate-pdf');
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');
@@ -75,6 +79,7 @@ Route::group([
         Route::post('get-customers',[CustomerController::class,'getCustomers']); // Pending
         Route::resource('customer',CustomerController::class);
         Route::resource('vendor',VendorController::class);
+        Route::resource('deposit',DepositHistoryController::class);
 
 
 });

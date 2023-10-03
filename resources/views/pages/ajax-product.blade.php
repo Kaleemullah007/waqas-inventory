@@ -40,7 +40,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
-                                class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">
+                                class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary delete">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </form>

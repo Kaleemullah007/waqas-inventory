@@ -8,7 +8,11 @@
                                              required  onchange="getPrice({{$new_row}})">
                                             <option>{{ __('en.Choose') }}</option>
                                             @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+
+
+                                                <option value="{{ $product->id }}" @if (in_array($product->id,$add_products))
+                                                    style="{{'color:red'}}"
+                                                    @endif>{{ $product->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('product_id')

@@ -82,24 +82,114 @@
     //   $( document ).ready(function() {
     //     toggleFullScreen
     //  })
-
+    allproducts = [];
     function getPrice(id)
     {
+
+        product_id = id+'-product_id';
+        selected_product = $("#"+product_id).val();
         var productid = $("#"+id+"-product_id").val();
+        if(productid == 'Choose'){
+            alert("Select Product to add new");
+            return false;
+        }
 
-        $.ajax({
-            type: "GET",
-            url: "/get-price/"+productid,
-            success: function(data) {
-                $("#"+id+"-sale_price").val(data.sale_price)
 
-                $("#"+id+"-available-stock").css({"font-size":"12px","color":"red","font-weight":"bold"}).text(" Available("+data.stock+")");
-                
-                
-                
-                calcualtePrice();
+
+
+        if ($.inArray(productid, allproducts) >= 0) {
+
+            var div = $("#setting-row"+id+" > div:parent");
+            var x = $("#setting-row"+id) .prev().attr('id');
+
+            var backway = parseInt(x.split("").reverse().join(""));
+
+            $("input[name^='products']").each(function (index,val) {
+                var id_loop = this.id;
+                var product_input_id = parseInt(id_loop);
+
+                product_id = product_input_id+'-product_id';
+                lop_selected_product = $("#"+product_id).val();
+
+                // console.log(lop_selected_product+' '+selected_product)
+                if(selected_product == lop_selected_product ){
+                    if(id_loop.includes('qty'))
+                    {
+                        var row_id = parseInt(id_loop);
+                        product_id =  $("#"+row_id+"-product_id").val();
+
+                        product_qty = product_input_id+'-qty';
+                        old_value = parseInt($("#"+product_qty).val()) + 1;
+                        $("#"+product_qty).val(old_value);
+                        $("#"+id+"-product_id").val('Choose');
+                        $.ajax({
+                            type: "GET",
+                            url: "/get-price/"+productid,
+                            success: function(data) {
+                                $("#"+id+"-sale_price").val(data.sale_price)
+
+                                $("#"+id+"-available-stock").css({"font-size":"12px","color":data.color,"font-weight":"bold"}).text(" Available("+data.stock+")");
+
+
+
+                                calcualtePrice();
+                            }
+                        });
+
+
+
+                                    }
+                }
+
+             });
+
+
+
+            // return false;
+        } else {
+            $("input[name^='products']").each(function (index,val) {
+            var id = this.id;
+            // console.log(this.value+' '+id)
+            if(id.includes('qty')){
+                var row_id = parseInt(id);
+                product_id =  $("#"+row_id+"-product_id").val();
+                allproducts.push(product_id);
             }
-        });
+         });
+
+            $.ajax({
+                type: "GET",
+                url: "/get-price/"+productid,
+                success: function(data) {
+                    $("#"+id+"-sale_price").val(data.sale_price)
+
+                    $("#"+id+"-available-stock").css({"font-size":"12px","color":data.color,"font-weight":"bold"}).text(" Available("+data.stock+")");
+
+
+
+                    calcualtePrice();
+                }
+            });
+
+
+        }
+
+
+        // $("input[name^='products']").each(function (index,val) {
+        //     var id = this.id;
+        //     if(id.includes('qty')){
+        //         var row_id = parseInt(id);
+        //         product_id =  $("#"+row_id+"-product_id").val();
+        //         allproducts.push(product_id);
+        //     }
+        //  });
+
+
+
+
+
+
+
     }
 
     function calcualtePrice()
@@ -114,7 +204,21 @@
         var price = 0;
         var qty = 0;
         $("input[name^='products']").each(function (index,val) {
+
             var id = this.id;
+
+            var id_loop = id;
+                var product_input_id = parseInt(id_loop);
+
+                product_id = product_input_id+'-product_id';
+                lop_selected_product = $("#"+product_id).val();
+
+
+            if(lop_selected_product != 'Choose'){
+
+
+
+
             if(id.includes('qty')){
                 var row_id = parseInt(id);
                 row_qty =  $("#"+row_id+"-qty").val();
@@ -122,6 +226,8 @@
                 qty += row_qty;
                 price += row_qty * row_price;
             }
+        }
+
          });
         // var values = $("input[name='products[]']")
         //       .map(function(){return $(this).val();}).get();
@@ -398,56 +504,90 @@
     })
     function addSetting(id) {
 
+        // 0-qty
+        allproducts = [];
+        $("input[name^='products']").each(function (index,val) {
+            var id = this.id;
+            // console.log(this.value+' '+id)
+            if(id.includes('qty')){
+                var row_id = parseInt(id);
+                product_id =  $("#"+row_id+"-product_id").val();
+                allproducts.push(product_id);
+            }
+         });
+
         $("#setting-row" +id+ "-href").attr('disabled',true)
        var OldRow = id;
+
             totalrows = $(".setting > .setting-row").length;
             totalrecord = $('.totalrecord-settings').length;
          var div = $(".setting > .setting-row:last");
          FirstRowId = div.attr('id');
          lastRow = FirstRowId.split("setting-row");
         //  console.log(lastRow);
-
-         var NextRow = parseInt(lastRow[1]) + 1;
-
-         $.ajaxSetup({
-
-           headers: {
-             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-           }
-         });
-
-         var addButton = '<a href="javascript:void(0)" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
-         var removeButton = '<a href="javascript:void(0)" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-trash"></i></a>';
-         $("#"+FirstRowId+'-btn').html(removeButton);
-
-        //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");
-
-        products = [];
-        $("input[name^='products']").each(function (index,val) {
-            var id = this.id;
-            if(id.includes('qty')){
-                var row_id = parseInt(id);
-                product_id =  $("#"+row_id+"-product_id").val();
-                products.push(product_id);
-            }
-         });
+        product_id = id+'-product_id';
+        selected_product = $("#"+product_id).val();
+        console.log(selected_product);
+        if(selected_product == 'Choose'){
+            alert("Select Product to add new");
+            return false;
+        }
+        if($('#'+product_id).length > 1){
+            product_qty = id+'-qty';
+            old_value = parseInt($("#"+product_qty).val()) + 1;
+            $("#"+product_qty).val(old_value);
+        }else{
 
 
-        //  console.log(totalrows+ ' '+ NextRow);
-         $.ajax({
+            var NextRow = parseInt(lastRow[1]) + 1;
 
-           type: 'get',
+            $.ajaxSetup({
 
-           url: '/add-new-row',
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
 
-           data: { new_row: NextRow,totalrecord:totalrecord,"products":products },
-           dataType: 'html',
+            var addButton = '<a href="javascript:void(0)" class="btn btn-success " onclick="addSetting('+NextRow+')"><i class="bi bi-plus-lg"></i> Add</a>';
+            var removeButton = '<a href="javascript:void(0)" class="btn btn-danger" rel='+FirstRowId+' onclick="removeSetting(this.rel)"><i class="bi bi-trash"></i></a>';
+            $("#"+FirstRowId+'-btn').html(removeButton);
 
-           success: function (data) {
-            $("#" + FirstRowId+ "-btn").html(removeButton)
-             $(".setting").append(data)
-           }
-         })
+           //  $(".setting").append("<div class='setting-row' id='setting-row"+NextRow+"' >Hello  <a href='#' class='btn btn-success ' onclick='removeSetting("+NextRow+")'><i class='bi bi-minus-lg'></i> Remove</a></div>");
+
+           products = [];
+           $("input[name^='products']").each(function (index,val) {
+               var id = this.id;
+               if(id.includes('qty')){
+                   var row_id = parseInt(id);
+                   product_id =  $("#"+row_id+"-product_id").val();
+                   products.push(product_id);
+               }
+            });
+
+
+           //  console.log(totalrows+ ' '+ NextRow);
+            $.ajax({
+
+              type: 'get',
+
+              url: '/add-new-row',
+
+              data: { new_row: NextRow,totalrecord:totalrecord,"products":products },
+              dataType: 'html',
+
+              success: function (data) {
+               $("#" + FirstRowId+ "-btn").html(removeButton)
+                $(".setting").append(data)
+              }
+            })
+
+
+
+        }
+
+
+
+
 
 
      }
@@ -456,6 +596,46 @@
        function removeSetting(id) {
 
            $("#"+id).remove();
+           allproducts  = [];
+           $("input[name^='products']").each(function (index,val) {
+            var id = this.id;
+            if(id.includes('qty')){
+                var row_id = parseInt(id);
+                product_id =  $("#"+row_id+"-product_id").val();
+                allproducts.push(product_id);
+            }
+         });
+
+         totalrows = $(".setting > .setting-row").length;
+            totalrecord = $('.totalrecord-settings').length;
+         var div = $(".setting > .setting-row:last");
+         FirstRowId = div.attr('id');
+         console.log(FirstRowId);
+         lastRow = FirstRowId.split("setting-row");
+
+
+
+         $.ajax({
+
+            type: 'get',
+
+            url: '/update-products',
+
+            data: {"products":allproducts },
+            dataType: 'html',
+
+            success: function (data) {
+                console.log(data);
+                console.log("#" + lastRow[1]+ "-product_id");
+             $("#" + lastRow[1]+ "-product_id").html(data)
+
+              calcualtePrice();
+            }
+          })
+
+
+
+
 
        }
 

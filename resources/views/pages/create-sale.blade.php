@@ -119,7 +119,7 @@
                                             <select
                                                 class="form-select border-dark @error('product_id') is-invalid @enderror"
                                                 name="products[{{ $counter }}][product_id]"
-                                                id="{{ $counter }}-product_id" autocomplete="product_id" required
+                                                id="{{ $counter }}-product_id"  autocomplete="product_id" required
                                                 onchange="getPrice({{$counter}})"
                                                 >
                                                 <option>{{ __('en.Choose') }}</option>

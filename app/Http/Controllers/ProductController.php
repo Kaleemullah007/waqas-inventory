@@ -23,11 +23,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->recordsQuery();
-                
+
         if($products->lastPage() >= request('page')){
             return view('pages.product',compact('products'));
         }
-             
+
         return to_route('product.index',['page'=>$products->lastPage()]);
 
     }
@@ -183,7 +183,10 @@ class ProductController extends Controller
     public function getPrice(Product $product)
     {
 
-        return response()->json(['sale_price'=>$product->sale_price,'stock'=>$product->stock],200);
+        $color = 'red';
+        if($product->stock > $product->stock_alert)
+        $color  = 'green';
+        return response()->json(['sale_price'=>$product->sale_price,'stock'=>$product->stock,'color'=>$color],200);
     }
 
 }

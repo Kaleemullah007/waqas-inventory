@@ -6,6 +6,7 @@
         <tr>
             <th>{{__('en.Id')}}</th>
             <th>{{__('en.Customer')}}</th>
+            <th>{{__('Not Paid')}}</th>
             <th>{{__('en.Email')}}</th>
             <th>{{__('en.Action')}}</th>
         </tr>
@@ -22,9 +23,15 @@
         $counter = 1;
         @endphp
         @foreach ($customers as $customer )
+        @php
+            $amount = $customer->customer_sale_sum_remaining_amount - $customer->desposit_sum_sum_amount
+        @endphp
             <tr>
                 <td>{{$counter}}</td>
                 <td>{{$customer->name}}</td>
+                <td>{{$amount}} @if ($amount < 0 )
+                    <br><code>Minus Means Surplus</code>
+                @endif</td>
                 <td>{{$customer->email}}</td>
                 <td>
                     <a href="{{ route('sale.index',['customer_id'=>$customer->id]) }} " data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
