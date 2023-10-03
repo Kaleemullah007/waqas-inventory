@@ -204,7 +204,21 @@
         var price = 0;
         var qty = 0;
         $("input[name^='products']").each(function (index,val) {
+
             var id = this.id;
+
+            var id_loop = id;
+                var product_input_id = parseInt(id_loop);
+
+                product_id = product_input_id+'-product_id';
+                lop_selected_product = $("#"+product_id).val();
+
+
+            if(lop_selected_product != 'Choose'){
+
+
+
+
             if(id.includes('qty')){
                 var row_id = parseInt(id);
                 row_qty =  $("#"+row_id+"-qty").val();
@@ -212,6 +226,8 @@
                 qty += row_qty;
                 price += row_qty * row_price;
             }
+        }
+
          });
         // var values = $("input[name='products[]']")
         //       .map(function(){return $(this).val();}).get();
