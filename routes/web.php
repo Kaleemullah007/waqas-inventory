@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DepositHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -78,6 +79,7 @@ Route::group([
         Route::post('get-customers',[CustomerController::class,'getCustomers']); // Pending
         Route::resource('customer',CustomerController::class);
         Route::resource('vendor',VendorController::class);
+        Route::resource('deposit',DepositHistoryController::class);
 
 
 });
