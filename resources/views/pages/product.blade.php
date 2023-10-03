@@ -18,7 +18,7 @@ Product Listing
                     <input type="text" onkeyup="getProducts()" class="form-control form-control-css border-secondary ms-3 rounded"
                         placeholder="{{__('en.Search this table...')}}" id="search">
                 </div>
-               
+
                 <div class="col-lg-9 col-md-6 col-12 mt-2 text-end">
                     <!-- offcanvas trigger for filter -->
                     {{-- <button type="button" class="btn btn-sm me-2 btn-outline-primary" data-bs-toggle="offcanvas"
@@ -39,9 +39,13 @@ Product Listing
 
             {{-- row per page and pagination file below --}}
             @include('pages.pagination',['paginate'=>$products])
-            
+
 
         </div>
     </div>
 
 @endsection
+@section('script')
+
+@endsection
+

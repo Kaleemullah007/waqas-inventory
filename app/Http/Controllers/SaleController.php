@@ -26,7 +26,7 @@ class SaleController extends Controller
 
         $this->middleware(['auth', 'verified']);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -38,7 +38,7 @@ class SaleController extends Controller
         if($sales->lastPage() >= request('page')){
             return view('pages.sale',compact('sales','customers'));
         }
-             
+
         return to_route('sale.index',['page'=>$sales->lastPage()]);
     }
 
@@ -125,12 +125,18 @@ class SaleController extends Controller
            $end_date = changeDateFormat($end_date,'Y-m-d');
             $sales =$sales->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
+        }else{
+            $start_date = date('Y-m-d');
+            $end_date = date('Y-m-d');
+            $sales =$sales->whereDate('created_at','>=',$start_date)
+            ->whereDate('created_at','<=',$end_date);
         }
 
 
         if($customer_id != null && $customer_id != 'Choose Customer'){
             $sales = $sales->where('user_id',$customer_id);
         }
+
         if($search != null){
 
             $sales = $sales->whereHas('Product',function($q) use($search){
@@ -370,9 +376,11 @@ class SaleController extends Controller
         $new_row = $request->new_row;
         $totalrecords = $request->totalrecords;
         $products  = $request->products;
+        $add_products  = $request->products;
 
-        $products = Product::whereNotIn('id',array_values($products))->get();
-        $html = view('pages.row',compact('new_row','totalrecords','products'))->render();
+        // whereNotIn('id',array_values($products))->
+        $products = Product::get();
+        $html = view('pages.row',compact('new_row','totalrecords','products','add_products'))->render();
         return $html;
 
     }
@@ -384,5 +392,26 @@ class SaleController extends Controller
         $pdf = Pdf::loadView('pages.print', compact('sales'));
         return $pdf->download('invoice.pdf');
     }
+
+
+
+        /**
+     * Update Products.
+     *
+     * @param  \App\Models\Setting  $setting
+     * @return \Illuminate\Http\Response
+     */
+    public function UpdateProducts(Request $request)
+    {
+        $new_row = $request->new_row;
+        $totalrecords = $request->totalrecords;
+        $products  = $request->products;
+        $add_products  = $request->products;
+        $products = Product::get();
+        $html = view('pages.products_dropdown',compact('new_row','totalrecords','products','add_products'))->render();
+        return $html;
+
+    }
+
 
 }

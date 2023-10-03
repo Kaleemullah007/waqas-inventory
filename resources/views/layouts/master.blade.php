@@ -29,7 +29,7 @@
     <script src="{{ asset('assets/libs/datatable/datatables.min.js') }}" defer></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Styles -->
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/datatable/datatables.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 </head>
 
 <body>
@@ -63,5 +63,27 @@
         </main>
     </div>
 </body>
+<script>
+    $(".delete").click(function(e){
+      e.preventDefault();
+
+swal({
+  title: "Are you sure?",
+  text: "You will not be able to recover this data!",
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#DD6B55",
+  confirmButtonText: "Yes, delete it!",
+  closeOnConfirm: false
+}).then(isConfirmed => {
+if(isConfirmed) {
+  // $(".file").addClass("isDeleted");
+  // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+  return true;
+}
+});
+});
+</script>
+
 @yield('script')
 </html>

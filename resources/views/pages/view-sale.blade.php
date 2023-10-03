@@ -70,8 +70,8 @@
               <td class="total ">{{auth()->user()->currency}}{{$sales->sub_total}}</td>
             </tr>
             <tr>
-              <td colspan="3" class="text-alignment">TAX 25%</td>
-              <td class="total">{{auth()->user()->currency}}{{$sales->tax??0}}</td>
+              <td colspan="3" class="text-alignment">Discount</td>
+              <td class="total">{{auth()->user()->currency}}{{$sales->discount??0}}</td>
             </tr>
             <tr>
               <td colspan="3" class="grand total text-alignment" >GRAND TOTAL</td>

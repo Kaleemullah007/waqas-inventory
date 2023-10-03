@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
         $this->middleware(['auth', 'verified']);
     }
-    
+
     public function recordsQuery($request)
     {
         $search = $request->search;
@@ -26,13 +26,15 @@ class CustomerController extends Controller
         $customers = Customer::query()->
                             //withSum(
                             // ['customerSale'],'sale_price')
-                            withSum('customerSale','discount')
+                             withSum('customerSale','discount')
                             ->withSum('customerSale','remaining_amount')
                             ->withSum('customerSale','total')
                             ->withSum('customerSale','paid_amount')
+                            ->withSum('DespositSum','amount')
                             ->where('user_type','customer');
                             if($search != null)
                                 $customers = $customers->where('name','like',"%".$search."%");
+
 
 
 
@@ -48,13 +50,13 @@ class CustomerController extends Controller
     {
         $customers = $this->recordsQuery($request)
         ->paginate(config('services.per_page',10));
-        
+
         if($customers->lastPage() >= request('page')){
             return view('pages.customer',compact('customers'));
         }
-             
+
         return to_route('customer.index',['page'=>$customers->lastPage()]);
-        
+
     }
 
 

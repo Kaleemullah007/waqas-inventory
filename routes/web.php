@@ -63,6 +63,9 @@ Route::group([
         Route::resource('product',ProductController::class);
         Route::get('get-price/{product}',[ProductController::class,'getPrice']);
         route::get('add-new-row',[SaleController::class,'addNewRow']);
+        route::get('update-products',[SaleController::class,'UpdateProducts']);
+
+
         Route::post('get-sales',[SaleController::class,'getSales']);
         Route::get('generate-pdf/{id}', [SaleController::class, 'generatePDF'])->name('generate-pdf');
         Route::resource('sale',SaleController::class)->middleware('avoid-back-history');

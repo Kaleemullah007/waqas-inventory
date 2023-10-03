@@ -50,6 +50,10 @@ class Customer extends Model
     public function customerSale():HasMany
     {
         return $this->hasMany('App\Models\Sale','user_id','id');
+    }
 
+    public function DespositSum():HasMany
+    {
+        return $this->hasMany('App\Models\DepositHistory','user_id','id');
     }
 }
