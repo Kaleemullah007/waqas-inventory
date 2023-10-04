@@ -11,7 +11,7 @@ class StoreDepositHistoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class StoreDepositHistoryRequest extends FormRequest
     {
         return [
             'amount'=>'required|integer',
-            'user_id'=>'required|integer'
+            'user_id'=>'required|integer',
+            'description'=>'sometimes|nullable|string'
         ];
     }
 }

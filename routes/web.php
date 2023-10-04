@@ -79,6 +79,7 @@ Route::group([
         Route::post('get-customers',[CustomerController::class,'getCustomers']); // Pending
         Route::resource('customer',CustomerController::class);
         Route::resource('vendor',VendorController::class);
+        route::get('deposit-html',[DepositHistoryController::class,'index']);
         Route::resource('deposit',DepositHistoryController::class);
 
 

@@ -40,6 +40,9 @@
                     <a href="{{route('customer.edit',$customer->id)}}?page={{request('page',1)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
                         class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
                         <i class="bi bi-pencil"></i></a>
+                    <a href="{{route('customer.show',$customer->id)}}?page={{request('page',1)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"
+                            class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary mx-2">
+                            <i class="bi bi-plus"></i></a>
                 </td>
             </tr>
             @php
