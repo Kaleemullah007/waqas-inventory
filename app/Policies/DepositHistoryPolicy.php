@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\Response;
 
 class DepositHistoryPolicy
 {
+
     /**
      * Determine whether the user can view any models.
      */

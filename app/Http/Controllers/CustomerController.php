@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\DepositHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -107,9 +108,11 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer): Response
+    public function show(Customer $customer):View
     {
-        //
+        $DepositHistory = DepositHistory::where('user_id',$customer->id)->get();
+        $customers = Customer::where('user_type','customer')->get();
+        return view('pages.create-deposit',compact('customer','customers','DepositHistory'));
     }
 
     /**

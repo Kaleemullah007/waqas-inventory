@@ -294,6 +294,31 @@
 
     }
 
+
+    function getDeposit()
+    {
+        var user_id = $("#user_id").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/deposit-html",
+            data:{"user_id":user_id},
+
+            success: function(data) {
+                $('#searchable').html(data.html);
+            }
+        });
+
+    }
+
+
+
+
+
     function getSales()
     {
         var daterange = $("#daterange").val();
