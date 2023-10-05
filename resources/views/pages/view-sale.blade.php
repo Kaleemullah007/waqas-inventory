@@ -37,8 +37,8 @@
           <div><a href="mailto:{{auth()->user()->business_email}}">{{auth()->user()->business_email}}</a></div>
         </div>
         <div id="project">
-          <div><span>PROJECT</span> Ahmed Industeries</div>
-          <div><span>CLIENT</span>{{$sales->Customer->email}}</div>
+          <div><span>Customer</span> Details</div>
+          <div><span>Name -</span>{{$sales->Customer->name}}</div>
           <div><span>ADDRESS</span> {{$sales->Customer->address}}, {{$sales->Customer->address}}, {{$sales->Customer->address}}</div>
           <div><span>EMAIL</span> <a href="mailto:{{$sales->Customer->email}}">{{$sales->Customer->email}}</a></div>
           <div><span>DATE</span>{{$sales->created_at->toFormattedDateString()}}</div>

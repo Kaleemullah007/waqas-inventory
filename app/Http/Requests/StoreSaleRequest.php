@@ -28,10 +28,10 @@ class StoreSaleRequest extends FormRequest
         return [
             'user_id'=>'required|integer',
 
-            'products.*.product_id' => 'required|integer|max:255',
+            'products.*.product_id' => 'required|max:255',
             'products'=>[new ProductStockRule()],
             'products.*.qty'=>'required',
-            'products.*.sale_price'=>'required',
+            'products.*.sale_price'=>'sometimes|nullable|decimal:0,10',
             'owner_id'=>'required|integer',
             'discount'=>'required|decimal:0,2',
             'payment_status'=>'required',

@@ -66,6 +66,8 @@
 <script>
     $(".delete").click(function(e){
       e.preventDefault();
+      action= $(this).closest("form").attr('action');
+      id = this.id;
 
 swal({
   title: "Are you sure?",
@@ -77,9 +79,37 @@ swal({
   closeOnConfirm: false
 }).then(isConfirmed => {
 if(isConfirmed) {
-  // $(".file").addClass("isDeleted");
-  // swal("Deleted!", "Your imaginary file has been deleted.", "success");
-  return true;
+
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'DELETE', // Just delete Latter Capital Is Working Fine
+            dataType: "JSON",
+            url: action,
+            data:{'action':'delete'},
+            success: function(data) {
+                if(data.error == true){
+                    swal("Deleted!", "Your Product has been deleted.", "success");
+                }
+                else{
+                    swal("Deleted!", "Invalid Product.", "danger");
+                }
+                $("#record"+id).remove();
+
+
+
+            },
+            error:function(){
+                swal("Deleted!", "Invalid Product.", "danger");
+            }
+        });
+
+
+
+//   window.location.href =action
 }
 });
 });

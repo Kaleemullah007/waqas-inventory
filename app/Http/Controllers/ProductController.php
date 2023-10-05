@@ -174,10 +174,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('product.index');
+        // dd($product);
+        $error = false;
+        if($product->delete())
+            $error =true;
+        return response()->json(['error'=>$error]);
     }
 
     public function getPrice(Product $product)

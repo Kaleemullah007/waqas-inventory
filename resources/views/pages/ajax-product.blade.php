@@ -22,7 +22,7 @@
             $counter = 1;
         @endphp
             @foreach ($products as $product )
-                <tr  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger" @endif>
+                <tr id="recordrow{{$product->id}}"  @if($product->stock <= $product->stock_alert) class=" text-white bg-danger"  @endif>
                     <th>{{$counter}}</th>
                     <td>{{$product->name}}</td>
                     <td>{{auth()->user()->currency}} {{$product->sale_price}}</td>
@@ -39,7 +39,7 @@
                         <form class="" action="{{ route('product.destroy', $product->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+                            <button type="submit"  data-bs-toggle="tooltip" id="row{{$product->id}}" data-bs-placement="bottom" title="Delete"
                                 class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary delete">
                                 <i class="bi bi-trash-fill"></i>
                             </button>

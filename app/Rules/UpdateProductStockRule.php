@@ -19,14 +19,22 @@ class UpdateProductStockRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
 
-        $products = array_filter($value);
+        // $products = array_filter($value);
+        $products = array_filter($value,function($values){
+            return $values['product_id'] != 'Choose';
+        });
         if (count($products) == 0) {
             $fail('Please select at least one product');
         }
 
         $sale_id = request()->segment(2);
 
+        // $productIds = collect($value)->pluck('product_id');
         $productIds = collect($value)->pluck('product_id');
+        $productIds = $productIds->reject(function($va){
+                return $va == 'Choose';
+            })->all();
+
         $DBProducts = Product::find($productIds)->keyBy('id');
 
         $DBSaleProducts = SaleProduct::where('sale_id',$sale_id)->get()->keyBy('product_id');

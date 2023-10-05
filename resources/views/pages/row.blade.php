@@ -38,7 +38,7 @@
                                             <input type="number" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{$new_row}}-sale_price" name="products[{{$new_row}}][sale_price]" placeholder="10" value="{{ old('sale_price') }}"
-                                                autocomplete="sale_price" required autofocus  onkeyup="calcualtePrice()" min="0">
+                                                autocomplete="sale_price"  autofocus  onkeyup="calcualtePrice()" min="0">
                                             @error('sale_price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

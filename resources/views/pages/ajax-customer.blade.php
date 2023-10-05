@@ -26,7 +26,7 @@
         @php
             $amount = $customer->customer_sale_sum_remaining_amount - $customer->desposit_sum_sum_amount
         @endphp
-            <tr>
+            <tr  @if ($amount > 0) class="bg-danger" @else class="bg-transparent"  @endif >
                 <td>{{$counter}}</td>
                 <td>{{$customer->name}}</td>
                 <td>{{$amount}} @if ($amount < 0 )
