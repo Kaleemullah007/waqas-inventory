@@ -50,6 +50,7 @@ class CustomerController extends Controller
     public function index( Request $request)
     {
         $customers = $this->recordsQuery($request)
+        ->orderByRaw('(customer_sale_sum_remaining_amount - desposit_sum_sum_amount) ASC')
         ->paginate(config('services.per_page',10));
 
         if($customers->lastPage() >= request('page')){

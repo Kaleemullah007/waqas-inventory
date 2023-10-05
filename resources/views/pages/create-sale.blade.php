@@ -152,7 +152,7 @@
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{ $counter }}-sale_price"
                                                 name="products[{{ $counter }}][sale_price]" placeholder="10"
-                                                value="{{ old('sale_price') }}" autocomplete="sale_price" required
+                                                value="{{ old('sale_price') }}" autocomplete="sale_price"
                                              onkeyup="calcualtePrice()" min="0">
                                             @error('sale_price')
                                                 <span class="invalid-feedback" role="alert">
@@ -328,7 +328,7 @@
                                         <input type="email"
                                             class="form-control mb-2 border-dark @error('email') is-invalid @enderror"
                                             id="email" name="email" placeholder="abc123@example.com"
-                                            value="{{ old('email') }}" autocomplete="email" required>
+                                            value="{{ old('email') }}" autocomplete="email" >
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

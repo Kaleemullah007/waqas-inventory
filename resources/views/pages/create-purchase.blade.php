@@ -127,7 +127,7 @@
                                         @enderror
                                         <label for="email" class="form-label fs-6">{{__('en.Email')}}</label>
                                         <input type="email" class="form-control mb-2 border-dark @error('email') is-invalid @enderror" id="email" name="email"
-                                            placeholder="abc123@example.com" value="{{ old('email') }}" autocomplete="email" required autofocus>
+                                            placeholder="abc123@example.com" value="{{ old('email') }}" autocomplete="email"  autofocus>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

@@ -121,14 +121,19 @@
                         product_qty = product_input_id+'-qty';
                         old_value = parseInt($("#"+product_qty).val()) + 1;
                         $("#"+product_qty).val(old_value);
-                        $("#"+id+"-product_id").val('Choose');
+                        $("#"+id+"-product_id").val('');
+                        $("#"+id+"-product_id"+" option").filter(function() {
+                            //may want to use $.trim in here
+                            return $(this).text() == 'Choose';
+                          }).prop('selected', true);
+
                         $.ajax({
                             type: "GET",
                             url: "/get-price/"+productid,
                             success: function(data) {
-                                $("#"+id+"-sale_price").val(data.sale_price)
+                                // $("#"+id+"-sale_price").val(data.sale_price)
 
-                                $("#"+id+"-available-stock").css({"font-size":"12px","color":data.color,"font-weight":"bold"}).text(" Available("+data.stock+")");
+                                // $("#"+id+"-available-stock").css({"font-size":"12px","color":data.color,"font-weight":"bold"}).text(" Available("+data.stock+")");
 
 
 

@@ -52,7 +52,7 @@
                                                 @if($product_old['product_id'] == $product->id)
                                                 @php
                                                     $selected_qty =$product->stock
-                                                @endphp 
+                                                @endphp
                                                 @endif
                                                     <option value="{{ $product->id }}" @selected($product_old['product_id'] == $product->id)>
                                                         {{ $product->name }}</option>
@@ -88,7 +88,7 @@
                                                 id="{{ $key }}-sale_price"
                                                 name="products[{{ $key }}][sale_price]" placeholder="10"
                                                 value="{{ old('sale_price', $product_old['sale_price']) }}"
-                                                autocomplete="sale_price" required autofocus onkeyup="calcualtePrice()"
+                                                autocomplete="sale_price"  autofocus onkeyup="calcualtePrice()"
                                                 min="0">
                                             @error('products.' . $key . '.sale_price')
                                                 <span class="invalid-feedback" role="alert">
@@ -135,7 +135,7 @@
                                                 @if($sale_product->product_id == $product->id)
                                                 @php
                                                     $selected_qty =$product->stock
-                                                @endphp 
+                                                @endphp
                                                 @endif
 
                                                     <option value="{{ $product->id }}" @selected($sale_product->product_id==$product->id) >{{ $product->name }}</option>
@@ -166,7 +166,7 @@
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{ $counter }}-sale_price"
                                                 name="products[{{ $counter }}][sale_price]" placeholder="10"
-                                                value="{{ old('sale_price',$sale_product->sale_price) }}" autocomplete="sale_price" required autofocus
+                                                value="{{ old('sale_price',$sale_product->sale_price) }}" autocomplete="sale_price"  autofocus
                                                 onkeyup="calcualtePrice()" min="0">
                                             @error('sale_price')
                                                 <span class="invalid-feedback" role="alert">
