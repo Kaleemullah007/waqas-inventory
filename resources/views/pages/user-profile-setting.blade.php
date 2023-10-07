@@ -110,13 +110,21 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-12 ">
-                        <img class="img img-thumbnail mt-4 mb-2 d-block mx-auto" src="/assets/images/user1.png"
+                        @php
+                        if(file_exists("images/".auth()->user()->picture))
+                        $image = "/images/".auth()->user()->picture;
+                        else
+                        $image = "/assets/images/user1.png";
+
+                    @endphp
+
+                        <img class="img img-thumbnail mt-4 mb-2 d-block mx-auto" src="{{$image}}"
                             alt="">
                         <div class="d-flex justify-content-center">
                             <input type="file"
                                 class="w-75 mt-4 form-control float-center  @error('profileImg') is-invalid @enderror"
                                 id="profileImg" name="profileImg" value="{{ old('profileImg') }}"
-                                autocomplete="profileImg" required>
+                                autocomplete="profileImg" >
                         </div>
                     </div>
                 </div>
@@ -157,12 +165,21 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            @php
+                            if(file_exists("images/".auth()->user()->logo))
+                            $image = "/images/".auth()->user()->logo;
+                            else
+                            $image = "/assets/images/user1.png";
+
+                        @endphp
+
                             <div class="col-lg-4 col-md-6 col-12 mt-2">
                                 <label for="logo" class="form-label  fs-6">{{ __('en.Logo') }}</label>
                                 <input type="file"
                                     class="form-control border-dark  @error('logo') is-invalid @enderror"
                                     id="logo" name="logo" value="{{ old('logo') }}"
-                                    autocomplete="logo" required >
+                                    autocomplete="logo"  >
                                 @error('logo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
