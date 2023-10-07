@@ -15,7 +15,7 @@ class SettingController extends Controller
 
         $this->middleware(['auth', 'verified']);
     }
-    
+
     public function adminPanelSetting()
     {
         return view('pages.admin-panel-setting');
@@ -152,11 +152,23 @@ class SettingController extends Controller
             $image_resize->save(public_path('/images/' . $filename));
             $currentAvatar = auth()->user()->logo;
             $logo = $path . '/' . $currentAvatar;
-            if (file_exists($userPhoto)) {
+            if (file_exists($logo)) {
 
-                    @unlink($userPhoto);
+                    @unlink($logo);
                 }
                 $user->logo = $filename;
+        }
+
+        $current = $user->password;
+
+        if ($request->NewPassword) {
+            if ($request->NewPassword != $current) {
+                $pass = Hash::make($request->NewPassword);
+            } else {
+                $pass = $user->password;
+            }
+        } else {
+            $pass = $user->password;
         }
 
 
