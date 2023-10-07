@@ -6,7 +6,9 @@
             <th>{{__('en.Customer')}}</th>
             <th>{{__('en.Product')}}</th>
             <th>{{__('en.Price')}}</th>
+            <th>{{__('en.remaining')}}</th>
             <th>{{__('en.Quantity')}}</th>
+            <th>{{__('en.Due Date')}}</th>
             <th>{{__('en.Action')}}</th>
         </tr>
 
@@ -24,13 +26,16 @@
         @endphp
         @foreach ($sales as $sale )
         <tr>
-            
+
             <td>{{$counter}}</td>
             <td> {{$sale->Customer->name}}</td>
 
             <td>{{$sale->Products->pluck('product_name')->join(',')}}</td>
             <td>{{auth()->user()->currency}} {{$sale->total}}</td>
+            <td>{{auth()->user()->currency}} {{$sale->remaining_amount}}</td>
             <td>{{$sale->total_qty}}</td>
+            <td> @if($sale->due_date) {{$sale->due_date->toFormattedDateString()}} @endif </td>
+
             <td>
                 <a href="{{route('sale.show',$sale->id)}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View"
                     class="box border border-1 border-secondary rounded-pill px-2 py-0 fs-6 link-secondary">

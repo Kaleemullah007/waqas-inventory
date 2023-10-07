@@ -248,6 +248,21 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="due_date" class="form-label fs-6">{{ __('en.Due Date') }}</label>
+                                <input type="date" min="0"
+                                    class="form-control calculation mb-2 border-dark @error('due_date') is-invalid @enderror"
+                                    id="due_date" name="due_date" placeholder="70" min="0"
+                                    value="{{ old('due_date', 0) }}"
+                                    onkeyup="calcualtePrice()">
+                                @error('due_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                         </div>
                         <div class="row justify-content-end mt-4">
                             <div class="col-lg-4 col-md-6 col-12">

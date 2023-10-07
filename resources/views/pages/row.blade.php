@@ -22,7 +22,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                        <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }}</label>
+                                        <label for="qty" class="form-label fs-6">{{ __('en.Quantity') }} <span id="{{ $new_row }}-available-stock" style="color:red" ></span></label>
                                         <input type="number" min="1"
                                             class="form-control calculation mb-2 border-dark @error('qty') is-invalid @enderror"
                                             id="{{$new_row}}-qty" name="products[{{$new_row}}][qty]" placeholder="20" value="{{ old('qty',1) }}"
