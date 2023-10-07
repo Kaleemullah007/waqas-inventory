@@ -222,13 +222,18 @@ class SaleController extends Controller
         }
 
         $cost_total = $sub_total_cost - $request->discount;
+
+        list($series,$serial_number,$serial_series) = $this->getInvoiceFields();
         $calcualted_values = [
             'sub_total'=>$subtotal,
             'sub_total_cost'=>$sub_total_cost-$request->discount,
             'total_qty'=>$qty_sum,
             'total'=>$total,
             'cost_total'=>$sub_total_cost,
-            'tax'=>0
+            'tax'=>0,
+            'serial'=>$series,
+            'serial_number'=>$serial_number,
+            'serial_series'=>$serial_series,
 
         ];
         $sale_data = array_merge($request->validated(),$calcualted_values);
@@ -413,5 +418,14 @@ class SaleController extends Controller
 
     }
 
+   function getInvoiceFields(){
+    $months = config('Invoice');
+    $month = date('m');
+    $year  = date('Y');
+    $series  =  $months[$month].$year;
+    $serial_number=  (Sale::where('serial_series',$series)->max('serial_number') ?? 0) + 1;
+    $serial_series = $series.'-'.$serial_number;
+    return [$series,$serial_number,$serial_series];
 
+   }
 }

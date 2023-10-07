@@ -40,6 +40,7 @@ class UpdateSaleRequest extends FormRequest
             'paid_amount'=>'required|decimal:0,2',
             'remaining_amount'=>'required|decimal:0,2',
             'total'=>'required|decimal:0,2',
+            'due_date'=>'sometimes|nullable|date'
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Traits\FilterByUser;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,8 +28,13 @@ class Sale extends Model
         'payment_due_date',
         'sub_total_cost',
         'cost_total',
-        'sub_total'
+        'sub_total',
+        'due_date',
+        'serial',
+        'serial_number',
+        'serial_series',
     ];
+    protected $casts = ['due_date'=>'date'];
 
 
     public function Customer():BelongsTo
@@ -46,5 +52,14 @@ class Sale extends Model
     {
         return $this->HasMany('App\Models\SaleProduct','sale_id','id');
     }
+
+    // protected function amount(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn($value) => $value / 100,
+    //         set: fn($value) => $value * 100,
+    //     );
+    // }
+
 
 }
