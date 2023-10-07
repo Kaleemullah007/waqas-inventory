@@ -4,10 +4,10 @@
 <table class="table border table-striped">
     <thead>
         <tr>
-            <th>{{__('en.Id')}}</th>
-            <th>{{__('Amount')}}</th>
-            <th>{{__('Description')}}</th>
-            <th>{{__('en.Action')}}</th>
+            <th>Id</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Action</th>
         </tr>
 
     </thead>
