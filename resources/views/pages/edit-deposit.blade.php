@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row d-flex">
                 <div class="col-6">
-                    <h4>{{ __('en.Edit Deposit') }}</h4>
+                    <h4>Edit Deposit</h4>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
                     <a class="btn btn-md btn btn-secondary" href="{{route("customer.show",$deposit->user_id)}}">Back</a>

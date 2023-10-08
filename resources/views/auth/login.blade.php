@@ -17,7 +17,7 @@
                     <label for="email-address" class="form-label fs-6">{{ __('en.Email Address') }}</label>
                 </div>
                 <div class="col-12">
-                    <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Abc123@example.com" aria-label="email-address">
+                    <input type="text" value="admin@rktech.com" id="email" name="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Abc123@example.com" aria-label="email-address">
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                     <label for="password" class="form-label fs-6">{{ __('en.Password') }}</label>
                 </div>
                 <div class="col-12">
-                    <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="******" aria-label="password">
+                    <input type="password" value="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="******" aria-label="password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h4>{{ __('en.Create Deposit') }}</h4>
+                    <h4>Create Deposit</h4>
                 </div>
             </div>
             <hr>
@@ -20,7 +20,7 @@
                         @csrf
                         <div class="row mt-3">
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="amount" class="form-label fs-6">{{ __('en.Amount') }}</label>
+                                <label for="amount" class="form-label fs-6">Amount</label>
                                 <input type="number" min="1"
                                     class="form-control mb-2 border-dark @error('amount') is-invalid @enderror"
                                     id="amount" name="amount" placeholder="20" value="{{ old('amount') }}"
@@ -32,7 +32,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="Description" class="form-label fs-6">{{ __('en.Description') }}</label>
+                                <label for="Description" class="form-label fs-6">Description</label>
                                 <textarea
                                     class="form-control mb-2 border-dark @error('description') is-invalid @enderror"
                                     id="description" name="description" placeholder="description"
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
-                                <label for="date" class="form-label fs-6">{{ __('en.Customer') }}</label>
+                                <label for="date" class="form-label fs-6">Customer</label>
                                 <select
                                     class="form-control mb-2 select2 border-dark @error('user_id') is-invalid @enderror"
                                     id="user_id" name="user_id" value="{{ old('user_id') }}"

@@ -16,7 +16,7 @@
         </div>
         <ul class="navbar-item flex-row ms-auto">
             <!-- Notification section -->
-            <li class="nav-item dropdown user-profile-dropdown">
+            {{-- <li class="nav-item dropdown user-profile-dropdown">
                 <a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
                     <p class="count purple-gradient">5</p>
@@ -65,9 +65,9 @@
                         </a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <!-- Messages section -->
-            <li class="nav-item dropdown user-profile-dropdown">
+            {{-- <li class="nav-item dropdown user-profile-dropdown">
                 <a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
                     <i class="bi bi-envelope"></i>
                     <p class="count bg-clc">5</p>
@@ -104,11 +104,11 @@
                         </a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <!-- Profile section -->
             <li class="nav-item dropdown user-profile-dropdown">
-                <a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
-                    <i class="bi bi-gear"></i>
+                <a href="#" class="nav-link user me-3" id="Notify" data-bs-toggle="dropdown">
+                    <i class="bi bi-gear fs-4"></i>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-profile-section">

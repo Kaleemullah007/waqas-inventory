@@ -437,8 +437,8 @@ return
     "General Setting"=>"General Setting",
     "Edit Production"=>"Edit Production",
     "Edit Customer"=>"Edit Customer",
-
-
+    "remaining"=>"remaining",
+    "Due Date"=>"Due Date",
 
 
 ];
