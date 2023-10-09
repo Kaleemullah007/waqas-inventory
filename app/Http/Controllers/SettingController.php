@@ -178,7 +178,7 @@ class SettingController extends Controller
         $user->postal_code = $request->postal_code??null;
         $user->country = $request->country??'Pakistan';
         $user->business_phone = $request->business_phone??'';
-        $user->invoice_template = $request->invoice_template??'view-sale';
+        $user->invoice_template = $request->current_template??'view-sale';
         $user->per_page = $request->per_page??10;
         $user->custom_note_heading = $request->custom_note??'NOTICE:';
         $user->custom_note = $request->custom_note_heading??'A finance charge of 1.5% will be made on unpaid balances after 30 days.';

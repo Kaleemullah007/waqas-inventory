@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>Invoice</title>
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" --}}
+        {{-- integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"> --}}
+    {{-- </script> --}}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     {{-- <link href="/assets/font.css" rel="stylesheet" /> --}}
 
     <style>
@@ -160,7 +161,24 @@
 
 <body>
 
+
     <div class="page-content container">
+        @if (!isset($hide))
+        <div class="row d-flex justify-content-between">
+            <div class="col">
+            <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
+          </div>
+
+            <div class="col">
+              <form method="get" action="{{route('generate-pdf',$sales->id)}}">
+                  {{-- <button type="submit">Download!</button> --}}
+                  <button class="btn btn-success float-end"  ><i class="bi bi-printer me-2"></i>Print</button>
+               </form>
+              {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
+            </div>
+          </div>
+          @endif
+
         <div class="page-header text-blue-d2">
             <h1 class="page-title text-secondary-d1">
                 Invoice
@@ -170,26 +188,22 @@
                 </small>
             </h1>
 
-
-
             <div class="page-tools">
-                @if ($hide)
+
                 <div class="action-buttons">
-                  <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Back">
+                  {{-- <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Back">
                         <i class="bi bi-arrow-left-short"></i>Back
-                    </a>
-
-                    <form method="get" action="{{route('generate-pdf',$sales->id)}}">
-                        {{-- <button type="submit">Download!</button> --}}
-                        <button class="btn btn-success float-end"  ><i class="bi bi-printer me-2"></i>Print</button>
-                     </form>
-                    {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
-                  </div>
-
+                    </a> --}}
+                    {{-- <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                        <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                        Print
+                    </a> --}}
+                    {{-- <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                        <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                        Export
+                    </a> --}}
                 </div>
             </div>
-            @endif
-
         </div>
 
         <div class="container px-0">
@@ -200,7 +214,7 @@
                             <div class="text-center text-150">
                                 <div class="col" id="logo">
                                     {{-- <img src="{{public_path().'/logo.png'}}"> --}}
-                                    <img src="{{ public_path() }}/images/{{ auth()->user()->logo }}">
+                                    <img src="/images/{{auth()->user()->logo}}">
                                 </div>
                                 <span class="text-default-d3">{{ auth()->user()->business_name }}</span>
                             </div>
