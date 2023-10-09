@@ -262,8 +262,9 @@ class SaleController extends Controller
     public function show(Sale $sale):View
     {
         $sales = $sale->load('Products','Customer');
-
-        return view('pages.view-sale',compact('sales'));
+        $hide = true;
+        $tempalte  = auth()->user()->invoice_template;
+        return view('pages.'.$tempalte,compact('sales','hide'));
     }
 
     /**
@@ -394,7 +395,10 @@ class SaleController extends Controller
         $sales = Sale::with(['Products','Customer'])
         ->whereId($id)->first();
 
-        $pdf = Pdf::loadView('pages.print', compact('sales'));
+        // $pdf = Pdf::loadView('pages.print-original', compact('sales'));
+        $hide = false;
+        $tempalte  = auth()->user()->invoice_template;
+        $pdf = Pdf::loadView('pages.print-original', compact('sales','hide'));
         return $pdf->download('invoice.pdf');
     }
 

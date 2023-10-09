@@ -7,18 +7,23 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> --}}
 
   </head>
   <body>
       <header class="clearfix">
+        @if ($hide == true)
         <div class="row d-flex justify-content-between">
           <div class="col">
           <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
         </div>
           <div class="col" id="logo">
-
+            @if ($hide == false)
+            <img src="{{ public_path() }}/images/{{ auth()->user()->logo }}">
+            @else
             <img src="/images/{{auth()->user()->logo}}">
+
+            @endif
           </div>
           <div class="col">
             <form method="get" action="{{route('generate-pdf',$sales->id)}}">
@@ -28,6 +33,7 @@
             {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
           </div>
         </div>
+        @endif
 
         <h1>INVOICE {{$sales->id}}</h1>
         <div id="company" class="clearfix">

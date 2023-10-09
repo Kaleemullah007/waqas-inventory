@@ -116,7 +116,7 @@
                             } else {
                                 $image = '/assets/images/user1.png';
                             }
-                            
+
                         @endphp
 
                         <img class="img img-thumbnail d-block mx-auto  h-75" src="{{ $image }}" alt="">
@@ -181,11 +181,11 @@
                                             name="current_template" id="current_template" autocomplete="current_template"
                                             required>
 
-                                            <option value="view-sale" @if (old('current_template') == 1) 'selected' @endif>
+                                            <option value="view-sale" @if (old('current_template') == 1) selected @endif>
                                                 Template 1
                                             </option>
                                             <option value="view-sale1"
-                                                @if (old('current_template') == 2) 'selected' @endif>Template 2
+                                                @if (old('current_template') == 2) selected @endif>Template 2
                                             </option>
                                         </select>
                                         @error('current_template')
