@@ -400,7 +400,7 @@ class SaleController extends Controller
         // $pdf = Pdf::loadView('pages.print-original', compact('sales'));
         $hide = false;
         $tempalte  = auth()->user()->invoice_template;
-        $pdf = Pdf::loadView('pages.print-original', compact('sales','hide'));
+        $pdf = Pdf::loadView('pages.'.$tempalte.'-print', compact('sales','hide'));
         return $pdf->download('invoice.pdf');
     }
 
