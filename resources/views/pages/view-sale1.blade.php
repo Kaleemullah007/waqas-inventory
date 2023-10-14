@@ -163,7 +163,7 @@
 
 
     <div class="page-content container">
-        @if (!isset($hide))
+
         <div class="row d-flex justify-content-between">
             <div class="col">
             <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
@@ -177,7 +177,7 @@
               {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
             </div>
           </div>
-          @endif
+
 
         <div class="page-header text-blue-d2">
             <h1 class="page-title text-secondary-d1">
