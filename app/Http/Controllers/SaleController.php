@@ -126,7 +126,7 @@ class SaleController extends Controller
             $sales =$sales->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
         }else{
-            $start_date = date('Y-m-d');
+            $start_date = date('Y-m-01');
             $end_date = date('Y-m-d');
             $sales =$sales->whereDate('created_at','>=',$start_date)
             ->whereDate('created_at','<=',$end_date);
@@ -146,7 +146,7 @@ class SaleController extends Controller
                 $q->where('name','like',"%".$search."%");
             });
 
-            return $sales ;
+            return $sales;
 
         }
 
@@ -355,9 +355,11 @@ class SaleController extends Controller
        SaleProduct::insert($sale_products);
       Sale::where('id',$sale->id)->update($sale_data);
        $sales = Sale::with('Products','Customer')->where('id',$sale->id)->first();
-       if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
-            Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'Update Order '));
+    //    if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
+    //         Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'Update Order '));
 
+
+       $hide = true;
        $request->session()->flash('success','Sale updated successfully.');
        return redirect('sale/'.$sale->id.'/edit');
     }
@@ -398,7 +400,7 @@ class SaleController extends Controller
         // $pdf = Pdf::loadView('pages.print-original', compact('sales'));
         $hide = false;
         $tempalte  = auth()->user()->invoice_template;
-        $pdf = Pdf::loadView('pages.print-original', compact('sales','hide'));
+        $pdf = Pdf::loadView('pages.'.$tempalte.'-print', compact('sales','hide'));
         return $pdf->download('invoice.pdf');
     }
 

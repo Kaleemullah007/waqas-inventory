@@ -173,22 +173,10 @@
 
 
             <div class="page-tools">
-                @if ($hide)
-                <div class="action-buttons">
-                  <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Back">
-                        <i class="bi bi-arrow-left-short"></i>Back
-                    </a>
-
-                    <form method="get" action="{{route('generate-pdf',$sales->id)}}">
-                        {{-- <button type="submit">Download!</button> --}}
-                        <button class="btn btn-success float-end"  ><i class="bi bi-printer me-2"></i>Print</button>
-                     </form>
-                    {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
-                  </div>
 
                 </div>
             </div>
-            @endif
+
 
         </div>
 
