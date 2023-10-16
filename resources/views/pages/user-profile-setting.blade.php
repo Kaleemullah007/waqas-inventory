@@ -181,11 +181,17 @@
                                             name="current_template" id="current_template" autocomplete="current_template"
                                             required>
 
-                                            <option value="view-sale" @if (old('current_template') == 1) selected @endif>
+                                            <option value="view-sale" @if (old('current_template',auth()->user()->invoice_template) == 'view-sale') selected @endif>
                                                 Template 1
                                             </option>
-                                            <option value="view-sale1"
-                                                @if (old('current_template') == 2) selected @endif>Template 2
+                                            <option value="view-sale-1"
+                                                @if (old('current_template',auth()->user()->invoice_template) == 'view-sale-1') selected @endif>Template 2
+                                            </option>
+                                            <option value="view-sale-2"
+                                                @if (old('current_template',auth()->user()->invoice_template) == 'view-sale-2') selected @endif>Template 3
+                                            </option>
+                                            <option value="view-sale-3"
+                                                @if (old('current_template',auth()->user()->invoice_template) == 'view-sale-3') selected @endif>Template 4
                                             </option>
                                         </select>
                                         @error('current_template')

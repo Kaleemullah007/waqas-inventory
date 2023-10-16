@@ -4,158 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title>Invoice</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('css/bootstrap-4.css')}}" media="all" />
+        <link rel="stylesheet" href="{{asset('css/invoice1.css')}}" media="all" />
+
+
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" --}}
         {{-- integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"> --}}
     {{-- </script> --}}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> --}}
     {{-- <link href="/assets/font.css" rel="stylesheet" /> --}}
 
-    <style>
-        body {
-            margin-top: 20px;
-            color: #484b51;
-        }
 
-        .text-secondary-d1 {
-            color: #728299 !important;
-        }
-
-        .page-header {
-            margin: 0 0 1rem;
-            padding-bottom: 1rem;
-            padding-top: .5rem;
-            border-bottom: 1px dotted #e2e2e2;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-pack: justify;
-            justify-content: space-between;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-
-        .page-title {
-            padding: 0;
-            margin: 0;
-            font-size: 1.75rem;
-            font-weight: 300;
-        }
-
-        .brc-default-l1 {
-            border-color: #dce9f0 !important;
-        }
-
-        .ml-n1,
-        .mx-n1 {
-            margin-left: -.25rem !important;
-        }
-
-        .mr-n1,
-        .mx-n1 {
-            margin-right: -.25rem !important;
-        }
-
-        .mb-4,
-        .my-4 {
-            margin-bottom: 1.5rem !important;
-        }
-
-        hr {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            border: 0;
-            border-top: 1px solid rgba(0, 0, 0, .1);
-        }
-
-        .text-grey-m2 {
-            color: #888a8d !important;
-        }
-
-        .text-success-m2 {
-            color: #86bd68 !important;
-        }
-
-        .font-bolder,
-        .text-600 {
-            font-weight: 600 !important;
-        }
-
-        .text-110 {
-            font-size: 110% !important;
-        }
-
-        .text-blue {
-            color: #478fcc !important;
-        }
-
-        .pb-25,
-        .py-25 {
-            padding-bottom: .75rem !important;
-        }
-
-        .pt-25,
-        .py-25 {
-            padding-top: .75rem !important;
-        }
-
-        .bgc-default-tp1 {
-            background-color: rgba(121, 169, 197, .92) !important;
-        }
-
-        .bgc-default-l4,
-        .bgc-h-default-l4:hover {
-            background-color: #f3f8fa !important;
-        }
-
-        .page-header .page-tools {
-            -ms-flex-item-align: end;
-            align-self: flex-end;
-        }
-
-        .btn-light {
-            color: #757984;
-            background-color: #f5f6f9;
-            border-color: #dddfe4;
-        }
-
-        .w-2 {
-            width: 1rem;
-        }
-
-        .text-120 {
-            font-size: 120% !important;
-        }
-
-        .text-primary-m1 {
-            color: #4087d4 !important;
-        }
-
-        .text-danger-m1 {
-            color: #dd4949 !important;
-        }
-
-        .text-blue-m2 {
-            color: #68a3d5 !important;
-        }
-
-        .text-150 {
-            font-size: 150% !important;
-        }
-
-        .text-60 {
-            font-size: 60% !important;
-        }
-
-        .text-grey-m1 {
-            color: #7b7d81 !important;
-        }
-
-        .align-bottom {
-            vertical-align: bottom !important;
-        }
-    </style>
 
 </head>
 
@@ -163,7 +25,7 @@
 
 
     <div class="page-content container">
-
+        @if (!isset($hide))
         <div class="row d-flex justify-content-between">
             <div class="col">
             <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
@@ -177,7 +39,7 @@
               {{-- <button class="btn btn-success float-end"   onclick="printPageArea('printableArea')" ><i class="bi bi-printer me-2"></i>Print</button> --}}
             </div>
           </div>
-
+          @endif
 
         <div class="page-header text-blue-d2">
             <h1 class="page-title text-secondary-d1">
@@ -340,12 +202,12 @@
                             </table>
                         </div>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 d-flex justify-content-end">
                             {{-- <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
                                 Extra note such as company or payment information...
                             </div> --}}
 
-                            <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+                            <div class="col-4 col-sm-5 text-grey text-90 order-first order-sm-last">
                                 <div class="row my-2">
                                     <div class="col-7 text-right">
                                         SubTotal
