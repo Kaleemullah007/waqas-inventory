@@ -18,12 +18,10 @@
           <a href="{{ route('sale.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i>Back</a>
         </div>
           <div class="col" id="logo">
-            @if ($hide == false)
-            <img src="{{ public_path() }}/images/{{ auth()->user()->logo }}">
-            @else
+
             <img src="/images/{{auth()->user()->logo}}">
 
-            @endif
+
           </div>
           <div class="col">
             <form method="get" action="{{route('generate-pdf',$sales->id)}}">
