@@ -32,7 +32,7 @@ Route::get('/product_price',function(){
 
 Route::get('/', function () {
 
-    return view('welcome');
+    return to_route('login');
 });
 Route::get('get-csv-sales',[SaleController::class,'CSV']);
 

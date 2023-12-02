@@ -221,7 +221,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
-                                <input type="number" min="0"
+                                <input type="text" min="0"
                                     class="form-control calculation bg-grey mb-2 border-dark @error('discount') is-invalid @enderror"
                                     id="discount" name="discount" value="{{ old('discount',$sale->discount) }}"
                                     autocomplete="discount" required autofocus onchange="calcualtePrice()">
@@ -260,7 +260,7 @@
                             </div>
                             {{-- <input type="number" min="1" name="sub_total" > --}}
                             <input type="hidden" name="total" >
-                            <input type="hidden" name="remaining_amount" >
+                            <input type="hidden" name="remaining_amount" id="remaining_amount" value="{{ old('remaining_amount',$sale->remaining_amount) }}" >
 
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>

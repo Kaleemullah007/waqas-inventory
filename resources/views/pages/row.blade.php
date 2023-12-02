@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="col-lg-2 col-md-6 col-12 pt-1">
                                         <label for="sale_price" class="form-label fs-6">{{ __('en.Price') }}</label>
-                                            <input type="number" min="1"
+                                            <input type="text" min="1"
                                                 class="form-control calculation mb-2 border-dark @error('sale_price') is-invalid @enderror"
                                                 id="{{$new_row}}-sale_price" name="products[{{$new_row}}][sale_price]" placeholder="10" value="{{ old('sale_price') }}"
                                                 autocomplete="sale_price"  autofocus  onkeyup="calcualtePrice()" min="0">
