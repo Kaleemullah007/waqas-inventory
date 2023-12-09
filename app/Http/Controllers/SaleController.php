@@ -10,12 +10,14 @@ use App\Models\Product;
 use App\Models\SaleProduct;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class SaleController extends Controller
@@ -291,7 +293,14 @@ class SaleController extends Controller
         // positive  increment   $d
         // negative decrement abs($d)
 
-        // dd($request->all());
+        // dd($request->validated());
+
+
+        try{
+
+            DB::beginTransaction();
+
+    
         $products = array_filter($request->products);
         $productIds = collect($products)->pluck('product_id');
         $qty_sum = collect($products)->sum('qty');
@@ -328,11 +337,12 @@ class SaleController extends Controller
 
 
 
-            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->cost_price;
+            $temp['cost_price']   = $DBProducts[$products_array['product_id']]->price;
             $temp['sale_price']   = $products_array['sale_price'];
             $sale_products[] = $temp;
         }
 
+        // dd($sale_products);
         $cost_total = $sub_total_cost - $request->discount;
         $calcualted_values = [
             'sub_total'=>$subtotal,
@@ -355,10 +365,15 @@ class SaleController extends Controller
        SaleProduct::insert($sale_products);
       Sale::where('id',$sale->id)->update($sale_data);
        $sales = Sale::with('Products','Customer')->where('id',$sale->id)->first();
-    //    if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
-    //         Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'Update Order '));
-
-
+            //    if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
+            //         Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'Update Order '));
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $request->session()->flash('error', 'Sale not updated successfully.');
+            return redirect('sale/' . $sale->id . '/edit');
+        }
        $hide = true;
        $request->session()->flash('success','Sale updated successfully.');
        return redirect('sale/'.$sale->id.'/edit');

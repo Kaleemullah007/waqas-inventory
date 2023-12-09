@@ -193,7 +193,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="discount" class="form-label fs-6">{{ __('en.Discount') }}</label>
-                                <input type="number" min="0"
+                                <input type="text" min="0"
                                     class="form-control mb-2 calculation border-dark @error('discount') is-invalid @enderror"
                                     id="discount" name="discount" placeholder="10" value="{{ old('discount', 0) }}"
                                     min="0" onkeyup="calcualtePrice()" autocomplete="discount" required>
@@ -237,7 +237,7 @@
 
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="paid_amount" class="form-label fs-6">{{ __('en.Paid') }}</label>
-                                <input type="number" min="0"
+                                <input type="text" min="0"
                                     class="form-control calculation mb-2 border-dark @error('paid_amount') is-invalid @enderror"
                                     id="paid_amount" name="paid_amount" placeholder="70" min="0"
                                     value="{{ old('paid_amount', 0) }}" autocomplete="paid_amount" required
