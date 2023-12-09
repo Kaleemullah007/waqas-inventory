@@ -23,7 +23,7 @@
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/libs/switch/js/switch.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}" defer></script>
-    {{-- <script src="{{ asset('assets/libs/custom/js/custom.js') }}" defer></script> --}}
+    <script src="{{ asset('assets/libs/custom/js/custom.js') }}" defer></script>
     <script src="{{ asset('assets/libs/chart/apexcharts/apexcharts.min.js') }}" defer></script>
     <script src="{{ asset('assets/libs/chart/chart.js') }}" defer></script>
     <script src="{{ asset('assets/libs/datatable/datatables.min.js') }}" defer></script>
