@@ -115,8 +115,9 @@
                         <div class="media mx-auto">
                             <img src="/assets/images/user3.png" alt="" class="img-fluid mr-2">
                             <div class="media-body">
-                                <h5>Muhammad Uzair</h5>
-                                <p>{{__('en.Super Admin')}}</p>
+                                <h5>{{auth()->user()->name}}</h5>
+                                <p class="fs-6">{{auth()->user()->email}}</p>
+                                <p class="fs-6">{{auth()->user()->user_type}}</p>
                             </div>
                         </div>
                     </div>
