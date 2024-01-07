@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'allowed_email' => env('ALLOWEDEMAIL', 'admin@rktech.com'),
 
     /*
     |--------------------------------------------------------------------------

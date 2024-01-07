@@ -15,19 +15,10 @@
                                 <a href="{{ route('product.index') }}"><i class="bi fs-5 pe-2 bi-boxes"></i><span
                                     class="hide-menu ">{{ __('en.Products') }}</span></a>
                             </li>
-                            <li class="lii {{ (request()->is('sale') || request()->is('sale/*') ) ? 'active' : '' }}">
-                                <a href="{{ route('sale.index') }}"><i class="bi fs-5 pe-2 bi-cart4"></i><span
-                                        class="hide-menu ">{{ __('en.Sale') }}</span></a>
-                            </li>
 
                             <li class="lii {{ (request()->is('purchase') || request()->is('purchase/*') ) ? 'active' : '' }}">
                                 <a href="{{ route('purchase.index') }}"><i class="bi fs-5 pe-2 bi-receipt-cutoff"></i><span
                                         class="hide-menu ">{{ __('en.Purchase') }}</span></a>
-                            </li>
-
-                            <li class="lii {{ (request()->is('expense') || request()->is('expense/*') ) ? 'active' : '' }}">
-                                <a href="{{ route('expense.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
-                                        class="hide-menu ">{{ __('en.Expense') }}</span></a>
                             </li>
 
                             <li class="lii {{ (request()->is('production') || request()->is('production/*') ) ? 'active' : '' }}">
@@ -35,6 +26,16 @@
                                         class="hide-menu ">{{ __('en.Production') }}</span></a>
                             </li>
 
+                            <li class="lii {{ (request()->is('sale') || request()->is('sale/*') ) ? 'active' : '' }}">
+                                <a href="{{ route('sale.index') }}"><i class="bi fs-5 pe-2 bi-cart4"></i><span
+                                        class="hide-menu ">{{ __('en.Sale') }}</span></a>
+                            </li>
+
+
+                            <li class="lii {{ (request()->is('expense') || request()->is('expense/*') ) ? 'active' : '' }}">
+                                <a href="{{ route('expense.index') }}"><i class="bi fs-5 pe-2 bi-wallet2"></i><span
+                                        class="hide-menu ">{{ __('en.Expense') }}</span></a>
+                            </li>
 
                         </ul>
                     </nav>
