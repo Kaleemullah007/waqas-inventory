@@ -279,6 +279,7 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale): View
     {
+        // dd("Dd");
         $products = Product::get();
         $customers = User::where('owner_id', auth()->id())
             ->where('user_type', 'customer')
@@ -415,8 +416,11 @@ class SaleController extends Controller
         $add_products  = $request->products;
 
         // whereNotIn('id',array_values($products))->
-        $products = Product::get();
+        $products = Product::where('stock', '>', 0)->get();
+        $html = '';
+        if($products->count()>0 )
         $html = view('pages.row', compact('new_row', 'totalrecords', 'products', 'add_products'))->render();
+
         return $html;
     }
 
