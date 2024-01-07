@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DepositHistory;
 use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Purchase;
@@ -45,7 +46,7 @@ class HomeController extends Controller
         $start_date = date('Y-m-01');
         $end_date = date('Y-m-d');
         $result   = $this->dashboardStat($start_date,$end_date);
-       
+
         // dd($result);
         return view('pages.dashboard',compact('result'));
     }
@@ -59,7 +60,7 @@ class HomeController extends Controller
         $start_date = changeDateFormat($start_date,'Y-m-d');
         $end_date = changeDateFormat($end_date,'Y-m-d');
         $result   = $this->dashboardStat($start_date,$end_date);
-        
+
         $dashboard_html = view('pages.ajax-dashboard',compact('result'))->render();
         return response()->json(['html'=>$dashboard_html]);
 
@@ -122,7 +123,14 @@ class HomeController extends Controller
 
                 $sub_total_cost = $sales->sum('sub_total_cost');
                 $cost_total = $sales->sum('cost_total');
-                
+                $products_sum_sale_price= Sale::query()
+                ->sum('total');
+
+
+                $amount = DepositHistory::sum('amount');
+                $remaining_amount = Sale::query()
+                ->sum('remaining_amount');
+                $remaining_amount = $remaining_amount-$amount;
 
                 // dd($sales);
 
@@ -177,7 +185,7 @@ class HomeController extends Controller
             'purchases_history'=>$purchases_history,
             'net_profits'=>$net_profit,
             'net_worth'=>$net_worth,
-            
+
             'products_sum_cost_price' => $products_sum_cost_price,
             'products_sum_sale_price' => $products_sum_sale_price,
             'products_sum_qty' => $products_sum_qty,
@@ -189,7 +197,7 @@ class HomeController extends Controller
             'total_qty' => $total_qty,
             'cash_in_hand' => $cash_in_hand,
             'other_in_hand' => $other_in_hand,
-            
+
 
 
         ];
