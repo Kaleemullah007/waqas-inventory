@@ -250,8 +250,8 @@ class SaleController extends Controller
         SaleProduct::insert($sale_products);
 
         $sales = Sale::with(['Products','Customer'])->find($sales->id);
-        if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
-            Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'New Order '));
+        // if($sales->Customer->email != null && filter_var($sales->Customer->email, FILTER_VALIDATE_EMAIL))
+            // Mail::to($sales->Customer->email)->send(new SendInvoice($sales,'New Order '));
 
         $request->session()->flash('success','Sale created successfully.');
 
@@ -300,7 +300,7 @@ class SaleController extends Controller
 
             DB::beginTransaction();
 
-    
+
         $products = array_filter($request->products);
         $productIds = collect($products)->pluck('product_id');
         $qty_sum = collect($products)->sum('qty');
@@ -441,9 +441,11 @@ class SaleController extends Controller
 
    function getInvoiceFields(){
     $months = config('Invoice');
+
     $month = date('m');
     $year  = date('Y');
-    $series  =  $months[$month].$year;
+    $series  =  $months[ltrim($month,'0')].$year;
+
     $serial_number=  (Sale::where('serial_series',$series)->max('serial_number') ?? 0) + 1;
     $serial_series = $series.'-'.$serial_number;
     return [$series,$serial_number,$serial_series];
