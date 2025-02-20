@@ -42,7 +42,7 @@ class ProductController extends Controller
 
             $products =$products->where('name','like',"%".$search."%");
         }
-        $products = $products->paginate(config('services.per_page',10));
+        $products = $products->paginate(auth()->user()->per_page??config('services.per_page',10));
         return $products ;
     }
 

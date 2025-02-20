@@ -22,7 +22,7 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        $expenses = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        $expenses = $this->recordsQuery($request)->paginate(auth()->user()->per_page??config('services.per_page',10));
         if($expenses->lastPage() >= request('page')){
             return view('pages.expense',compact('expenses'));
         }

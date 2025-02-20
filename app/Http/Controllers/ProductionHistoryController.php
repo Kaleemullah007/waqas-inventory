@@ -26,7 +26,7 @@ class ProductionHistoryController extends Controller
     public function index(Request $request)
     {
 
-        $productions = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        $productions = $this->recordsQuery($request)->paginate(auth()->user()->per_page??config('services.per_page',10));
         if($productions->lastPage() >= request('page')){
             return view('pages.production',compact('productions'));
         }
@@ -150,7 +150,7 @@ class ProductionHistoryController extends Controller
     {
         // dd(auth()->user()->id);
         $products = Product::get();
-        $raws = Purchase::get();
+        $raws = Purchase::where('id','>',1)->get();
         return view('pages.create-production',compact('raws','products'));
     }
 

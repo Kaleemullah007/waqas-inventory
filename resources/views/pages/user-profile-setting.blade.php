@@ -241,6 +241,20 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-12 mt-2">
+                                        <label for="per_page"
+                                            class="form-label  fs-6">{{ __('en.Per Page') }}</label>
+                                        <input type="text"
+                                            class="form-control border-dark  @error('business_phone') is-invalid @enderror"
+                                            id="per_page" name="per_page" placeholder="10"
+                                            value="{{ old('per_page', auth()->user()->per_page) }}"
+                                            autocomplete="per_page" required>
+                                        @error('per_page')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-12 px-4">

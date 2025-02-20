@@ -27,7 +27,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        $purchases = $this->recordsQuery($request)->paginate(config('services.per_page',10));
+        $purchases = $this->recordsQuery($request)->paginate(auth()->user()->per_page??config('services.per_page',10));
         if($purchases->lastPage() >= request('page')){
             return view('pages.purchase',compact('purchases'));
         }
@@ -149,7 +149,10 @@ class PurchaseController extends Controller
         $vendors = User::where('owner_id',auth()->id())
         ->where('user_type','vendor')
         ->get();
-        return view('pages.create-purchase',compact('vendors'));
+        $raw = Purchase::get(); 
+       $count = $raw->count();
+    //    dd($raw);
+        return view('pages.create-purchase',compact('vendors','raw','count'));
 
     }
 
@@ -165,9 +168,22 @@ class PurchaseController extends Controller
         // $product->sale_price = $request->sale_price;
         // $product->price = $request->price;
         // $product->save();
+        // dd($request->all());
+        if($request->action =='update')
+        {
+        $purchases = Purchase::find($request->raw_id);
+        $purchases->increment('qty',$request->qty);
+        $purchases->sale_price = $request->sale_price;
+        $purchases->price = $request->price;
+        $purchases->increment('total',$request->total);
+        $purchases->save();
+        }
+        else
         $purchases = Purchase::create($request->validated());
+
         PurchaseHistory::create($request->validated());
-        $request->session()->flash('success','Purchase created successfully.');
+        // dd($request->all());
+        $request->session()->flash('success','Purchase '.$request->action.' successfully.');
 
         return redirect('purchase');
     }
@@ -194,7 +210,10 @@ class PurchaseController extends Controller
         $vendors = User::where('owner_id',auth()->id())
         ->where('user_type','vendor')
         ->get();
-        return view('pages.edit-purchase',compact('vendors','purchase'));
+        $raw = Purchase::get(); 
+       $count = $raw->count();
+    //    dd($raw);
+        return view('pages.edit-purchase',compact('vendors','purchase','raw','count'));
     }
 
     /**
@@ -226,8 +245,13 @@ class PurchaseController extends Controller
         // $product->price = $request->price;
         // $product->save();
 
-        $purchases = Purchase::where('id',$purchase->id)->update($request->validated());
-        $purchases = PurchaseHistory::create($request->validated());
+        if($request->action =='add')
+        {
+            Purchase::create($request->validated());
+        }
+        else
+        Purchase::where('id',$purchase->id)->update($request->validated());
+        PurchaseHistory::create($request->validated());
 
 
 
