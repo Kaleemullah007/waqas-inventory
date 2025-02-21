@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
-    use HasFactory;
     use FilterByUser;
-    protected $fillable = ['name','amount','date','owner_id'];
+    use HasFactory;
+
+    protected $fillable = ['name', 'amount', 'date', 'owner_id'];
 }

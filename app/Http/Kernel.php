@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AvoidBackHistory;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -40,7 +39,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\Language::class,
             \App\Http\Middleware\AvoidBackHistory::class,
 
-
         ],
 
         'api' => [
@@ -68,7 +66,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        "Language"=>\App\Http\Middleware\Language::class,
-        "avoid-back-history" => \App\Http\Middleware\AvoidBackHistory::class,
+        'Language' => \App\Http\Middleware\Language::class,
+        'avoid-back-history' => \App\Http\Middleware\AvoidBackHistory::class,
     ];
 }

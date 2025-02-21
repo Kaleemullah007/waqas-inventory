@@ -21,8 +21,8 @@ return [
         'scheme' => 'https',
     ],
 
-    'emails'=>[
-        'from'=>'kaleemullahdev@gmail.com'
+    'emails' => [
+        'from' => 'kaleemullahdev@gmail.com',
     ],
 
     'postmark' => [
@@ -34,6 +34,6 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'per_page'=>50,
+    'per_page' => 50,
 
 ];

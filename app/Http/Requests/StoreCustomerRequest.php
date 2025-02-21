@@ -23,22 +23,23 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'first_name'=>'required',
-        'last_name'=>'required',
-        'name'=>'required',
-        'email'=>'sometimes|nullable|required|unique:users,email',
-        'phone'=>'required',
-        'user_type'=>'required',
-        'owner_id'=>'required'
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'name' => 'required',
+            'email' => 'sometimes|nullable|required|unique:users,email',
+            'phone' => 'required',
+            'user_type' => 'required',
+            'owner_id' => 'required',
         ];
     }
-    protected function prepareForValidation(){
+
+    protected function prepareForValidation()
+    {
         $this->merge([
-            'owner_id'=>auth()->id(),
-            'user_type'=>'customer',
-            'name'=>$this->first_name.' '.$this->last_name,
-            'password'=>Hash::make('password'),
+            'owner_id' => auth()->id(),
+            'user_type' => 'customer',
+            'name' => $this->first_name.' '.$this->last_name,
+            'password' => Hash::make('password'),
         ]);
     }
 }
-

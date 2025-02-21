@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vendor extends Model
 {
     use HasFactory;
+
     protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
@@ -28,6 +30,6 @@ class Vendor extends Model
         'per_page',
         'custom_note',
         'custom_note_heading',
-        'logo'
+        'logo',
     ];
 }

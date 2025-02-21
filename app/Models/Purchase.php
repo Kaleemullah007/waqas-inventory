@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Purchase extends Model
 {
-    use HasFactory;
     use FilterByUser;
-    protected $fillable = ['sale_price','price','user_id','qty','owner_id','total','name'];
+    use HasFactory;
 
-    public function vendor():BelongsTo
+    protected $fillable = ['sale_price', 'price', 'user_id', 'qty', 'owner_id', 'total', 'name'];
+
+    public function vendor(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User','user_id','id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 }

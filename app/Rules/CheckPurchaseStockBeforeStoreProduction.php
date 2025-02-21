@@ -6,9 +6,10 @@ use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class CheckPurchaseStockBeforeStoreProduction implements ValidationRule,DataAwareRule
+class CheckPurchaseStockBeforeStoreProduction implements DataAwareRule, ValidationRule
 {
     protected $data = [];
+
     /**
      * Run the validation rule.
      *
@@ -18,11 +19,13 @@ class CheckPurchaseStockBeforeStoreProduction implements ValidationRule,DataAwar
     {
         dd($this->data);
     }
+
     public function setData(array $data)
     {
 
         $this->data = $data;
+
         return $this;
-        
+
     }
 }

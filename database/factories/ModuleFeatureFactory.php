@@ -17,10 +17,9 @@ class ModuleFeatureFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
-            'is_enabled'=>false,
-            'status'=>false,
-
+            'name' => $this->faker->name(),
+            'is_enabled' => false,
+            'status' => false,
 
         ];
     }

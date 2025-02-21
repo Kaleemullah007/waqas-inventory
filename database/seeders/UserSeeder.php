@@ -4,11 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Stringable;
 
 class UserSeeder extends Seeder
 {
@@ -35,10 +32,10 @@ class UserSeeder extends Seeder
         //     'updated_at'=>now(),
         //     'role_id'=>1
         // ])
-        ->create([
-            'email'=>'admin@rktech.com',
-            'name'=>'admin',
-            'user_type'=>'admin'
-    ]);
+            ->create([
+                'email' => 'admin@rktech.com',
+                'name' => 'admin',
+                'user_type' => 'admin',
+            ]);
     }
 }

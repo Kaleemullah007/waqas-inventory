@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vendor;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
 use App\Models\Customer;
+use App\Models\Vendor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -16,6 +16,7 @@ class VendorController extends Controller
 
         $this->middleware(['auth', 'verified']);
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -37,15 +38,16 @@ class VendorController extends Controller
      */
     public function store(StoreVendorRequest $request)
     {
-       $user = Customer::create($request->only([
-        'name',
-        'email',
-        'phone',
-        'user_type',
-        'owner_id',
-        'password'
+        $user = Customer::create($request->only([
+            'name',
+            'email',
+            'phone',
+            'user_type',
+            'owner_id',
+            'password',
         ]));
-       return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
+
+        return response()->json(['message' => 'Successfully created', 'error' => true, 'data' => $user]);
     }
 
     /**

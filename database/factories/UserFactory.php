@@ -19,9 +19,8 @@ class UserFactory extends Factory
     public function definition()
     {
 
+        $password = Hash::make('password');
 
-
-        $password  = Hash::make('password');
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -29,9 +28,9 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => $password, // password
             'remember_token' => Str::random(10),
-            'status'=>true,
-            'is_factory_user'=>true,
-            'activated_at'=>now(),
+            'status' => true,
+            'is_factory_user' => true,
+            'activated_at' => now(),
 
         ];
     }

@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class StoreProductionHistoryRequest extends FormRequest
 {
     /**
@@ -23,21 +22,21 @@ class StoreProductionHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'required',
-            'qty'=>'required',
-            'owner_id'=>'required|integer',
-            'wastage_qty'=>'required',
-            'purchase_id'=>'required|integer',
+            'product_id' => 'required',
+            'qty' => 'required',
+            'owner_id' => 'required|integer',
+            'wastage_qty' => 'required',
+            'purchase_id' => 'required|integer',
 
         ];
     }
-     // Adding Owner Id To all Requests
-     protected function prepareForValidation(){
 
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation()
+    {
 
         $this->merge([
-            'owner_id'=>auth()->id()
+            'owner_id' => auth()->id(),
         ]);
     }
 }
-

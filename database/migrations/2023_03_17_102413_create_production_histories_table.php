@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->boolean('is_production')->default(true);
             $table->boolean('is_wastage')->default(false);
-            $table->float('wastage_qty',10,2);
+            $table->float('wastage_qty', 10, 2);
             $table->unsignedBigInteger('owner_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('purchase_id');

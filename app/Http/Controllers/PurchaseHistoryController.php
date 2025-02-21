@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PurchaseHistory;
 use App\Http\Requests\StorePurchaseHistoryRequest;
 use App\Http\Requests\UpdatePurchaseHistoryRequest;
+use App\Models\PurchaseHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -15,6 +15,7 @@ class PurchaseHistoryController extends Controller
 
         $this->middleware(['auth', 'verified']);
     }
+
     /**
      * Display a listing of the resource.
      */

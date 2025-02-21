@@ -17,7 +17,8 @@ class CheckStock implements ValidationRule
     {
         $product = Product::find($this->product_id);
         $flag = false;
-        if($product->stock > $this->qty)
-          $flag = true;
+        if ($product->stock > $this->qty) {
+            $flag = true;
+        }
     }
 }

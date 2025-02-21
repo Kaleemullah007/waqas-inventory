@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Role extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
 
-    public function permissions():BelongsToMany
+    public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class)->withTimestamps();
     }
@@ -19,24 +20,25 @@ class Role extends Model
     /**
      * Determine if the user may perform the given permission.
      *
-     * @param  Permission $permission
-     * @return boolean
+     * @return bool
      */
     public function hasPermission(Permission $permission, User $user)
     {
         return $this->hasRole($permission->roles);
     }
+
     /**
      * Determine if the role has the given permission.
      *
-     * @param  mixed $permission
-     * @return boolean
+     * @param  mixed  $permission
+     * @return bool
      */
     public function inRole($permission)
     {
         if (is_string($permission)) {
             return $this->permissions->contains('name', $permission);
         }
-        return !!$permission->intersect($this->permissions)->count();
+
+        return (bool) $permission->intersect($this->permissions)->count();
     }
 }

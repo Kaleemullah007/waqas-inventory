@@ -3,12 +3,11 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
 class SendInvoice extends Mailable
 {
@@ -29,7 +28,7 @@ class SendInvoice extends Mailable
     {
         return new Envelope(
             from: new Address(config('services.emails.from')),
-            subject: $this->subject. $this->sales->id,
+            subject: $this->subject.$this->sales->id,
         );
     }
 

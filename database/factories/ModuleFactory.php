@@ -17,12 +17,12 @@ class ModuleFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
-            'description'=>$this->faker->randomDigit(4),
-            'route_name'=>$this->faker->name(),
-            'reverse_routing'=>$this->faker->name(),
-            'url'=>$this->faker->url(),
-            'status'=>false,
+            'name' => $this->faker->name(),
+            'description' => $this->faker->randomDigit(4),
+            'route_name' => $this->faker->name(),
+            'reverse_routing' => $this->faker->name(),
+            'url' => $this->faker->url(),
+            'status' => false,
         ];
     }
 }

@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Customer;
 use App\Models\DepositHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
-
     public function __construct()
     {
 
@@ -25,55 +23,47 @@ class CustomerController extends Controller
         $search = $request->search;
 
         $customers = Customer::query()->
-                            //withSum(
+                            // withSum(
                             // ['customerSale'],'sale_price')
-                             withSum('customerSale','discount')
-                            ->withSum('customerSale','remaining_amount')
-                            ->withSum('customerSale','total')
-                            ->withSum('customerSale','paid_amount')
-                            ->withSum('DespositSum','amount')
-                            ->where('user_type','customer');
-                            if($search != null)
-                                $customers = $customers->where('name','like',"%".$search."%");
+                             withSum('customerSale', 'discount')
+                                 ->withSum('customerSale', 'remaining_amount')
+                                 ->withSum('customerSale', 'total')
+                                 ->withSum('customerSale', 'paid_amount')
+                                 ->withSum('DespositSum', 'amount')
+                                 ->where('user_type', 'customer');
+        if ($search != null) {
+            $customers = $customers->where('name', 'like', '%'.$search.'%');
+        }
 
-
-
-
-
-        return $customers ;
+        return $customers;
     }
-
 
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $customers = $this->recordsQuery($request)
-        ->orderByRaw('(customer_sale_sum_remaining_amount - desposit_sum_sum_amount) ASC')
-        ->paginate(auth()->user()->per_page??config('services.per_page',10));
+            ->orderByRaw('(customer_sale_sum_remaining_amount - desposit_sum_sum_amount) ASC')
+            ->paginate(auth()->user()->per_page ?? config('services.per_page', 10));
 
-        if($customers->lastPage() >= request('page')){
-            return view('pages.customer',compact('customers'));
+        if ($customers->lastPage() >= request('page')) {
+            return view('pages.customer', compact('customers'));
         }
 
-        return to_route('customer.index',['page'=>$customers->lastPage()]);
+        return to_route('customer.index', ['page' => $customers->lastPage()]);
 
     }
-
-
-
 
     public function getCustomers(Request $request)
     {
 
-
         $customers = $this->recordsQuery($request)->get();
-        $customer_html = view('pages.ajax-customer',compact('customers'))->render();
-        $pagination_html = view('pages.pagination',compact('customers'))->render();
-        return response()->json(['html'=>$customer_html,'phtml'=>$pagination_html]);
-    }
+        $customer_html = view('pages.ajax-customer', compact('customers'))->render();
+        $pagination_html = view('pages.pagination', compact('customers'))->render();
 
+        return response()->json(['html' => $customer_html, 'phtml' => $pagination_html]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -89,31 +79,33 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-       $user = Customer::create($request->only([
-        'name',
-        'email',
-        'phone',
-        'user_type',
-        'owner_id',
-        'password'
+        $user = Customer::create($request->only([
+            'name',
+            'email',
+            'phone',
+            'user_type',
+            'owner_id',
+            'password',
         ]));
-        if($request->ajax())
-            return response()->json(['message'=>'Successfully created','error'=>true,'data'=>$user]);
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Successfully created', 'error' => true, 'data' => $user]);
+        }
 
-        $request->session()->flash('success','Customer created successfully.');
+        $request->session()->flash('success', 'Customer created successfully.');
+
         return redirect('customer');
-
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer):View
+    public function show(Customer $customer): View
     {
-        $DepositHistory = DepositHistory::where('user_id',$customer->id)->get();
-        $customers = Customer::where('user_type','customer')->get();
-        return view('pages.create-deposit',compact('customer','customers','DepositHistory'));
+        $DepositHistory = DepositHistory::where('user_id', $customer->id)->get();
+        $customers = Customer::where('user_type', 'customer')->get();
+
+        return view('pages.create-deposit', compact('customer', 'customers', 'DepositHistory'));
     }
 
     /**
@@ -121,7 +113,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer): View
     {
-        return view('pages.edit-customer',compact('customer'));
+        return view('pages.edit-customer', compact('customer'));
 
     }
 
@@ -131,10 +123,11 @@ class CustomerController extends Controller
     public function update(UpdateCustomerRequest $request, Customer $customer): RedirectResponse
     {
         $data = $request->validated();
-        $validated = collect($data)->except(['last_name','first_name','page'])->toArray();
+        $validated = collect($data)->except(['last_name', 'first_name', 'page'])->toArray();
         // dd($validated);
-        Customer::where('id',$customer->id)->update($validated);
-        $request->session()->flash('success','Customer updated successfully.');
+        Customer::where('id', $customer->id)->update($validated);
+        $request->session()->flash('success', 'Customer updated successfully.');
+
         return redirect('customer?page='.$request->page);
     }
 

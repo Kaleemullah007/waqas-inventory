@@ -22,18 +22,20 @@ class UpdateProductionHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'required',
+            'product_id' => 'required',
             // 'name'=>'required|string',
-            'qty'=>'required',
-            'owner_id'=>'required|integer',
-            'wastage_qty'=>'required',
-            'purchase_id'=>'required|integer'
+            'qty' => 'required',
+            'owner_id' => 'required|integer',
+            'wastage_qty' => 'required',
+            'purchase_id' => 'required|integer',
         ];
     }
-     // Adding Owner Id To all Requests
-     protected function prepareForValidation(){
+
+    // Adding Owner Id To all Requests
+    protected function prepareForValidation()
+    {
         $this->merge([
-            'owner_id'=>auth()->id()
+            'owner_id' => auth()->id(),
         ]);
     }
 }
