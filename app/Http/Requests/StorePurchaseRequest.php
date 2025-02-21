@@ -34,7 +34,7 @@ class StorePurchaseRequest extends FormRequest
             'price'=>'required',
             'sale_price'=>'required',
             'owner_id'=>'required|integer',
-            'total'=>'required|integer',
+            'total'=>'required|decimal:0,2',
             'sale_price'=> 'gte:price',
             'action'=>'required|string'
         ];
