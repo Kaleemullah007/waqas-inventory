@@ -39,7 +39,7 @@
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
                                 <label for="raw_id" class="form-label  fs-6">{{ __('en.Raw Material Name') }}</label>
                                 <div class="input-group input-group-md d-flex">
-                                    <select class="form-select mb-2 border-dark select2 @error('raw_id') is-invalid @enderror" name="raw_id" id="raw_id" autocomplete="raw_id" required>
+                                    <select disabled class="form-select mb-2 border-dark select2 @error('raw_id') is-invalid @enderror" name="raw_id" id="raw_id" autocomplete="raw_id" required>
                                         <option>{{__('en.Choose')}}</option>
                                         @foreach ($raw as $ra)
                                             <option value="{{$ra->id}}" @selected($ra->name == $purchase->name) {{ $count == 1 ?'selected':''}} >{{$ra->name}}</option>
