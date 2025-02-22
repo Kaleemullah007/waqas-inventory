@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deposit_histories', function (Blueprint $table) {
             $table->id();
-            $table->float('amount',10,2)->default(0);
+            $table->float('amount', 10, 2)->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

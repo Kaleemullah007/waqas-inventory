@@ -17,9 +17,9 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->name(),
-            'description'=>$this->faker->text(),
-            'label'=>$this->faker->name(),
+            'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'label' => $this->faker->name(),
         ];
     }
 }

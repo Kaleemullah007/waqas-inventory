@@ -8,8 +8,6 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class SettingController extends Controller
 {
-
-
     public function __construct()
     {
 
@@ -116,47 +114,45 @@ class SettingController extends Controller
         return view('pages.blog');
     }
 
-
     public function update(Request $request)
     {
-
 
         $user = User::find(auth()->id());
 
         if ($request->has('profileImg')) {
 
             $image = $request->file('profileImg');
-            $path = public_path() . '/images';
-            $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+            $path = public_path().'/images';
+            $filename = rand(11111111, 99999999).$image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(80, 80);
-            $image_resize->save(public_path('/images/' . $filename));
+            $image_resize->save(public_path('/images/'.$filename));
             $currentAvatar = auth()->user()->picture;
-            $userPhoto = $path . '/' . $currentAvatar;
+            $userPhoto = $path.'/'.$currentAvatar;
             if (file_exists($userPhoto)) {
 
-                    @unlink($userPhoto);
-                }
-                $user->picture = $filename;
+                @unlink($userPhoto);
+            }
+            $user->picture = $filename;
         }
 
         if ($request->has('logo')) {
 
             $image = $request->file('logo');
-            $path = public_path() . '/images/';
-            $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+            $path = public_path().'/images/';
+            $filename = rand(11111111, 99999999).$image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(80, 80);
-            $image_resize->save(public_path('/images/' . $filename));
+            $image_resize->save(public_path('/images/'.$filename));
             $currentAvatar = auth()->user()->logo;
-            $logo = $path . '/' . $currentAvatar;
+            $logo = $path.'/'.$currentAvatar;
             if (file_exists($logo)) {
 
-                    @unlink($logo);
-                }
-                $user->logo = $filename;
+                @unlink($logo);
+            }
+            $user->logo = $filename;
         }
 
         $current = $user->password;
@@ -171,22 +167,20 @@ class SettingController extends Controller
             $pass = $user->password;
         }
 
-
-        $user->business_email = $request->business_email??null;
-        $user->business_name = $request->business_name??'Inventory System';
-        $user->address = $request->address??null;
-        $user->postal_code = $request->postal_code??null;
-        $user->country = $request->country??'Pakistan';
-        $user->business_phone = $request->business_phone??'';
-        $user->invoice_template = $request->current_template??'view-sale';
-        $user->per_page = $request->per_page??10;
-        $user->custom_note_heading = $request->custom_note??'NOTICE:';
-        $user->custom_note = $request->custom_note_heading??'A finance charge of 1.5% will be made on unpaid balances after 30 days.';
+        $user->business_email = $request->business_email ?? null;
+        $user->business_name = $request->business_name ?? 'Inventory System';
+        $user->address = $request->address ?? null;
+        $user->postal_code = $request->postal_code ?? null;
+        $user->country = $request->country ?? 'Pakistan';
+        $user->business_phone = $request->business_phone ?? '';
+        $user->invoice_template = $request->current_template ?? 'view-sale';
+        $user->per_page = $request->per_page ?? 10;
+        $user->custom_note_heading = $request->custom_note ?? 'NOTICE:';
+        $user->custom_note = $request->custom_note_heading ?? 'A finance charge of 1.5% will be made on unpaid balances after 30 days.';
         $user->save();
 
-        $request->session()->flash('success','Profile updated successfully.');
-       return redirect()->route('user-profile-setting');
+        $request->session()->flash('success', 'Profile updated successfully.');
+
+        return redirect()->route('user-profile-setting');
     }
-
-
 }

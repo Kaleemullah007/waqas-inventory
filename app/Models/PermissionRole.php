@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class PermissionRole extends Pivot
 {
     //
-    public $timestamps  = true;
+    public $timestamps = true;
 }

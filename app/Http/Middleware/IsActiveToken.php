@@ -13,7 +13,6 @@ class IsActiveToken
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -23,8 +22,7 @@ class IsActiveToken
         $userUnserializeArray = (array) unserialize($userSerialize);
 
         $arrayKeys = array_keys($userUnserializeArray);
-        foreach ($arrayKeys as $value)
-        {
+        foreach ($arrayKeys as $value) {
 
             if (strpos($value, 'Stocky_token') !== false) {
 
@@ -37,13 +35,13 @@ class IsActiveToken
                         $userTokenId = $userAccessTokenArray[$arrayAccessValue]['id'];
                         $checkToken = OauthAccessTokens::where([
                             ['id', '=', $userTokenId],
-                            ['expires_at', '>', Carbon::now()]
+                            ['expires_at', '>', Carbon::now()],
                         ])->first();
 
-                        if ( !$checkToken ) {
+                        if (! $checkToken) {
                             return response()->json([
-                                'error'=>true,
-                                'msg'=> 'Token time has expired. Please log in again.'
+                                'error' => true,
+                                'msg' => 'Token time has expired. Please log in again.',
                             ]);
                         }
                     }

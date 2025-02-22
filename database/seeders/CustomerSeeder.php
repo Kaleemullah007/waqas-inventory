@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\CustomerFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Customer;
+use Illuminate\Database\Seeder;
+
 class CustomerSeeder extends Seeder
 {
     /**
@@ -13,6 +12,6 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::factory()->count(10)->create(['owner_id'=>1]);
+        Customer::factory()->count(10)->create(['owner_id' => 1]);
     }
 }

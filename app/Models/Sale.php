@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sale extends Model
 {
-    use HasFactory;
     use FilterByUser;
+    use HasFactory;
+
     protected $fillable = [
         'sale_price',
         'product_id',
@@ -34,23 +35,22 @@ class Sale extends Model
         'serial_number',
         'serial_series',
     ];
-    protected $casts = ['due_date'=>'date'];
 
+    protected $casts = ['due_date' => 'date'];
 
-    public function Customer():BelongsTo
+    public function Customer(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User','user_id','id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-
-    public function Product():BelongsTo
+    public function Product(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Product','product_id','id');
+        return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
 
-    public function Products():HasMany
+    public function Products(): HasMany
     {
-        return $this->HasMany('App\Models\SaleProduct','sale_id','id');
+        return $this->HasMany('App\Models\SaleProduct', 'sale_id', 'id');
     }
 
     // protected function amount(): Attribute
@@ -60,6 +60,5 @@ class Sale extends Model
     //         set: fn($value) => $value * 100,
     //     );
     // }
-
 
 }

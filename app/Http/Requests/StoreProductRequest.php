@@ -22,18 +22,20 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sale_price'=>'required|gt:0',
-            'price'=>'required|gt:0',
-            'name'=>'required',
-            'stock'=>'required|integer',
-            'stock_alert'=>'required|integer|gt:0',
-            'owner_id'=>'required|integer'
+            'sale_price' => 'required|gt:0',
+            'price' => 'required|gt:0',
+            'name' => 'required',
+            'stock' => 'required|integer',
+            'stock_alert' => 'required|integer|gt:0',
+            'owner_id' => 'required|integer',
         ];
     }
+
     // Adding Owner Id To all Requests
-    protected function prepareForValidation(){
+    protected function prepareForValidation()
+    {
         $this->merge([
-            'owner_id'=>auth()->id()
+            'owner_id' => auth()->id(),
         ]);
     }
 }

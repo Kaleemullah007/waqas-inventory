@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DepositHistory extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','amount','description'];
+
+    protected $fillable = ['user_id', 'amount', 'description'];
 }

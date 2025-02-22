@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->integer('qty');
-            $table->decimal('price',10,2);
-            $table->decimal('sale_price',10,2);
-            $table->decimal('total',10,2)->default(0);
+            $table->decimal('price', 10, 2);
+            $table->decimal('sale_price', 10, 2);
+            $table->decimal('total', 10, 2)->default(0);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('owner_id');
             $table->foreign('user_id')->references('id')->on('users')->comments('From which vendor he bought product');

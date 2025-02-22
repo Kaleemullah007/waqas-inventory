@@ -22,9 +22,9 @@ class StoreDepositHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount'=>'required|integer',
-            'user_id'=>'required|integer',
-            'description'=>'sometimes|nullable|string'
+            'amount' => 'required|integer',
+            'user_id' => 'required|integer',
+            'description' => 'sometimes|nullable|string',
         ];
     }
 }

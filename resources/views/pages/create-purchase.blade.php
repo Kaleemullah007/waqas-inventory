@@ -38,11 +38,29 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12 pt-1">
+                                <label for="raw_id" class="form-label  fs-6">{{ __('en.Raw Material Name') }}</label>
+                                <div class="input-group input-group-md d-flex">
+                                    <select class="form-select mb-2 border-dark select2 @error('raw_id') is-invalid @enderror" name="raw_id" id="raw_id" autocomplete="raw_id" required>
+                                        <option>{{__('en.Choose')}}</option>
+                                        @foreach ($raw as $ra)
+                                            <option value="{{$ra->id}}" {{ $count == 1 ?'selected':''}} >{{$ra->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('raw_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-6 col-12 pt-1 " id="add_new_name" style="{{ $count > 1?'display:none':'' }}">
                                 <label for="name" class="form-label fs-6">{{ __('en.Name') }}</label>
                                 <input type="text"
                                     class="form-control mb-2 border-dark @error('Name') is-invalid @enderror"
                                     id="name" name="name" placeholder="Name" value="{{ old('name') }}"
-                                    autocomplete="Name" required autofocus>
+                                    autocomplete="Name" >
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -146,4 +164,24 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        
+        function showName() {
+            let selectedValue = $("#raw_id").val();
+            if (selectedValue == "1") {
+                console.log('show');
+                $("#add_new_name").show()
+            } else {
+                $("#add_new_name").hide();
+            }
+        }
+        $("#raw_id").change(function () {            
+        showName();
+        });
+        showName();
+    });
+</script>
 @endsection

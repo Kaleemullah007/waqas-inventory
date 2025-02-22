@@ -98,7 +98,6 @@ return [
 
     'fallback_locale' => 'en',
 
-
     //   Available Locale
 
     'available_locales' => [
@@ -106,7 +105,6 @@ return [
         'Russian' => 'ru',
         'Spanish' => 'es',
     ],
-
 
     /*
     |--------------------------------------------------------------------------

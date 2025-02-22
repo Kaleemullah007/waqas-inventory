@@ -21,24 +21,37 @@ class StorePurchaseRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'user_id'=>'required|integer',
-            'name'=>'required|string',
-            'qty'=>'required',
-            'price'=>'required',
-            'sale_price'=>'required',
-            'owner_id'=>'required|integer',
-            'total'=>'required|integer',
-            'sale_price'=> 'gte:price',
+        $nameRule = $this->input('raw_id') == 1
+        ? 'required|string|unique:purchases,name'
+        : 'nullable|string';
 
+        return [
+            'user_id' => 'required|integer',
+            'name' => $nameRule,
+            'raw_id' => 'required|integer',
+            'qty' => 'required',
+            'price' => 'required',
+            'sale_price' => 'required',
+            'owner_id' => 'required|integer',
+            'total' => 'required|decimal:0,2',
+            'sale_price' => 'gte:price',
+            'action' => 'required|string',
         ];
     }
 
     // Adding Owner Id To all Requests
-    protected function prepareForValidation(){
+    protected function prepareForValidation()
+    {
+
+        $action = 'update';
+        if ($this->input('raw_id') == 1) {
+            $action = 'add';
+        }
+
         $this->merge([
-            'owner_id'=>auth()->id(),
-            'total'=>$this->qty*$this->price
+            'owner_id' => auth()->id(),
+            'total' => $this->qty * $this->price,
+            'action' => $action,
         ]);
     }
 }

@@ -22,17 +22,19 @@ class UpdateVendorRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'name'=>'required',
-        'email'=>'sometimes|nullable|required',
-        'phone'=>'required',
-        'user_type'=>'required',
-        'owner_id'=>'required'
+            'name' => 'required',
+            'email' => 'sometimes|nullable|required',
+            'phone' => 'required',
+            'user_type' => 'required',
+            'owner_id' => 'required',
         ];
     }
-    protected function prepareForValidation(){
+
+    protected function prepareForValidation()
+    {
         $this->merge([
-            'owner_id'=>auth()->id(),
-            'user_type'=>'vendor'
+            'owner_id' => auth()->id(),
+            'user_type' => 'vendor',
         ]);
     }
 }

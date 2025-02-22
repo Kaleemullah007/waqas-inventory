@@ -2,18 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Models\Activity;
 use App\Events\ActivityEvent;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class ActivityListner
 {
-      /**
+    /**
      * Handle the event.
      *
-     * @param  \App\Events\ActivityEvent  $event
      * @return void
      */
     public function handle(ActivityEvent $event)
@@ -36,7 +33,7 @@ class ActivityListner
 
         Activity::create([
             'action' => $model->deleted_at !== null ? 'deleted' : (
-               $model->wasChanged() ? 'updated' : 'created'
+                $model->wasChanged() ? 'updated' : 'created'
             ),
             'user_id' => Auth::check() ? Auth::user()->id : null,
             'user_type' => Auth::check() ? get_class(Auth::user()) : null,

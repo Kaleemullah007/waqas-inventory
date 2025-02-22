@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
+    use FilterByUser,HasFactory;
 
-    use HasFactory,FilterByUser;
     protected $table = 'users';
+
     protected $fillable = [
         'name',
         'email',
@@ -32,7 +33,7 @@ class Customer extends Model
         'custom_note',
         'custom_note_heading',
         'logo',
-        'owner_id'
+        'owner_id',
     ];
 
     protected $dates = ['last_login_at'];
@@ -47,13 +48,13 @@ class Customer extends Model
         'remember_token',
     ];
 
-    public function customerSale():HasMany
+    public function customerSale(): HasMany
     {
-        return $this->hasMany('App\Models\Sale','user_id','id');
+        return $this->hasMany('App\Models\Sale', 'user_id', 'id');
     }
 
-    public function DespositSum():HasMany
+    public function DespositSum(): HasMany
     {
-        return $this->hasMany('App\Models\DepositHistory','user_id','id');
+        return $this->hasMany('App\Models\DepositHistory', 'user_id', 'id');
     }
 }

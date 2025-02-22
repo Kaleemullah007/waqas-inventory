@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Traits\FilterByUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -38,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'per_page',
         'custom_note',
         'custom_note_heading',
-        'logo'
+        'logo',
     ];
 
     protected $dates = ['last_login_at'];
@@ -64,21 +63,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Relationship to UserRole model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-
-    public function roles():BelongsToMany
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
-
 
     /**
      * Determine if $this has a specific role.
      *
      * @param  \Illuminate\Support\Collection}string  $role
-     * @return boolean
+     * @return bool
      */
     public function is($role)
     {
@@ -91,7 +86,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
-
     /**
      * Relationship with the Activity model.
      *
@@ -101,5 +95,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphMany(Activity::class, 'model');
     }
-
 }

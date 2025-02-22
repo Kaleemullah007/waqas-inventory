@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -17,9 +16,9 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::factory()->sequence(
-            ['name'=>'superadmin'],
-            ['name'=>'owner'],
-            ['name'=>'manager'],['name'=>'user'],['name'=>'customer'])
+            ['name' => 'superadmin'],
+            ['name' => 'owner'],
+            ['name' => 'manager'], ['name' => 'user'], ['name' => 'customer'])
             ->count(5)
             ->hasPermissions(Permission::factory()->count(5))
             ->create();

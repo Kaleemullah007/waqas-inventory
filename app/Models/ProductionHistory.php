@@ -9,24 +9,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductionHistory extends Model
 {
-    use HasFactory,FilterByUser;
+    use FilterByUser,HasFactory;
+
     protected $fillable = [
         'name',
         'qty',
         'wastage_qty',
         'purchase_id',
         'owner_id',
-        'product_id'
+        'product_id',
     ];
 
-    public function RawMaterial():BelongsTo
+    public function RawMaterial(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Purchase','purchase_id','id');
+        return $this->belongsTo('App\Models\Purchase', 'purchase_id', 'id');
     }
 
-
-    public function Product():BelongsTo
+    public function Product(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Product','product_id','id');
+        return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
 }

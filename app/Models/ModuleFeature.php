@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class ModuleFeature extends Pivot
 {
     use HasFactory;
+
     protected $table = 'module_features';
 
-    public function module():BelongsTo
+    public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class)->withTimestamps();
 

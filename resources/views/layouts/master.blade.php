@@ -48,6 +48,50 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <style>
+        .btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: rgb(177,8,60) !important;
+    --bs-btn-border-color: rgb(177,8,60) !important;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: rgb(200, 24, 77) !important;
+    --bs-btn-hover-border-color:rgb(143, 37, 69) !important;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: rgb(219, 42, 95) !important;
+    --bs-btn-active-border-color: rgb(224, 65, 113) !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: rgb(177,8,60) !important;
+    --bs-btn-disabled-border-color: rgb(177,8,60) !important;
+}
+.pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.375rem;
+    --bs-pagination-font-size: 1rem;
+    --bs-pagination-color: rgb(245, 112, 152) !important;
+    --bs-pagination-bg: #fff;
+    --bs-pagination-border-width: 1px;
+    --bs-pagination-border-color:rgb(247, 188, 205) !important;;
+    --bs-pagination-border-radius: 0.375rem;
+    --bs-pagination-hover-color: rgb(131, 43, 70) !important;
+    --bs-pagination-hover-bg: #e9ecef;
+    --bs-pagination-hover-border-color: #f42323;
+    --bs-pagination-focus-color: rgb(135, 1, 41) !important;
+    --bs-pagination-focus-bg: #e9ecef;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg:rgb(247, 7, 79) !important;
+    --bs-pagination-active-border-color:rgb(212, 1, 64) !important;
+    --bs-pagination-disabled-color: #1a0601;
+    --bs-pagination-disabled-bg: #fff;
+    --bs-pagination-disabled-border-color: #dee2e6;
+    display: flex
+;
+    padding-left: 0;
+    list-style: none;
+}
+    </style>
 </head>
 
 <body>

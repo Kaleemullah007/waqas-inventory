@@ -20,13 +20,13 @@
                         @csrf
                         <div class="row mt-3">
                             <div class="col-lg-3 col-md-6 col-12 pt-1">
-                                <label for="raw" class="form-label  fs-6">{{ __('en.Raw Material') }}</label>
+                                <label for="raw" class="form-label  fs-6">{{ __('en.Raw Material') }} <span id="totalqty"></span></label>
                                 <select
                                     class="form-select mb-2 border-dark select2 @error('purchase_id') is-invalid @enderror"
                                     name="purchase_id" id="purchase_id" autocomplete="purchase_id" required>
                                  
                                     @foreach ($raws as $raw)
-                                            <option value="{{$raw->id}}">{{$raw->name}}</option>
+                                            <option value="{{$raw->id}}" data-id="{{$raw->qty}}">{{$raw->name}}</option>
                                         @endforeach
                                 </select>
                                 @error('purchase_id')
@@ -84,4 +84,24 @@
     </div>
 @endsection
 @section('script')
+<script>
+    $(document).ready(function () {
+        
+     function showQty(){
+        let selectedValue = $("select > option:selected").attr('data-id');
+            console.log(selectedValue)
+            let hightlight = 'text-success bold';
+            if(parseInt(selectedValue) < 1)
+            hightlight = 'text-danger bold'
+                $("#totalqty").text(selectedValue).addClass(hightlight)
+     }
+        $("#purchase_id").change(function () {            
+     
+           showQty();
+            
+        });
+        showQty()
+     
+    });
+</script>
 @endsection

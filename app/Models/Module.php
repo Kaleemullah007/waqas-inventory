@@ -10,7 +10,7 @@ class Module extends Model
 {
     use HasFactory;
 
-    public function moduleFeatures():HasMany
+    public function moduleFeatures(): HasMany
     {
         return $this->hasMany(ModuleFeature::class);
 

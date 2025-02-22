@@ -2,139 +2,131 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\Purchase;
 use App\Models\PurchaseHistory;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class PurchaseController extends Controller
 {
-
     public function __construct()
     {
 
         $this->middleware(['auth', 'verified']);
     }
-    
- /**
+
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $purchases = $this->recordsQuery($request)->paginate(config('services.per_page',10));
-        if($purchases->lastPage() >= request('page')){
-            return view('pages.purchase',compact('purchases'));
+        $purchases = $this->recordsQuery($request)->paginate(auth()->user()->per_page ?? config('services.per_page', 10));
+        if ($purchases->lastPage() >= request('page')) {
+            return view('pages.purchase', compact('purchases'));
         }
-             
-        return to_route('purchase.index',['page'=>$purchases->lastPage()]);
-        
+
+        return to_route('purchase.index', ['page' => $purchases->lastPage()]);
+
     }
 
     public function recordsQuery($request)
     {
         // withoutGlobalScopes()->
         $purchases = Purchase::query()
-        ->with('vendor');
+            ->with('vendor');
         $search = $request->search;
         $dates = $request->daterange;
 
-        if($dates != null){
-            list($start_date,$end_date) = explode('-',$dates);
-           $start_date = changeDateFormat($start_date,'Y-m-d');
-           $end_date = changeDateFormat($end_date,'Y-m-d');
-            $purchases =$purchases->whereDate('created_at','>=',$start_date)
-            ->whereDate('created_at','<=',$end_date);
+        if ($dates != null) {
+            [$start_date, $end_date] = explode('-', $dates);
+            $start_date = changeDateFormat($start_date, 'Y-m-d');
+            $end_date = changeDateFormat($end_date, 'Y-m-d');
+            $purchases = $purchases->whereDate('created_at', '>=', $start_date)
+                ->whereDate('created_at', '<=', $end_date);
         }
-        if($search != null)
+        if ($search != null) {
 
-            $purchases = $purchases->whereHas('vendor',function($q) use ($search){
-                $q->where('name','like',"%".$search."%");
-            })->orWhere('name','like',"%".$search."%");;
+            $purchases = $purchases->whereHas('vendor', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%');
+            })->orWhere('name', 'like', '%'.$search.'%');
+        }
 
-
-
-        return $purchases ;
+        return $purchases;
     }
-
 
     public function getPurchases(Request $request)
     {
 
-
         $purchases = $this->recordsQuery($request)->get();
-        $purchase_html = view('pages.ajax-purchase',compact('purchases'))->render();
-        $pagination_html = view('pages.pagination',compact('purchases'))->render();
-        return response()->json(['html'=>$purchase_html,'phtml'=>$pagination_html]);
-    }
+        $purchase_html = view('pages.ajax-purchase', compact('purchases'))->render();
+        $pagination_html = view('pages.pagination', compact('purchases'))->render();
 
+        return response()->json(['html' => $purchase_html, 'phtml' => $pagination_html]);
+    }
 
     public function CSV(Request $request)
     {
 
         $sales = $this->recordsQuery($request->daterange);
         $fileName = 'Sale Detail Report.csv';
-        $headers = array(
-            "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
-        );
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
 
+        $columns = ['', 'Customer Name', 'Product Name', 'Sale Price', 'Qty', 'Stock', 'Discount', 'Price'];
 
-        $columns = array('','Customer Name','Product Name', 'Sale Price','Qty','Stock','Discount','Price');
-
-
-        $callback = function() use($sales, $columns) {
+        $callback = function () use ($sales, $columns) {
 
             $sale_price = 0;
             $total_qty = 0;
             $total_stock = 0;
             $total_discount = 0;
             $total_price = 0;
-                $file = fopen('php://output', 'w');
-                fputcsv($file, array(' ',' ',' ','Sale Detail Report'));
-                fputcsv($file, $columns);
-
-                foreach ($sales as $key => $sale) {
-                    $orders = array();
-                    $sale_price += $sale->sale_price;
-                    $total_qty += $sale->qty;
-                    $total_stock += $sale->stock;
-                    $total_discount += $sale->discount;
-                    $total_price += $sale->price;
-
-                    $orders = array(
-                        '',
-                        $sale->Customer->name,
-                        $sale->Product->name,
-                        $sale->sale_price,
-                        $sale->qty,
-                        $sale->stock,
-                        $sale->discount,
-                        $sale->price,
-                    );
-                    fputcsv($file, $orders);
-                }
-
-                $columns = array('','','', '','','','','');
-                $columns = array('','','', '','','','','');
-                $columns = array('','','', '','','','','');
-            $columns = array('','','', '','','','','');
+            $file = fopen('php://output', 'w');
+            fputcsv($file, [' ', ' ', ' ', 'Sale Detail Report']);
             fputcsv($file, $columns);
 
-            $columns = array('','','', $sale_price,$total_qty,$total_stock,$total_discount,$total_price);
+            foreach ($sales as $key => $sale) {
+                $orders = [];
+                $sale_price += $sale->sale_price;
+                $total_qty += $sale->qty;
+                $total_stock += $sale->stock;
+                $total_discount += $sale->discount;
+                $total_price += $sale->price;
+
+                $orders = [
+                    '',
+                    $sale->Customer->name,
+                    $sale->Product->name,
+                    $sale->sale_price,
+                    $sale->qty,
+                    $sale->stock,
+                    $sale->discount,
+                    $sale->price,
+                ];
+                fputcsv($file, $orders);
+            }
+
+            $columns = ['', '', '', '', '', '', '', ''];
+            $columns = ['', '', '', '', '', '', '', ''];
+            $columns = ['', '', '', '', '', '', '', ''];
+            $columns = ['', '', '', '', '', '', '', ''];
+            fputcsv($file, $columns);
+
+            $columns = ['', '', '', $sale_price, $total_qty, $total_stock, $total_discount, $total_price];
             fputcsv($file, $columns);
 
             fclose($file);
         };
-
 
         return response()->stream($callback, 200, $headers);
     }
@@ -146,10 +138,14 @@ class PurchaseController extends Controller
     {
 
         // $products = Product::get();
-        $vendors = User::where('owner_id',auth()->id())
-        ->where('user_type','vendor')
-        ->get();
-        return view('pages.create-purchase',compact('vendors'));
+        $vendors = User::where('owner_id', auth()->id())
+            ->where('user_type', 'vendor')
+            ->get();
+        $raw = Purchase::get();
+        $count = $raw->count();
+
+        //    dd($raw);
+        return view('pages.create-purchase', compact('vendors', 'raw', 'count'));
 
     }
 
@@ -165,9 +161,21 @@ class PurchaseController extends Controller
         // $product->sale_price = $request->sale_price;
         // $product->price = $request->price;
         // $product->save();
-        $purchases = Purchase::create($request->validated());
+        // dd($request->all());
+        if ($request->action == 'update') {
+            $purchases = Purchase::find($request->raw_id);
+            $purchases->increment('qty', $request->qty);
+            $purchases->sale_price = $request->sale_price;
+            $purchases->price = $request->price;
+            $purchases->increment('total', $request->total);
+            $purchases->save();
+        } else {
+            $purchases = Purchase::create($request->validated());
+        }
+
         PurchaseHistory::create($request->validated());
-        $request->session()->flash('success','Purchase created successfully.');
+        // dd($request->all());
+        $request->session()->flash('success', 'Purchase '.$request->action.' successfully.');
 
         return redirect('purchase');
     }
@@ -177,7 +185,7 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase): View
     {
-        return view('edit-purchase',compact('purchase'));
+        return view('edit-purchase', compact('purchase'));
     }
 
     /**
@@ -191,10 +199,14 @@ class PurchaseController extends Controller
         // return view('pages.edit-purchase');
 
         // $products = Product::get();
-        $vendors = User::where('owner_id',auth()->id())
-        ->where('user_type','vendor')
-        ->get();
-        return view('pages.edit-purchase',compact('vendors','purchase'));
+        $vendors = User::where('owner_id', auth()->id())
+            ->where('user_type', 'vendor')
+            ->get();
+        $raw = Purchase::get();
+        $count = $raw->count();
+
+        //    dd($raw);
+        return view('pages.edit-purchase', compact('vendors', 'purchase', 'raw', 'count'));
     }
 
     /**
@@ -226,12 +238,14 @@ class PurchaseController extends Controller
         // $product->price = $request->price;
         // $product->save();
 
-        $purchases = Purchase::where('id',$purchase->id)->update($request->validated());
-        $purchases = PurchaseHistory::create($request->validated());
+        if ($request->action == 'add') {
+            Purchase::create($request->validated());
+        } else {
+            Purchase::where('id', $purchase->id)->update($request->validated());
+        }
+        PurchaseHistory::create($request->validated());
 
-
-
-        $request->session()->flash('success','Purchase updated successfully.');
+        $request->session()->flash('success', 'Purchase updated successfully.');
 
         return redirect('purchase/'.$purchase->id.'/edit');
     }
@@ -242,6 +256,7 @@ class PurchaseController extends Controller
     public function destroy(Purchase $purchase): RedirectResponse
     {
         $purchase->dalete();
+
         return redirect('purchase/'.$purchase->id);
     }
 }

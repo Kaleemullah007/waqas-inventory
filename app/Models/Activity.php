@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
-        /**
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -22,7 +23,7 @@ class Activity extends Model
      *
      * @var array
      */
-    protected $dates = ['created_at','updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * The fields which can't be mass-assigned.
@@ -34,7 +35,7 @@ class Activity extends Model
     /**
      * We don't use both of the default 'created_at' and 'updated_at' fields.
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = false;
 

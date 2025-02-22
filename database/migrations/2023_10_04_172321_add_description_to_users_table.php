@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('deposit_histories', function (Blueprint $table) {
-           $table->string('description',255)->nullable()->after('user_id');
+            $table->string('description', 255)->nullable()->after('user_id');
         });
     }
 

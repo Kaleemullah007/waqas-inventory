@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DepositHistory;
 use App\Http\Requests\StoreDepositHistoryRequest;
 use App\Http\Requests\UpdateDepositHistoryRequest;
 use App\Models\Customer;
+use App\Models\DepositHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,11 +15,12 @@ class DepositHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $DepositHistory = $this->recordsQuery($request)->get();
-        $html = view('pages.ajax-deposit',compact('DepositHistory'))->render();
-        return response()->json(['html'=>$html]);
+        $html = view('pages.ajax-deposit', compact('DepositHistory'))->render();
+
+        return response()->json(['html' => $html]);
 
     }
 
@@ -28,16 +29,12 @@ class DepositHistoryController extends Controller
         $user_id = $request->user_id;
 
         $DepositHistory = DepositHistory::query();
-                            if($user_id != null)
-                                $DepositHistory = $DepositHistory->where('user_id',$user_id);
+        if ($user_id != null) {
+            $DepositHistory = $DepositHistory->where('user_id', $user_id);
+        }
 
-
-
-
-
-        return $DepositHistory ;
+        return $DepositHistory;
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -53,8 +50,9 @@ class DepositHistoryController extends Controller
     public function store(StoreDepositHistoryRequest $request): RedirectResponse
     {
         $expenses = DepositHistory::create($request->validated());
-        $request->session()->flash('success','Deposit added successfully.');
-        return redirect()->route('customer.show',['customer'=>$request->user_id]);
+        $request->session()->flash('success', 'Deposit added successfully.');
+
+        return redirect()->route('customer.show', ['customer' => $request->user_id]);
     }
 
     /**
@@ -71,8 +69,9 @@ class DepositHistoryController extends Controller
     public function edit(DepositHistory $deposit)
     {
 
-        $customers = Customer::where('user_type','customer')->get();
-        return view('pages.edit-deposit',compact('deposit','customers'));
+        $customers = Customer::where('user_type', 'customer')->get();
+
+        return view('pages.edit-deposit', compact('deposit', 'customers'));
     }
 
     /**
@@ -80,9 +79,10 @@ class DepositHistoryController extends Controller
      */
     public function update(UpdateDepositHistoryRequest $request, DepositHistory $deposit): RedirectResponse
     {
-        DepositHistory::where('id',$deposit->id)->update($request->validated());
-        $request->session()->flash('success','Deposit Amount updated successfully.');
-        return redirect()->route('deposit.edit',$deposit->id);
+        DepositHistory::where('id', $deposit->id)->update($request->validated());
+        $request->session()->flash('success', 'Deposit Amount updated successfully.');
+
+        return redirect()->route('deposit.edit', $deposit->id);
     }
 
     /**

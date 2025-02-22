@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('amount',10,2);
+            $table->float('amount', 10, 2);
             $table->unsignedBigInteger('owner_id');
             $table->date('date');
             $table->foreign('owner_id')->references('id')->on('users')->comments('user is Acutally Vendor id');

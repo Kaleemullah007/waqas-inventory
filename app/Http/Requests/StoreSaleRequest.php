@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Product;
 use App\Rules\ProductStockRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-
 
 class StoreSaleRequest extends FormRequest
 {
@@ -26,28 +23,30 @@ class StoreSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'required|integer',
+            'user_id' => 'required|integer',
 
             'products.*.product_id' => 'required|max:255',
-            'products'=>[new ProductStockRule()],
-            'products.*.qty'=>'required',
-            'products.*.sale_price'=>'sometimes|nullable|decimal:0,10',
-            'owner_id'=>'required|integer',
-            'discount'=>'required|decimal:0,2',
-            'payment_status'=>'required',
-            'payment_method'=>'required',
-            'paid_amount'=>'required|decimal:0,2',
-            'remaining_amount'=>'required|decimal:0,2',
-            'total'=>'required|decimal:0,2',
-            'due_date'=>'sometimes|nullable|date'
+            'products' => [new ProductStockRule],
+            'products.*.qty' => 'required',
+            'products.*.sale_price' => 'sometimes|nullable|decimal:0,10',
+            'owner_id' => 'required|integer',
+            'discount' => 'required|decimal:0,2',
+            'payment_status' => 'required',
+            'payment_method' => 'required',
+            'paid_amount' => 'required|decimal:0,2',
+            'remaining_amount' => 'required|decimal:0,2',
+            'total' => 'required|decimal:0,2',
+            'due_date' => 'sometimes|nullable|date',
         ];
     }
+
     // Adding Owner Id To all Requests
-    protected function prepareForValidation(){
+    protected function prepareForValidation()
+    {
 
         $this->merge([
-            'owner_id'=>auth()->id(),
-            'total'=>0.0,
+            'owner_id' => auth()->id(),
+            'total' => 0.0,
             // 'flag'=>$flag,
         ]);
     }

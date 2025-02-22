@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Permission;
 use App\Models\Plan;
 use App\Models\Role;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,8 +25,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             VendorSeeder::class,
             CustomerSeeder::class,
-            ProductSeeder::class
-
+            ProductSeeder::class,
+            PurchaseSeeder::class,
 
         ]);
 
