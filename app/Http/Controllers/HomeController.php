@@ -11,7 +11,6 @@ use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -137,7 +136,9 @@ class HomeController extends Controller
 
         $purchases_history = PurchaseHistory::whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
-            ->latest()->sum(DB::raw('price*qty'));
+            ->latest()->sum('total');
+
+        $purchases_history_remaining = Purchase::sum('total');
 
         $latest_products = Product::whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
@@ -173,6 +174,7 @@ class HomeController extends Controller
             'total_sales' => $total_sales,
             'total_purchases_qty' => $total_purchases_qty,
             'purchases_history' => $purchases_history,
+            'purchases_history_remaining' => $purchases_history_remaining,
             'net_profits' => $net_profit,
             'net_worth' => $net_worth,
 

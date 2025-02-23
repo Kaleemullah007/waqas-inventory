@@ -31,7 +31,12 @@
                                     <i class="bi bi-receipt-cutoff"></i>
                                 </div>
                                 <div class="sm-chart-text">
-                                    <p class="w-value">{{auth()->user()->currency}} {{$result['purchases_history']}}</p>
+                                    <p class="w-value">Total {{auth()->user()->currency}} {{$result['purchases_history']}}</p>
+                                    {{-- <p class="w-value">Used: {{auth()->user()->currency}} {{$result['purchases_history']-$result['purchases_history_remaining']}}</p>
+                                    <p class="w-value">Remaining: {{auth()->user()->currency}} {{$result['purchases_history_remaining']}}</p> --}}
+
+                                    
+
                                     <h5>{{__('en.Purchases')}}</h5>
                                 </div>
                             </div>
