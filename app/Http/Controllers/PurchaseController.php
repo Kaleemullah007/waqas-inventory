@@ -237,13 +237,17 @@ class PurchaseController extends Controller
         // $product->sale_price = $request->sale_price;
         // $product->price = $request->price;
         // $product->save();
+        $data = $request->validated();
 
-        if ($request->action == 'add') {
-            Purchase::create($request->validated());
-        } else {
-            Purchase::where('id', $purchase->id)->update($request->validated());
-        }
-        PurchaseHistory::create($request->validated());
+        Purchase::where('id', $purchase->id)->update($data);
+
+        $difference = $purchase->qty - $request->qty;
+        $total = -($difference * $request->price);
+
+        $data['total'] = $total;
+        $data['qty'] = $difference;
+
+        PurchaseHistory::create($data);
 
         $request->session()->flash('success', 'Purchase updated successfully.');
 
