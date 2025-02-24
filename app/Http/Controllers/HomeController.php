@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\DepositHistory;
 use App\Models\Expense;
 use App\Models\Product;
+use App\Models\ProductionHistory;
 use App\Models\Purchase;
 use App\Models\PurchaseHistory;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -139,6 +141,16 @@ class HomeController extends Controller
             ->latest()->sum('total');
 
         $purchases_history_remaining = Purchase::sum('total');
+
+        $production_history = ProductionHistory::whereDate('production_histories.created_at', '>=', $start_date)
+            ->whereDate('production_histories.created_at', '<=', $end_date)
+            ->latest()
+            ->join('purchases as purchases', 'production_histories.purchase_id', '=', 'purchases.id')
+            ->sum(DB::raw('(production_histories.qty + wastage_qty) * purchases.price'));
+        
+            // dd($production_history);
+
+
 
         $latest_products = Product::whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
