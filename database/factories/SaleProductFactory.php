@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,16 @@ class SaleProductFactory extends Factory
      */
     public function definition(): array
     {
+        $product = Product::factory()->create();
+
         return [
-            //
+
+            'product_id' => $product->id,
+            'product_name' => $product->name,
+            'qty' => 1,
+            'cost_price' => 100,
+            'sale_price' => 100,
+
         ];
     }
 }

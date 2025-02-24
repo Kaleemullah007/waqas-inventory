@@ -12,6 +12,11 @@
             <div class="row text-center">
                 <h3>{{ __('en.Sign-In') }} </h3>
             </div>
+ @if ($message = Session::get('error'))
+            <div class="alert alert-danger ">
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <div class="row m-3 ">
                 <div class="col-12">
                     <label for="email-address" class="form-label fs-6">{{ __('en.Email Address') }}</label>

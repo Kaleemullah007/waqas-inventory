@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
     use FilterByUser;
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'sale_price',
@@ -53,6 +55,10 @@ class Sale extends Model
         return $this->HasMany('App\Models\SaleProduct', 'sale_id', 'id');
     }
 
+    public function saleProducts(): HasMany
+    {
+        return $this->hasMany(SaleProduct::class);
+    }
     // protected function amount(): Attribute
     // {
     //     return Attribute::make(

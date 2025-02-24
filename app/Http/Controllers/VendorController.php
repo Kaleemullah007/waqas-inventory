@@ -38,6 +38,10 @@ class VendorController extends Controller
      */
     public function store(StoreVendorRequest $request)
     {
+        if (auth()->user()->user_type != 'admin') {
+            return abort(403);
+        }
+
         $user = Customer::create($request->only([
             'name',
             'email',

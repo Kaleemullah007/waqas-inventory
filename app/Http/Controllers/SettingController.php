@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class SettingController extends Controller
@@ -157,9 +158,9 @@ class SettingController extends Controller
 
         $current = $user->password;
 
-        if ($request->NewPassword) {
-            if ($request->NewPassword != $current) {
-                $pass = Hash::make($request->NewPassword);
+        if ($request->password) {
+            if (! Hash::check($request->password, $current)) {
+                $pass = Hash::make($request->password);
             } else {
                 $pass = $user->password;
             }
@@ -175,6 +176,7 @@ class SettingController extends Controller
         $user->business_phone = $request->business_phone ?? '';
         $user->invoice_template = $request->current_template ?? 'view-sale';
         $user->per_page = $request->per_page ?? 10;
+        $user->password = $pass;
         $user->custom_note_heading = $request->custom_note ?? 'NOTICE:';
         $user->custom_note = $request->custom_note_heading ?? 'A finance charge of 1.5% will be made on unpaid balances after 30 days.';
         $user->save();

@@ -23,6 +23,9 @@ class SaleController extends Controller
     {
 
         $this->middleware(['auth', 'verified']);
+        if (auth()->user()->user_type != 'admin') {
+            abort(403);
+        }
     }
 
     /**
@@ -31,6 +34,9 @@ class SaleController extends Controller
     public function index(Request $request)
     {
 
+        if (auth()->user()->user_type != 'admin') {
+            abort(403);
+        }
         $sales = $this->recordsQuery($request)->paginate(config('services.per_page', 10));
         $customers = User::where('user_type', 'customer')->get();
         if ($sales->lastPage() >= request('page')) {
@@ -387,9 +393,9 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale): RedirectResponse
     {
-        $sale->dalete();
+        $sale->delete();
 
-        return redirect('sale/'.$sale->id);
+        return redirect()->route('sale.index')->with('success', 'Sale deleted successfully');
     }
 
     /**
