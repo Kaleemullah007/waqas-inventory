@@ -17,7 +17,10 @@ class ExpenseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'Add New Expense',
+            'amount' => 0,
+            'owner_id' => 1,
+            'date' => now(),
         ];
     }
 }

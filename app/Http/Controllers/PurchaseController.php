@@ -18,6 +18,7 @@ class PurchaseController extends Controller
     {
 
         $this->middleware(['auth', 'verified']);
+
     }
 
     /**
@@ -25,6 +26,9 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
+        if (auth()->user()->user_type != 'admin') {
+            abort(403);
+        }
         $purchases = $this->recordsQuery($request)->paginate(auth()->user()->per_page ?? config('services.per_page', 10));
         if ($purchases->lastPage() >= request('page')) {
             return view('pages.purchase', compact('purchases'));
@@ -246,6 +250,8 @@ class PurchaseController extends Controller
 
         $data['total'] = $total;
         $data['qty'] = $difference;
+        $data['price'] = $request->price;
+        $data['sale_price'] = $request->sale_price;
 
         PurchaseHistory::create($data);
 

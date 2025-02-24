@@ -147,10 +147,8 @@ class HomeController extends Controller
             ->latest()
             ->join('purchases as purchases', 'production_histories.purchase_id', '=', 'purchases.id')
             ->sum(DB::raw('(production_histories.qty + wastage_qty) * purchases.price'));
-        
-            // dd($production_history);
 
-
+        // dd($production_history);
 
         $latest_products = Product::whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)
