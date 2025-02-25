@@ -155,7 +155,7 @@ class ProductionHistoryController extends Controller
      */
     public function store(StoreProductionHistoryRequest $request): RedirectResponse
     {
-        
+
         // DB::transaction(function () use ($request) {
         // });
         $perchase = Purchase::find($request->purchase_id);
@@ -170,12 +170,12 @@ class ProductionHistoryController extends Controller
         if ($product == null) {
             throw new \ErrorException('Product not found');
         }
-        DB::transaction(function () use ($request,$product,$perchase,$total_purchase_stock) {
-        $product->increment('stock', abs($request->qty));
+        DB::transaction(function () use ($request, $product, $perchase, $total_purchase_stock) {
+            $product->increment('stock', abs($request->qty));
 
-        $perchase->decrement('qty', $total_purchase_stock);
-        // dd($request->validated());
-        ProductionHistory::create($request->validated());
+            $perchase->decrement('qty', $total_purchase_stock);
+            // dd($request->validated());
+            ProductionHistory::create($request->validated());
         });
         $request->session()->flash('success', 'Production created successfully.');
 
@@ -243,44 +243,43 @@ class ProductionHistoryController extends Controller
     {
 
         DB::transaction(function () use ($request, $production) {
-           
-        
-        $purchase = Purchase::find($request->purchase_id);
 
-        if ($this->checkPurchaseBeforeUpdateProduction($purchase, $request, $production) == false) {
-            $request->session()->flash('warning', 'Production can not be greater than Purchased Stock');
+            $purchase = Purchase::find($request->purchase_id);
 
-            return redirect()->back();
+            if ($this->checkPurchaseBeforeUpdateProduction($purchase, $request, $production) == false) {
+                $request->session()->flash('warning', 'Production can not be greater than Purchased Stock');
 
-        }
+                return redirect()->back();
 
-        $product = Product::find($request->product_id);
-        if ($product == null) {
-            throw new \ErrorException('Product not found');
-        }
+            }
 
-        $difference = $production->qty - $request->qty;
+            $product = Product::find($request->product_id);
+            if ($product == null) {
+                throw new \ErrorException('Product not found');
+            }
 
-        $difference_wastage = $production->wastage_qty - $request->wastage_qty;
+            $difference = $production->qty - $request->qty;
 
-        if ($difference <= 0) {
-            $product->increment('stock', abs($difference));
-            $purchase->decrement('qty', abs($difference));
+            $difference_wastage = $production->wastage_qty - $request->wastage_qty;
 
-        } else {
-            $product->decrement('stock', abs($difference));
-            $purchase->increment('qty', abs($difference));
-        }
+            if ($difference <= 0) {
+                $product->increment('stock', abs($difference));
+                $purchase->decrement('qty', abs($difference));
 
-        $purchase->refresh();
-        if ($difference_wastage <= 0) {
-            $purchase->decrement('qty', abs($difference_wastage));
-        } else {
-            $purchase->increment('qty', abs($difference_wastage));
-        }
+            } else {
+                $product->decrement('stock', abs($difference));
+                $purchase->increment('qty', abs($difference));
+            }
 
-        $products = ProductionHistory::where('id', $production->id)->update($request->validated());
-    });
+            $purchase->refresh();
+            if ($difference_wastage <= 0) {
+                $purchase->decrement('qty', abs($difference_wastage));
+            } else {
+                $purchase->increment('qty', abs($difference_wastage));
+            }
+
+            $products = ProductionHistory::where('id', $production->id)->update($request->validated());
+        });
         $request->session()->flash('success', 'Production updated successfully.');
 
         return redirect('production/'.$production->id.'/edit');

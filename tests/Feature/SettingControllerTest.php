@@ -39,19 +39,16 @@ class SettingControllerTest extends TestCase
             ->assertViewIs('pages.user-profile-setting');
     }
 
-     /**
+    /**
      * @test
      * load page correctly
      */
-   
     public function test_setting_page_loads_correctly()
     {
         $response = $this->get(route('setting'));
         $response->assertStatus(200)
             ->assertViewIs('pages.setting');
     }
-
-   
 
     public function test_update_profile_with_profile_image()
     {

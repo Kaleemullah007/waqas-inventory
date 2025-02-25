@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -118,8 +117,7 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        
-        
+
         $user = User::find(auth()->id());
 
         if ($request->has('profileImg')) {
@@ -182,7 +180,6 @@ class SettingController extends Controller
         $user->custom_note_heading = $request->custom_note ?? 'NOTICE:';
         $user->custom_note = $request->custom_note_heading ?? 'A finance charge of 1.5% will be made on unpaid balances after 30 days.';
         $user->save();
-
 
         $request->session()->flash('success', 'Profile updated successfully.');
 

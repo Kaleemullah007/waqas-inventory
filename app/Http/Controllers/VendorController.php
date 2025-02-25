@@ -42,9 +42,8 @@ class VendorController extends Controller
         if (auth()->user()->user_type != 'admin') {
             return abort(403);
         }
-        
-       
-       $user =  DB::transaction(function () use ($request) {
+
+        $user = DB::transaction(function () use ($request) {
             return Customer::create($request->only([
                 'name',
                 'email',

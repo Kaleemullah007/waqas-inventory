@@ -161,21 +161,21 @@ class PurchaseController extends Controller
     {
 
         DB::transaction(function () use ($request) {
-        
-        if ($request->action == 'update') {
-            $purchases = Purchase::find($request->raw_id);
-            $purchases->increment('qty', $request->qty);
-            $purchases->sale_price = $request->sale_price;
-            $purchases->price = $request->price;
-            $purchases->increment('total', $request->total);
-            $purchases->save();
-        } else {
-            $purchases = Purchase::create($request->validated());
-        }
 
-        PurchaseHistory::create($request->validated());
-    });
-       
+            if ($request->action == 'update') {
+                $purchases = Purchase::find($request->raw_id);
+                $purchases->increment('qty', $request->qty);
+                $purchases->sale_price = $request->sale_price;
+                $purchases->price = $request->price;
+                $purchases->increment('total', $request->total);
+                $purchases->save();
+            } else {
+                $purchases = Purchase::create($request->validated());
+            }
+
+            PurchaseHistory::create($request->validated());
+        });
+
         $request->session()->flash('success', 'Purchase '.$request->action.' successfully.');
 
         return redirect('purchase');
@@ -224,19 +224,19 @@ class PurchaseController extends Controller
         // dd($request->all());
 
         DB::transaction(function () use ($request, $purchase) {
-        $data = $request->validated();
+            $data = $request->validated();
 
-        Purchase::where('id', $purchase->id)->update($data);
+            Purchase::where('id', $purchase->id)->update($data);
 
-        $difference = $purchase->qty - $request->qty;
-        $total = -($difference * $request->price);
+            $difference = $purchase->qty - $request->qty;
+            $total = -($difference * $request->price);
 
-        $data['total'] = $total;
-        $data['qty'] = $difference;
-        $data['price'] = $request->price;
-        $data['sale_price'] = $request->sale_price;
+            $data['total'] = $total;
+            $data['qty'] = $difference;
+            $data['price'] = $request->price;
+            $data['sale_price'] = $request->sale_price;
 
-        PurchaseHistory::create($data);
+            PurchaseHistory::create($data);
         });
         $request->session()->flash('success', 'Purchase updated successfully.');
 
