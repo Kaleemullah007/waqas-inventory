@@ -141,10 +141,9 @@ class ExpenseController extends Controller
     public function store(StoreExpenseRequest $request): RedirectResponse
     {
         DB::transaction(function () use ($request) {
-          Expense::create($request->validated());
+            Expense::create($request->validated());
             $request->session()->flash('success', 'Expense created successfully.');
         });
-        
 
         return redirect()->route('expense.create');
     }
@@ -175,9 +174,9 @@ class ExpenseController extends Controller
         DB::transaction(function () use ($request, $expense) {
             Expense::where('id', $expense->id)->update($request->validated());
             $request->session()->flash('success', 'Expense updated successfully.');
-    
+
         });
-        
+
         return redirect('expense/'.$expense->id.'/edit');
     }
 

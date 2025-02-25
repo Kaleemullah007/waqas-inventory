@@ -138,7 +138,7 @@ class ProductController extends Controller
         DB::transaction(function () use ($request) {
             $products = Product::create($request->validated());
         });
-        
+
         $request->session()->flash('success', 'Product created successfully.');
 
         return redirect('product');
@@ -169,7 +169,7 @@ class ProductController extends Controller
         DB::transaction(function () use ($request, $product) {
             $products = Product::where('id', $product->id)->update($request->validated());
         });
-        
+
         $request->session()->flash('success', 'Product updated successfully.');
 
         return redirect('product/'.$product->id.'/edit');

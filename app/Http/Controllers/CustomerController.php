@@ -80,7 +80,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        try {     
+        try {
             $user = DB::transaction(function () use ($request) {
                 return Customer::create($request->only([
                     'name',
@@ -99,7 +99,6 @@ class CustomerController extends Controller
         } catch (\Throwable $th) {
             return abort(403);
         }
-        
 
         $request->session()->flash('success', 'Customer created successfully.');
 
@@ -138,9 +137,9 @@ class CustomerController extends Controller
             // dd($validated);
             Customer::where('id', $customer->id)->update($validated);
             $request->session()->flash('success', 'Customer updated successfully.');
-       
+
         });
-        
+
         return redirect('customer?page='.$request->page);
     }
 

@@ -59,9 +59,9 @@ class DepositHistoryController extends Controller
         DB::transaction(function () use ($request) {
             $expenses = DepositHistory::create($request->validated());
             $request->session()->flash('success', 'Deposit added successfully.');
-    
+
         });
-        
+
         return redirect()->route('customer.show', ['customer' => $request->user_id]);
     }
 
@@ -92,9 +92,9 @@ class DepositHistoryController extends Controller
         DB::transaction(function () use ($request, $deposit) {
             DepositHistory::where('id', $deposit->id)->update($request->validated());
             $request->session()->flash('success', 'Deposit Amount updated successfully.');
-    
-        }); 
-        
+
+        });
+
         return redirect()->route('deposit.edit', $deposit->id);
     }
 
