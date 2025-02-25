@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Vendor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class VendorController extends Controller
 {
@@ -41,15 +42,18 @@ class VendorController extends Controller
         if (auth()->user()->user_type != 'admin') {
             return abort(403);
         }
-
-        $user = Customer::create($request->only([
-            'name',
-            'email',
-            'phone',
-            'user_type',
-            'owner_id',
-            'password',
-        ]));
+        
+       
+       $user =  DB::transaction(function () use ($request) {
+            return Customer::create($request->only([
+                'name',
+                'email',
+                'phone',
+                'user_type',
+                'owner_id',
+                'password',
+            ]));
+        });
 
         return response()->json(['message' => 'Successfully created', 'error' => true, 'data' => $user]);
     }

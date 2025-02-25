@@ -9,6 +9,7 @@ use App\Models\ProductionHistory;
 use App\Models\Purchase;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ProductionHistoryController extends Controller
@@ -154,6 +155,9 @@ class ProductionHistoryController extends Controller
      */
     public function store(StoreProductionHistoryRequest $request): RedirectResponse
     {
+        
+        // DB::transaction(function () use ($request) {
+        // });
         $perchase = Purchase::find($request->purchase_id);
         $total_purchase_stock = $request->qty + $request->wastage_qty;
         if ($perchase->qty < $total_purchase_stock) {
@@ -166,12 +170,13 @@ class ProductionHistoryController extends Controller
         if ($product == null) {
             throw new \ErrorException('Product not found');
         }
-
+        DB::transaction(function () use ($request,$product,$perchase,$total_purchase_stock) {
         $product->increment('stock', abs($request->qty));
 
         $perchase->decrement('qty', $total_purchase_stock);
         // dd($request->validated());
         ProductionHistory::create($request->validated());
+        });
         $request->session()->flash('success', 'Production created successfully.');
 
         return redirect('production');
@@ -237,6 +242,9 @@ class ProductionHistoryController extends Controller
     public function update(UpdateProductionHistoryRequest $request, ProductionHistory $production): RedirectResponse
     {
 
+        DB::transaction(function () use ($request, $production) {
+           
+        
         $purchase = Purchase::find($request->purchase_id);
 
         if ($this->checkPurchaseBeforeUpdateProduction($purchase, $request, $production) == false) {
@@ -272,6 +280,7 @@ class ProductionHistoryController extends Controller
         }
 
         $products = ProductionHistory::where('id', $production->id)->update($request->validated());
+    });
         $request->session()->flash('success', 'Production updated successfully.');
 
         return redirect('production/'.$production->id.'/edit');

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -134,7 +135,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
-        $products = Product::create($request->validated());
+        DB::transaction(function () use ($request) {
+            $products = Product::create($request->validated());
+        });
+        
         $request->session()->flash('success', 'Product created successfully.');
 
         return redirect('product');
@@ -162,7 +166,10 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $products = Product::where('id', $product->id)->update($request->validated());
+        DB::transaction(function () use ($request, $product) {
+            $products = Product::where('id', $product->id)->update($request->validated());
+        });
+        
         $request->session()->flash('success', 'Product updated successfully.');
 
         return redirect('product/'.$product->id.'/edit');

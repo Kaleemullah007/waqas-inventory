@@ -10,6 +10,7 @@ use App\Models\PurchaseHistory;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class PurchaseController extends Controller
@@ -158,14 +159,9 @@ class PurchaseController extends Controller
      */
     public function store(StorePurchaseRequest $request): RedirectResponse
     {
-        // Purchase::create($request->validated());
-        // dd($request->validated());
-        // $product = Product::find($request->product_id);
-        // $product->increment('stock',$request->qty);
-        // $product->sale_price = $request->sale_price;
-        // $product->price = $request->price;
-        // $product->save();
-        // dd($request->all());
+
+        DB::transaction(function () use ($request) {
+        
         if ($request->action == 'update') {
             $purchases = Purchase::find($request->raw_id);
             $purchases->increment('qty', $request->qty);
@@ -178,7 +174,8 @@ class PurchaseController extends Controller
         }
 
         PurchaseHistory::create($request->validated());
-        // dd($request->all());
+    });
+       
         $request->session()->flash('success', 'Purchase '.$request->action.' successfully.');
 
         return redirect('purchase');
@@ -226,21 +223,7 @@ class PurchaseController extends Controller
         // negative increment   $d
         // dd($request->all());
 
-        // $product = Product::find($request->product_id);
-        // if($product == null)
-        // throw new \ErrorException('Product not found');
-
-        // $difference = $purchase->qty -  $request->qty;
-        // if($difference > 0){
-        //     $product->decrement('stock',$difference);
-
-        // }else{
-        //     $product->increment('stock',abs($difference));
-        // }
-
-        // $product->sale_price = $request->sale_price;
-        // $product->price = $request->price;
-        // $product->save();
+        DB::transaction(function () use ($request, $purchase) {
         $data = $request->validated();
 
         Purchase::where('id', $purchase->id)->update($data);
@@ -254,7 +237,7 @@ class PurchaseController extends Controller
         $data['sale_price'] = $request->sale_price;
 
         PurchaseHistory::create($data);
-
+        });
         $request->session()->flash('success', 'Purchase updated successfully.');
 
         return redirect('purchase/'.$purchase->id.'/edit');

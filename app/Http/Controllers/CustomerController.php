@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\DepositHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
@@ -79,17 +80,26 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $user = Customer::create($request->only([
-            'name',
-            'email',
-            'phone',
-            'user_type',
-            'owner_id',
-            'password',
-        ]));
-        if ($request->ajax()) {
-            return response()->json(['message' => 'Successfully created', 'error' => true, 'data' => $user]);
+        try {     
+            $user = DB::transaction(function () use ($request) {
+                return Customer::create($request->only([
+                    'name',
+                    'email',
+                    'phone',
+                    'user_type',
+                    'owner_id',
+                    'password',
+                ]));
+            });
+
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Successfully created', 'error' => true, 'data' => $user]);
+            }
+
+        } catch (\Throwable $th) {
+            return abort(403);
         }
+        
 
         $request->session()->flash('success', 'Customer created successfully.');
 
@@ -122,12 +132,15 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer): RedirectResponse
     {
-        $data = $request->validated();
-        $validated = collect($data)->except(['last_name', 'first_name', 'page'])->toArray();
-        // dd($validated);
-        Customer::where('id', $customer->id)->update($validated);
-        $request->session()->flash('success', 'Customer updated successfully.');
-
+        DB::transaction(function () use ($request, $customer) {
+            $data = $request->validated();
+            $validated = collect($data)->except(['last_name', 'first_name', 'page'])->toArray();
+            // dd($validated);
+            Customer::where('id', $customer->id)->update($validated);
+            $request->session()->flash('success', 'Customer updated successfully.');
+       
+        });
+        
         return redirect('customer?page='.$request->page);
     }
 
