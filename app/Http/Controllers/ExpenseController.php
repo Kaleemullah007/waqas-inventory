@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateExpenseRequest;
 use App\Models\Expense;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ExpenseController extends Controller
@@ -139,8 +140,11 @@ class ExpenseController extends Controller
      */
     public function store(StoreExpenseRequest $request): RedirectResponse
     {
-        $expenses = Expense::create($request->validated());
-        $request->session()->flash('success', 'Expense created successfully.');
+        DB::transaction(function () use ($request) {
+          Expense::create($request->validated());
+            $request->session()->flash('success', 'Expense created successfully.');
+        });
+        
 
         return redirect()->route('expense.create');
     }
@@ -168,10 +172,12 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense): RedirectResponse
     {
-
-        Expense::where('id', $expense->id)->update($request->validated());
-        $request->session()->flash('success', 'Expense updated successfully.');
-
+        DB::transaction(function () use ($request, $expense) {
+            Expense::where('id', $expense->id)->update($request->validated());
+            $request->session()->flash('success', 'Expense updated successfully.');
+    
+        });
+        
         return redirect('expense/'.$expense->id.'/edit');
     }
 

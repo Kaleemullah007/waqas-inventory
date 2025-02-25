@@ -9,6 +9,7 @@ use App\Models\DepositHistory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class DepositHistoryController extends Controller
 {
@@ -55,9 +56,12 @@ class DepositHistoryController extends Controller
      */
     public function store(StoreDepositHistoryRequest $request): RedirectResponse
     {
-        $expenses = DepositHistory::create($request->validated());
-        $request->session()->flash('success', 'Deposit added successfully.');
-
+        DB::transaction(function () use ($request) {
+            $expenses = DepositHistory::create($request->validated());
+            $request->session()->flash('success', 'Deposit added successfully.');
+    
+        });
+        
         return redirect()->route('customer.show', ['customer' => $request->user_id]);
     }
 
@@ -85,9 +89,12 @@ class DepositHistoryController extends Controller
      */
     public function update(UpdateDepositHistoryRequest $request, DepositHistory $deposit): RedirectResponse
     {
-        DepositHistory::where('id', $deposit->id)->update($request->validated());
-        $request->session()->flash('success', 'Deposit Amount updated successfully.');
-
+        DB::transaction(function () use ($request, $deposit) {
+            DepositHistory::where('id', $deposit->id)->update($request->validated());
+            $request->session()->flash('success', 'Deposit Amount updated successfully.');
+    
+        }); 
+        
         return redirect()->route('deposit.edit', $deposit->id);
     }
 

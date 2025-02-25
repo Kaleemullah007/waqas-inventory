@@ -30,26 +30,28 @@ class SettingControllerTest extends TestCase
 
     /**
      * @test
-     *
-     * @dataProvider settingPageRoutes
+     * load page correctly
      */
-    public function test_setting_pages_are_accessible($route, $view)
+    public function test_user_profile_setting_page_loads_correctly()
     {
-        $response = $this->get(route($route));
-
+        $response = $this->get(route('user-profile-setting'));
         $response->assertStatus(200)
-            ->assertViewIs($view);
+            ->assertViewIs('pages.user-profile-setting');
     }
 
-    public function settingPageRoutes()
+     /**
+     * @test
+     * load page correctly
+     */
+   
+    public function test_setting_page_loads_correctly()
     {
-        return [
-
-            'user profile' => ['user-profile-setting', 'pages.user-profile-setting'],
-            'setting' => ['setting', 'pages.setting'],
-
-        ];
+        $response = $this->get(route('setting'));
+        $response->assertStatus(200)
+            ->assertViewIs('pages.setting');
     }
+
+   
 
     public function test_update_profile_with_profile_image()
     {
