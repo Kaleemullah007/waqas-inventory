@@ -62,3 +62,22 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+# For local development (uses .env)
+docker-compose up -d
+
+# For staging environment (uses .env.staging.example)
+cp .env.staging.example .env.staging
+docker-compose -f docker-compose.yml -f docker-compose.staging.yml --env-file .env.staging up -d
+
+# For QA environment (uses .env.qa.example)
+cp .env.qa.example .env.qa
+docker-compose -f docker-compose.yml -f docker-compose.qa.yml --env-file .env.qa up -d
+
+# For production environment (uses .env.production.example)
+cp .env.production.example .env.production
+docker-compose -f docker-compose.yml -f docker-compose.production.yml --env-file .env.production up -d
+
+# For testing environment (uses .env.testing)
+docker-compose -f docker-compose.yml -f docker-compose.testing.yml --env-file .env.testing up -d
