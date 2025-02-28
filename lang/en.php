@@ -27,5 +27,6 @@ return
     'Register' => 'Register',
     'Username' => 'Username',
     'Re-Enter Password' => 'Re-Enter Password',
+    'Raw_Material' => 'Raw Material',
 
 ];
