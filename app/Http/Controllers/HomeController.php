@@ -117,6 +117,7 @@ class HomeController extends Controller
         $sub_total_cost = $sales->sum('sub_total_cost');
         $cost_total = $sales->sum('cost_total');
         $products_sum_sale_price = Sale::query()
+        ->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date)
             ->sum('total');
 
         $amount = DepositHistory::sum('amount');

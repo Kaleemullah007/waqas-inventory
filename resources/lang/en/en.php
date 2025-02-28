@@ -440,5 +440,7 @@ return
     'Edit Customer' => 'Edit Customer',
     'remaining' => 'remaining',
     'Due Date' => 'Due Date',
+    'Raw_Material' => 'Raw Material',
 
+    
 ];

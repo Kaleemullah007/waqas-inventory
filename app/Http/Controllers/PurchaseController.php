@@ -30,7 +30,7 @@ class PurchaseController extends Controller
         if (auth()->user()->user_type != 'admin') {
             abort(403);
         }
-        $purchases = $this->recordsQuery($request)->paginate(auth()->user()->per_page ?? config('services.per_page', 10));
+        $purchases = $this->recordsQuery($request)->where('id','>',1)->paginate(auth()->user()->per_page ?? config('services.per_page', 10));
         if ($purchases->lastPage() >= request('page')) {
             return view('pages.purchase', compact('purchases'));
         }

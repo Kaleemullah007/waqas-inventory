@@ -45,5 +45,6 @@ return [
     'Order Status' => 'Order Status',
     'Name' => 'Name',
     'Username' => 'Username',
+    'Raw_Material' => 'Raw Material',
 
 ];

@@ -16,16 +16,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
     public function __construct()
     {
-
-        $this->middleware(['auth', 'verified']);
-        if (auth()->user()->user_type != 'admin') {
-            abort(403);
-        }
+        
+        $this->middleware(['auth', 'verified']);   
     }
 
     /**
@@ -33,7 +31,7 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-
+     
         if (auth()->user()->user_type != 'admin') {
             abort(403);
         }
@@ -297,7 +295,9 @@ class SaleController extends Controller
         // negative decrement abs($d)
 
         // dd($request->validated());
-
+        if (auth()->user()->user_type != 'admin') {
+            abort(403);
+        }
         try {
 
             DB::beginTransaction();

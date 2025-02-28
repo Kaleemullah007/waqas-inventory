@@ -727,3 +727,19 @@
                                },
                            });
                        });
+
+
+
+                    $(document).on("click","#save-form-id", function(){
+                        let $button = $(this); // Get the clicked button
+                    let $form = $button.closest("form"); // Find the closest form
+
+                    if ($form.length) {
+                        $button.attr("disabled", true);
+
+                        $form.submit()};  // Submit the form dynamically
+
+                        setTimeout(() => {
+                            $("#save-form-id").attr("disabled",false)
+                        }, 2000);
+                    })

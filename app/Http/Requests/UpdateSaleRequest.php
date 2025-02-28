@@ -48,7 +48,7 @@ class UpdateSaleRequest extends FormRequest
         $this->merge([
             'owner_id' => auth()->id(),
             'total' => 0,
-            'remaining_amount' => 0,
+            // 'remaining_amount' => 0,
             // 'flag'=>$flag,
         ]);
     }
