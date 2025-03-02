@@ -16,14 +16,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
 
 class SaleController extends Controller
 {
     public function __construct()
     {
-        
-        $this->middleware(['auth', 'verified']);   
+
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -31,7 +30,7 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-     
+
         if (auth()->user()->user_type != 'admin') {
             abort(403);
         }

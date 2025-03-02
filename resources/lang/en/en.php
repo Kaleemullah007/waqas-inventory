@@ -442,5 +442,4 @@ return
     'Due Date' => 'Due Date',
     'Raw_Material' => 'Raw Material',
 
-    
-];
+    ];
