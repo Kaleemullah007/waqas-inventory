@@ -24,12 +24,10 @@ class UpdateSaleRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-
             'products.*.product_id' => 'required|max:255',
             'products' => [new UpdateProductStockRule],
             'products.*.qty' => 'required',
             'products.*.sale_price' => 'sometimes|nullable|decimal:0,10',
-
             'owner_id' => 'required|integer',
             'discount' => 'required|decimal:0,2',
             'payment_status' => 'required',

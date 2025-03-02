@@ -406,15 +406,26 @@ class SaleControllerTest extends TestCase
                 'updated_at' => now(),
             ]);
 
-        $user= User::factory()->create(['user_type' => 'customer']);
+        $user = User::factory()->create(['user_type' => 'customer']);
         $this->actingAs($user);
 
-        $response = $this->put("/sale/{$sale->id}", [
-        'user_id' => $user->id,
-        'discount' => 0.00,
-        'payment_status' => 'pending',
-        'payment_method' => 'cash',
-        'paid_amount' => 0.00,
+        $response = $this->putJson("/sale/{$sale->id}", [
+            'user_id' => $user->id,
+            'products' => [
+                [
+                    'product_id' => $this->products[0]->id,
+                    'qty' => 1,
+                    'sale_price' => 100.00,
+                ],
+            ],
+            'owner_id' => $this->user->id,
+            'discount' => 0.00,
+            'payment_status' => 'pending',
+            'payment_method' => 'cash',
+            'paid_amount' => 0.00,
+            'remaining_amount' => 100.00,  // Added missing required field
+            'total' => 100.00,            // Added missing required field
+            'due_date' => null,            // Optional field
         ]);
 
         $response->assertStatus(403);
